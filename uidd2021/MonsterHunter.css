@@ -1,0 +1,52 @@
+header{
+  margin-top: 20px;
+  height: 100px;
+  text-align: center;
+  width: auto;
+}
+img {
+    max-width: 100%;
+    width: auto;
+    height: auto;
+}
+.HeaderText{
+  font-size: 20px;
+  color: #020835;
+  margin-top: 10px;
+  margin-bottom: 0px;
+}
+.HeaderLink{
+  font-family: "Noto Sans Tc";
+  font-size: 38px;
+  font-weight: 575;
+  line-height: 1.2;
+  margin: 0;
+  text-decoration:none;
+  color:#000000;
+}
+.menu{
+  text-align: center;
+  margin-top: 25px;
+  display: flex;
+  justify-content: center
+}
+.MenuFunc{
+  flex-direction: row;
+  width: 150px;
+}
+.MenuFunc a{
+  font-family: "Noto Sans Tc";
+  font-size: 18px;
+  font-weight: bolder;
+  margin: 20px;
+  text-decoration: none;
+  color: #000000;
+}
+.MenuFunc a:hover{
+  color: #ADADAD;
+}
+.background-image{
+  position: absolute;
+  top:200px;
+  z-index: -1;
+}
