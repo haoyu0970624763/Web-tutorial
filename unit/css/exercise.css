@@ -11,7 +11,7 @@ body {
    * Watch out the unit, `%`, and google `css unit` for more
    * Why both `max-width` and `width` are used?
    */
-  max-width: [content width];
+  max-width: 500px;
   width: 100%;
 }
 
@@ -19,12 +19,13 @@ body {
   line-height: 0;
   padding: 5px 0;
   top: 0;
+  position: fixed;
   /* Step 6: Change position to "fixed" */
 }
 
 i.avatar, i.icon {
   background-position: center;
-  display: [correct display];
+  display:inline-block;
   /* Step 3:
    * Input the correct display to make `height` work
    * Google `css dispaly` for more
@@ -33,6 +34,8 @@ i.avatar, i.icon {
 }
 
 i.avatar {
+  /*cover主要用於背景圖小於所在的內容，使背景圖放大至內容的大小，
+  但此方法容易使背景圖因放大而失真*/
   background-size: cover;
   border-radius: 15px;
   width: 30px;
@@ -49,7 +52,7 @@ i.icon {
    * Change `static` to the correct value to make the `right` property work
    * Google `css position` for more
    */
-  position: static;
+  position: absolute;
   right: 0.5em;
 }
 
@@ -63,10 +66,11 @@ i.icon {
    * Try different `[position]` and `[size]` and see how banner changes
    * Google `css background-position` and `css background-size` for more
    */
-  background: url(./res/main.jpg) [position] / [size];
+  background: url(./res/main.jpg) center / cover;
   /* Step 6: Change position to "fixed" */
   top: 40px;
   height: 250px;
+  position: fixed;
 }
 
 #main {
@@ -75,13 +79,13 @@ i.icon {
   position: relative;
   top: 290px;
   /* Step 8: Input the correct z-index to adjust the position*/
-  z-index: [correct z-index];
+  z-index: -1;
 }
 
 .info {
   /* Step 7: Input the correct display and justify-content to make flexbox */
-  display: [correct display];
-  justify-content: [correct justify-content];
+  display: flex;
+  justify-content: space-between;
   margin: 0 0 5% 0;
 }
 
