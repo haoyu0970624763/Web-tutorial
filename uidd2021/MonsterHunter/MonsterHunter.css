@@ -56,7 +56,7 @@ img {
   color: white;
 }
 #Line{
-  position: fixed;
+  position: relative;
   color: #ADADAD;
   height: 1px;
   width: 200px;
