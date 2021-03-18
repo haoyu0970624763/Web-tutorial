@@ -15,7 +15,7 @@ const express = require('express')
 // 建立一個 express (也就是網頁伺服器)實體
 const app = express()
 
-const port = 0857
+const port = 55555
 
 // handle `/step1` url
 // 處理 `/step1` 網址
@@ -28,7 +28,7 @@ app.get('/step1', (req, res) => {
 // start the server
 // 啟動伺服器
 app.listen(port, () => {
-  console.log(`listening on port: ${0857}`)
+  console.log(`listening on port: ${port}`)
 })
 // Step 1 and step 2 code goes here
 
