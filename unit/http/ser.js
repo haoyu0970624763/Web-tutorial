@@ -31,8 +31,6 @@ app.listen(port, () => {
   console.log(`listening on port: ${port}`)
 })
 
-// Step 3 code goes here
-
 /* Step 3:
  * edit [path] to an appropriate value
  * notice that the static files are stored in `./dist/`
@@ -46,11 +44,33 @@ app.listen(port, () => {
 
 // handle other urls
 // 處理其它網址
-app.use(express.static('dist'))
+app.use(express.static(`${__dirname}/dist`))
 
-// Step 4 code goes here
+/* Step 4:
+ * open `[host]:[port]/step4` in a browser multiple times to see the result
+ * try re-execute the program and see the result
+ * learn the syntax of string interpolation in js, see `${++nRequests}` in the code
+ * 用瀏覽器打開 `[host]:[port]/step4` 多次看結果
+ * 試著重新執行程式並觀察結果
+ * 學習 js 的 string interpolation 語法，參考程式中的 `${++nRequests}`
+ */
+let nRequests = 0
+app.get('/step4', (req, res) => {
+  res.send(`this is request #${++nRequests}`)
+})
 
-// Step 5 code goes here
-  // 回應瀏覽器
+/* Step 5:
+ * user input is stored in the first argument of the callback function, aka `req` in the code
+ * open `[host]:[port]/step5?fname=[fname]&lname=[lname]` in a browser to see the result
+ * try edit [fname] and [lname]
+ * notice the syntax of `?` and `&` in the url
+ * 使用者輸入存放在回呼(callback)函式的第一個參數，也就是程式中的 `req` 裡
+ * 用瀏覽器打開 `[host]:[port]/` 看結果
+ * 試著修改 [fname] 與 [lanme]
+ * 注意網址中 `?` 與 `&` 的用法
+ */
+app.get('/step5', (req, res) => {
+  res.send(`Hello, ${req.query.fname} ${req.query.lname}`)
+})
 
 // Step 7 code goes here
