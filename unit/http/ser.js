@@ -3,14 +3,9 @@ const express = require('express')
 // 建立一個 express (也就是網頁伺服器)實體
 const app = express()
 
-<<<<<<< HEAD
-const port = 54087
    
-// handle `/step1` url
-=======
-const port = 55555
 
->>>>>>> 86783d81ee8bb77990f95d8bc815e8f6e4e341c2
+const port = 55512
 // 處理 `/step1` 網址
 app.get('/step1', (req, res) => {
   res.send('<h1>hello world</h1>')

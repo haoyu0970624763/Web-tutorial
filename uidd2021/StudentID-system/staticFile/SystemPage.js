@@ -9,6 +9,9 @@ $(document).ready(function() {
           $.getJSON("./students.json", function(data) {
               // 將 ListContent 中的內容全部清掉
               $('#ListContent').empty()
+              $('#SearchContent').empty()
+              $('#AddContent').empty()
+              $('#DelContent').empty()
               // 排版多一行
               $("#ListContent").append(`<br>`)
               $.each(data, function(Key, Value) {
@@ -24,7 +27,10 @@ $(document).ready(function() {
   $('#search-region button[type="submit"]').click((event) => {
       event.preventDefault()
       $.getJSON("./students.json", function(data) {
-          $('#SearchContent').empty();
+        
+        $('#SearchContent').empty()
+        $('#AddContent').empty()
+        $('#DelContent').empty()
           var Search_ID = $('#search-region input[name=ID]').val()
           var val = ""
           $.each(data, function(Key, Value) {
@@ -41,33 +47,31 @@ $(document).ready(function() {
   })
 
   $('#add-region button[type="submit"]').click((event) => {
-      var newUser = {
-        "Ejkljjlj": "12345",
-      }
-      var fs = require('fs');
-      fs.readFile('./students.json', function(err, userInfo) {
-          if (err) {
-              return console.error(err);
-          }
-          //將二進制數據轉換為字串符
-          var user = userInfo.toString();
-          //將字符串轉換為 JSON 對象
-          user = JSON.parse(user);
-
-
-          //將傳來的資訊推送到數組對象中
-          user.userInfo.push(newUser);
+    event.preventDefault()
     
-          //因為寫入文件（json）只認識字符串或二進制數，所以需要將json對象轉換成字符串
-          var str = JSON.stringify(user);
-          //將字串符傳入您的 json 文件中
-          fs.writeFile('./students.json', str, function(err) {
-              if (err) {
-                  console.error(err);
-              }
-              console.log('Add new user to userInfo...')
-          })
-      })
+    $('#SearchContent').empty()
+    $('#AddContent').empty()
+    $('#DelContent').empty()
+    $.get('./add', {
+        studentId: $('#add-region [name="ID"]').val(),
+        studentName: $('#add-region [name="Name"]').val(),
+    }, (data) => {
+        $('#AddContent').html(data)
+    })
+    
+  })
+
+  $('#del-region button[type="submit"]').click((event) => {
+    event.preventDefault()
+    
+    $('#SearchContent').empty()
+    $('#AddContent').empty()
+    $('#DelContent').empty()
+    $.get('./del', {
+        studentId: $('#del-region [name="ID"]').val(),
+    }, (data) => {
+        $('#DelContent').html(data)
+    })
   })
 
 });
