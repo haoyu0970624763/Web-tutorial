@@ -10,7 +10,13 @@ import VueResource from 'vue-resource'
 import 'bootstrap'
 // Import css file
 import 'bootstrap/dist/css/bootstrap.min.css'
-
+import { BootstrapVue, IconsPlugin } from 'bootstrap-vue';
+import 'bootstrap/dist/css/bootstrap.css';
+import 'bootstrap-vue/dist/bootstrap-vue.css';
+// 安裝 BootstrapVue
+Vue.use(BootstrapVue);
+// 安裝 BootstrapVue icon components plugin (可選)
+Vue.use(IconsPlugin);
 Vue.config.productionTip = false
 Vue.use(VueRouter)
 Vue.use(VueResource)
