@@ -18,7 +18,7 @@
       </div>
       <div class="function" id="first">
         <div class="pic">
-          <img src="@/assets/pic/text.png" @click="goto_reservationRecord"/>
+          <img src="@/assets/pic/record.png" @click="goto_reservationRecord"/>
         </div>
         <div class="functionWord" @click="goto_reservationRecord">預約紀錄</div>
       </div>
