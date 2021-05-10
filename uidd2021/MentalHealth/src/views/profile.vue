@@ -18,9 +18,9 @@
       </div>
       <div class="function" id="first">
         <div class="pic">
-          <img src="@/assets/pic/text.png" />
+          <img src="@/assets/pic/text.png" @click="goto_reservationRecord"/>
         </div>
-        <div class="functionWord">預約紀錄</div>
+        <div class="functionWord" @click="goto_reservationRecord">預約紀錄</div>
       </div>
       <div class="function" id="second">
         <div class="pic">
@@ -63,6 +63,9 @@ export default {
   methods: {
     goback_home() {
       this.$router.push("/Homepage");
+    },
+    goto_reservationRecord() {
+      this.$router.push("/reservation");
     },
   },
 };
@@ -214,7 +217,7 @@ export default {
     border-top: 1px;
     border-bottom: 1px;
     background-color: #ffffff;
-    
+
     box-shadow: 0px 1px 0px rgba(0, 0, 0, 0.1);
     .pic {
       position: absolute;
