@@ -25,7 +25,7 @@ export default {
     },
     methods: {
         tofile() {
-            this.$router.push("/");
+            this.$router.push("/profile");
         },
         tohome() {
             this.$router.push("/");

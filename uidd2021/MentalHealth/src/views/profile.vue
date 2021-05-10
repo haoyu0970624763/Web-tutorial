@@ -43,7 +43,7 @@ export default {
   name: "profile",
 
   data() {
-    return {
+    return{
       userName: "彭皓瑜",
       userDepartmentLevel: "資訊系 大三",
       formLogin: {

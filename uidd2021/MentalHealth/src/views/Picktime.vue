@@ -1,31 +1,61 @@
 <template>
-  <div class="desktop" :class="{'darken': seen}">
+  <div class="desktop" :class="{ darken: seen }">
     <div id="namebar">
       <Nav showBackArrow showText navText="挑選日期與時間" />
     </div>
     <div id="pickbar">
       <div id="innerpickbar">
-        <div class="photobox" id="b1" :class="{'photoboxB': isActive.a1}" @click="clickphoto1">
+        <div
+          class="photobox"
+          id="b1"
+          :class="{ photoboxB: isActive.a1 }"
+          @click="clickphoto1"
+        >
           <div class="photocircle" id="c1" :style="photo1"></div>
           <div class="phototext">挑時間</div>
         </div>
-        <div class="photobox" id="b2" :class="{'photoboxB': isActive.a2}" @click="clickphoto2">
+        <div
+          class="photobox"
+          id="b2"
+          :class="{ photoboxB: isActive.a2 }"
+          @click="clickphoto2"
+        >
           <div class="photocircle" id="c2" :style="photo2"></div>
           <div class="phototext">陳陳陳</div>
         </div>
-        <div class="photobox" id="b3" :class="{'photoboxB': isActive.a3}" @click="clickphoto3">
+        <div
+          class="photobox"
+          id="b3"
+          :class="{ photoboxB: isActive.a3 }"
+          @click="clickphoto3"
+        >
           <div class="photocircle" id="c3" :style="photo3"></div>
           <div class="phototext">陳陳陳</div>
         </div>
-        <div class="photobox" id="b4" :class="{'photoboxB': isActive.a4}" @click="clickphoto4">
+        <div
+          class="photobox"
+          id="b4"
+          :class="{ photoboxB: isActive.a4 }"
+          @click="clickphoto4"
+        >
           <div class="photocircle" id="c4" :style="photo4"></div>
           <div class="phototext">陳陳陳</div>
         </div>
-        <div class="photobox" id="b5" :class="{'photoboxB': isActive.a5}" @click="clickphoto5">
+        <div
+          class="photobox"
+          id="b5"
+          :class="{ photoboxB: isActive.a5 }"
+          @click="clickphoto5"
+        >
           <div class="photocircle" id="c5" :style="photo5"></div>
           <div class="phototext">陳陳陳</div>
         </div>
-        <div class="photobox" id="b6" :class="{'photoboxB': isActive.a6}" @click="clickphoto6">
+        <div
+          class="photobox"
+          id="b6"
+          :class="{ photoboxB: isActive.a6 }"
+          @click="clickphoto6"
+        >
           <div class="photocircle" id="c6" :style="photo6"></div>
           <div class="phototext">陳陳陳</div>
         </div>
@@ -33,17 +63,43 @@
     </div>
     <div id="splitline"></div>
     <div id="calendar">
-      <b-calendar v-model="dateselect" :hide-header=true :date-disabled-fn="dateDisabled" :date-info-fn="dateClass" v-if="!seen"></b-calendar>
+      <b-calendar
+        v-model="dateselect"
+        :hide-header="true"
+        :date-disabled-fn="dateDisabled"
+        :date-info-fn="dateClass"
+        v-if="!seen"
+      ></b-calendar>
     </div>
     <div id="response">
       <div id="describe">請點選上方藍色日期，查看心理師有空的時間</div>
-      <div id="container" v-if="pickval===1">
-        <div class="availablereservation" v-for="item in availabletimelist" @click="setselect(item)" :class="{'Clickstyle': item.isClick}">{{ item.avaltime }} {{ item.name }}</div>
+      <div id="container" v-if="pickval === 1">
+        <div
+          class="availablereservation"
+          v-for="item in availabletimelist"
+          @click="setselect(item)"
+          :class="{ Clickstyle: item.isClick }"
+        >
+          {{ item.avaltime }} {{ item.name }}
+        </div>
       </div>
       <div id="container" v-else>
-        <div class="availabletime" v-for="item in availabletimelist" @click="setselect(item)" :class="{'Clickstyle': item.isClick}">{{ item.avaltime }}</div>
+        <div
+          class="availabletime"
+          v-for="item in availabletimelist"
+          @click="setselect(item)"
+          :class="{ Clickstyle: item.isClick }"
+        >
+          {{ item.avaltime }}
+        </div>
       </div>
-      <div class="nextstep" :class="{'Clickstyle': nextavailable}" @click="nstep">下一步</div>
+      <div
+        class="nextstep"
+        :class="{ Clickstyle: nextavailable }"
+        @click="nstep"
+      >
+        下一步
+      </div>
     </div>
     <div class="Description" v-if="seen">
       <div id="photo" :style="description.photostyle"></div>
@@ -54,9 +110,11 @@
       <div class="contenttitle" id="talkstyle">諮商風格</div>
       <div class="content" id="genderc">{{ description.gendercontent }}</div>
       <div class="content" id="expertc">{{ description.expertcontent }}</div>
-      <div class="content" id="talkstylec">{{ description.talkstylecontent }}</div>
+      <div class="content" id="talkstylec">
+        {{ description.talkstylecontent }}
+      </div>
     </div>
-  </div> 
+  </div>
 </template>
 <script>
 import Nav from '@/components/Nav.vue'
@@ -67,6 +125,15 @@ export default {
   },
   data() {
     return {
+      //
+          userID:"F74072120",
+          year:2021,
+          months:5,
+          day:15,
+          time:9,  // it means 9:00 to 11:00
+          time2:11 ,// it means 11:00 to 13:00
+          teacher:"teacher1",
+      //
       pickval: 0,
       dateselect: '',
       isActive:{
@@ -313,7 +380,19 @@ export default {
       }
     },
     nstep() {
-      this.$router.push("/Reservationsuccess");
+      this.$http
+        .post("/api/book", {
+          userID:"kk",
+          year:this.year,
+          months:this.months,
+          day:this.day,
+          time:this.time,  // it means 9:00 to 11:00
+          teacher:this.teacher,
+        })
+        .then((res) => {
+          this.$router.push("/Reservationsuccess");
+        });
+      
     }
   },
   mounted() {
@@ -324,24 +403,24 @@ export default {
 
 <style rel="stylesheet/scss" lang="scss" scoped>
 .desktop {
-	position: absolute;
+  position: absolute;
   display: block;
-	width: 375px;
-	height: 687px;
-	overflow: hidden;
+  width: 375px;
+  height: 687px;
+  overflow: hidden;
 }
 .darken {
   background-color: rgba(0, 0, 0, 0.2);
   background-blend-mode: darken;
 }
 #namebar {
-	width: 375px;
-	height: 50px;
+  width: 375px;
+  height: 50px;
 }
 #pickbar {
   position: relative;
-	width: 375px;
-	height: 84px;
+  width: 375px;
+  height: 84px;
   overflow: scroll;
 }
 #pickbar::-webkit-scrollbar {
@@ -375,7 +454,7 @@ export default {
   box-sizing: border-box;
   width: 53px;
   height: 53px;
-  border:2px solid rgba(150, 251, 196, 1);
+  border: 2px solid rgba(150, 251, 196, 1);
   border-radius: 53px;
   margin-left: 1px;
 }
@@ -383,33 +462,33 @@ export default {
   font-family: Taipei Sans TC Beta;
   font-size: 13px;
   width: 53px;
-  height: 18px; 
+  height: 18px;
   line-height: 18px;
   margin-top: 1px;
   display: flex;
   text-align: center;
   align-items: center;
   justify-content: center;
-  color: #5C5C5C;
+  color: #5c5c5c;
 }
 #splitline {
   width: 375px;
   height: 1px;
-  background: #C7C7C7;
+  background: #c7c7c7;
   opacity: 0.2;
 }
 #calendar {
-	width: 375px;
+  width: 375px;
   height: 263px;
   text-align: center;
   overflow: scroll;
 }
 #calendar::-webkit-scrollbar {
   display: none;
-} 
+}
 #response {
   position: relative;
-	width: 375px;
+  width: 375px;
   height: 290px;
 }
 #describe {
@@ -418,19 +497,19 @@ export default {
   height: 18px;
   top: 5px;
   left: 46px;
-  font-family: Taipei Sans TC Beta; 
+  font-family: Taipei Sans TC Beta;
   font-size: 13px;
   line-height: 18px;
   text-align: center;
-  color: #C7C7C7;
+  color: #c7c7c7;
 }
 #container {
-  position:absolute;
+  position: absolute;
   top: 33px;
   left: 16px;
   width: 342px;
   height: 178px;
-  overflow: scroll; 
+  overflow: scroll;
 }
 #container::-webkit-scrollbar {
   display: none;
@@ -448,9 +527,9 @@ export default {
   font-family: Taipei Sans TC Beta;
   font-size: 15px;
   line-height: 20px;
-  color: #5C5C5C;
+  color: #5c5c5c;
   text-align: center;
-  border: 1px solid #20E2D7;
+  border: 1px solid #20e2d7;
   box-sizing: border-box;
   box-shadow: 2px 2px 10px rgba(204, 204, 204, 0.75);
   border-radius: 10px;
@@ -466,9 +545,9 @@ export default {
   font-family: Taipei Sans TC Beta;
   font-size: 15px;
   line-height: 20px;
-  color: #5C5C5C;
+  color: #5c5c5c;
   text-align: center;
-  border: 1px solid #20E2D7;
+  border: 1px solid #20e2d7;
   box-sizing: border-box;
   box-shadow: 2px 2px 10px rgba(204, 204, 204, 0.75);
   border-radius: 10px;
@@ -484,16 +563,16 @@ export default {
   font-size: 16px;
   line-height: 43px;
   text-align: center;
-  color: #FFFFFF;
-  background: #C7C7C7;
+  color: #ffffff;
+  background: #c7c7c7;
   box-shadow: 0px 4px 17px -1px rgba(113, 113, 113, 0.51);
 }
 .Clickstyle {
-  background: #20E2D7;
+  background: #20e2d7;
   color: #ffffff;
 }
 .Description {
-  position :absolute;
+  position: absolute;
   width: 284px;
   height: 332px;
   top: 140px;
@@ -537,7 +616,7 @@ export default {
   left: 30px;
   width: 222px;
   height: 20px;
-  background: linear-gradient(180deg, #96FBC4 33.15%, #20E2D7 127.81%);
+  background: linear-gradient(180deg, #96fbc4 33.15%, #20e2d7 127.81%);
   background-clip: text;
   -webkit-background-clip: text;
   color: transparent;
@@ -561,7 +640,7 @@ export default {
   left: 30px;
   width: 222px;
   height: 18px;
-  color: #5C5C5C;
+  color: #5c5c5c;
   font-family: Taipei Sans TC Beta;
   font-size: 13px;
   line-height: 18px;
