@@ -9,5 +9,5 @@ app.use('/api', routerApi);
 
 
 // 監聽埠
-app.listen(2500);
-console.log('success listen at port:2500......');
+app.listen(2600);
+console.log('success listen at port:2600......');
