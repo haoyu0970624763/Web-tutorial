@@ -6,6 +6,11 @@ import reservation from '@/views/reservation.vue'
 import Picktime from '@/views/Picktime.vue'
 import Matchresult from '@/views/Matchresult.vue'
 import Reservationsuccess from '@/views/Reservationsuccess.vue'
+import Feeling from '@/views/Feeling.vue'
+import Temp from '@/views/Temp.vue'
+import DiaryMain from '@/views/DiaryMain.vue'
+import DiaryWrite from '@/views/DiaryWrite.vue'
+import Home from '@/views/Homepage.vue'
 
 Vue.use(Router)
 
@@ -22,8 +27,8 @@ export default new Router({
       component: homepage
     },
     {
-      path:'/reservation',
-      component:reservation
+      path: '/reservation',
+      component: reservation
     },
     {
       path: '/Matchresult',
@@ -39,6 +44,26 @@ export default new Router({
       path: '/Reservationsuccess',
       name: 'Reservationsuccess',
       component: Reservationsuccess
+    },
+    {
+      path: '/temp',
+      component: Temp
+    },
+    {
+      path: '/feeling',
+      component: Feeling
+    },
+    {
+      path: '/diary',
+      component: DiaryMain
+    },
+    {
+      path: '/diary/write',
+      component: DiaryWrite
+    },
+    {
+      path: '/home',
+      component: Home
     }
   ]
 })
