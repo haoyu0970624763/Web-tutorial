@@ -9,7 +9,7 @@ const pool = mysql.createPool({
     port: dbConfig.mysql.port,
     multipleStatements: true    // 多語句查詢
 });
-/*
+
 // set UTF8
 pool.getConnection((err, connection) => {
 
@@ -34,16 +34,16 @@ pool.getConnection((err, connection) => {
     var sql2 = "CREATE TABLE user (id VARCHAR(20), password VARCHAR(20) , name VARCHAR(20) , DepartmentLevel VARCHAR(20) )";
 
     var sql3 = "SHOW TABLES LIKE 'BookTeacher1'"
-    var sql4 = "CREATE TABLE BookTeacher1 (Year INTEGER , months INTEGER , day INTEGER , time INTEGER , user_id VARCHAR(20) , valid VARCHAR(20))";
+    var sql4 = "CREATE TABLE BookTeacher1 (Year VARCHAR(20) , months VARCHAR(20), day VARCHAR(20) , time VARCHAR(20), user_id VARCHAR(20) , valid VARCHAR(20))";
 
     var sql5 = "SHOW TABLES LIKE 'BookTeacher2'"
-    var sql6 = "CREATE TABLE BookTeacher2 (Year INTEGER , months INTEGER , day INTEGER , time INTEGER , user_id VARCHAR(20), valid VARCHAR(20))";
+    var sql6 = "CREATE TABLE BookTeacher2 (Year VARCHAR(20), months VARCHAR(20) , day VARCHAR(20) , time VARCHAR(20) , user_id VARCHAR(20), valid VARCHAR(20))";
 
     var sql7 = "SHOW TABLES LIKE 'BookTeacher3'"
-    var sql8 = "CREATE TABLE BookTeacher3 (Year INTEGER , months INTEGER , day INTEGER , time INTEGER , user_id VARCHAR(20), valid VARCHAR(20))";
+    var sql8 = "CREATE TABLE BookTeacher3 (Year VARCHAR(20) , months VARCHAR(20), day VARCHAR(20) , time VARCHAR(20), user_id VARCHAR(20) , valid VARCHAR(20))";
 
     var sql9 = "SHOW TABLES LIKE 'BookTeacher4'"
-    var sql10 = "CREATE TABLE BookTeacher4 (Year INTEGER , months INTEGER , day INTEGER , time INTEGER , user_id VARCHAR(20), valid VARCHAR(20))";
+    var sql10 = "CREATE TABLE BookTeacher4 (Year VARCHAR(20) , months VARCHAR(20), day VARCHAR(20) , time VARCHAR(20), user_id VARCHAR(20) , valid VARCHAR(20))";
 
     connection.query(sql, function (err, result) {
         if (err) throw err;
@@ -105,7 +105,7 @@ pool.getConnection((err, connection) => {
     
     connection.release();
 })
-
+/*
 //  check whether the table has data , if not add it
 pool.getConnection((err, connection) => {
 
@@ -277,40 +277,26 @@ module.exports = {
         var day=req.body.day;
         var time=req.body.time;
         var teacher=req.body.teacher;
-
-        var sql = "update bookTeacher1 set user_id=?, valid=?, where  Year=? and months=? and day=?  AND time=?";
-        var sql2 = "update bookTeacher2 set user_id=?, valid=?, where  Year=? and months=? and day=?  AND time=?";
-        var sql3 = "update bookTeacher3 set user_id=?, valid=?, where  Year=? and months=? and day=?  AND time=?";
-        var sql4 = "update bookTeacher4 set user_id=?, valid=?, where  Year=? and months=? and day=?  AND time=?";
+        var valid="false";
+        
+       
+        var sql = "select * from BookTeacher1 where months=? AND day=? AND time=?"
+        var sql2 = "insert into BookTeacher1(Year,months,day,time,user_id,valid) values(?,?,?,?,?,?)"
 
         if(teacher=="teacher1"){
             pool.getConnection((err, connection) => {
-                connection.query(sql, [userID,year,months,day,time], (err, result) => {
-                    connection.release();
+                connection.query(sql, [year,months.day,time],(err, result) => {
+                    if(err) throw err;
+                    if(result.length==0){
+
+                        connection.query(sql2, [year,months,day,time,userID,valid],(err, result) => {
+                            if(err) throw err;
+                        })
+                    }
                     res.send("success");
                 })
             })
         }
-        else if(teacher=="teacher2"){
-            pool.getConnection((err, connection) => {
-                connection.query(sql2, [userID,year,months,day,time], (err, result) => {
-                    connection.release();
-                })
-            })
-        }
-        else if(teacher=="teacher3"){
-            pool.getConnection((err, connection) => {
-                connection.query(sql3, [userID,year,months,day,time], (err, result) => {
-                    connection.release();
-                })
-            })
-        }
-        else if(teacher=="teacher4"){
-            pool.getConnection((err, connection) => {
-                connection.query(sql4, [userID,year,months,day,time], (err, result) => {
-                    connection.release();
-                })
-            })
-        }
+        
     },
 }

@@ -129,7 +129,7 @@ export default {
           userID:"F74072120",
           year:2021,
           months:5,
-          day:15,
+          day:1,
           time:9,  // it means 9:00 to 11:00
           time2:11 ,// it means 11:00 to 13:00
           teacher:"teacher1",
@@ -382,7 +382,7 @@ export default {
     nstep() {
       this.$http
         .post("/api/book", {
-          userID:"kk",
+          userID:this.userID,
           year:this.year,
           months:this.months,
           day:this.day,
