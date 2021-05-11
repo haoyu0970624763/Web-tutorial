@@ -34,6 +34,10 @@ export default {
 };
 </script>
 <style rel="stylesheet/scss" lang="scss" scoped>
+@font-face {
+  font-family: "Taipei Sans TC Beta";
+  src: url("../assets/font/TaipeiSansTCBeta.ttf");
+}
 .desktop {
 	position: absolute;
     display: block;

@@ -25,12 +25,29 @@
           </p>
         </div>
       </div>
-      <div class="coming">
+      <div class="coming" v-if="leftFlag===1">
         <p id="topic">諮商前注意事項</p>
         <p id="text">
           1. 請務必準時抵達心輔室，如欲取消最晚請在前一天取消，否則不受理。
         </p>
         <p id="text2">2.前來諮商無需準備任何東西，保持平常心即可！</p>
+      </div>
+    </div>
+    <div class="recordcontainer" :class="{recordpastcontainer : rightFlag}">
+      <div class="record" v-for="recorditem in reservationrecord" :class="{recordpast : rightFlag}">
+        <div id="datetitle">諮商日期</div>
+        <div id="date">{{ recorditem.reservationyear }}/{{ recorditem.reservationmonth }}/{{ recorditem.reservationday }}</div>
+        <div id="timetitle">諮商時間</div>
+        <div id="time">{{ recorditem.reservationtime }}</div> 
+        <div id="splitline"></div>
+        <div id="nametitle">欲諮商的心理師</div>
+        <div id="name">{{ recorditem.expertname }}心理師</div>
+        <div id="statetitle">諮商狀態</div>
+        <div id="st">{{ recorditem.state }}</div>
+        <div id="cancel" v-if="rightFlag===0"></div>
+        <div id="canceltext" v-if="rightFlag===0">取消預約</div>
+        <div class="describecontent" :class="{describecontentbig : rightFlag}"></div>
+        <div class="contenttext" :class="{contenttextbig : rightFlag}">詳細內容</div>     
       </div>
     </div>
   </div>
@@ -60,6 +77,7 @@ export default {
         userPassword: "",
         userPassword2: "",
       },
+      reservationrecord:[],
       // 显示不同的view
       typeView: 0,
       errorMeg: "",
@@ -67,17 +85,46 @@ export default {
   },
   methods: {
     goback_home: function () {
-      this.$router.push("/profile");
+      this.$router.go(-1);
     },
     setFlagLeft: function () {
       this.leftFlag = 1;
       this.rightFlag = 0;
+      this.getrecord();
     },
     setFlagRight: function () {
       this.leftFlag = 0;
       this.rightFlag = 1;
+      this.getpastrecord();
     },
+    getrecord() {
+      this.reservationrecord = [];
+      this.reservationrecord.push({
+          reservationyear: "2021",
+          reservationmonth: "05",
+          reservationday: "21",
+          reservationtime: "14:00-15:00",
+          expertname: "陳大名",
+          state: "預約成立",
+        }
+      );
+    },
+    getpastrecord() {
+      this.reservationrecord = [];
+      this.reservationrecord.push({
+          reservationyear: "2021",
+          reservationmonth: "02",
+          reservationday: "28",
+          reservationtime: "13:00-14:00",
+          expertname: "陳大名",
+          state: "結案",
+        }
+      );
+    }
   },
+  created() {
+    this.getrecord();
+  }
 };
 </script>
 
@@ -99,7 +146,7 @@ export default {
     top: 0px;
     background: #ffffff;
     box-shadow: 2px 2px 15px rgba(118, 156, 145, 0.25);
-
+    z-index: 1;
     .vector {
       position: absolute;
       left: 10%;
@@ -132,7 +179,6 @@ export default {
     height: 65px;
     left: 0px;
     top: 50px;
-
     background: linear-gradient(
       180deg,
       #f9fea5 -214.29%,
@@ -256,6 +302,200 @@ export default {
         color: #9e9e9e;
       }
     }
+  }
+  .recordcontainer {
+    position: absolute;
+    width: 375px;
+    height: 422px;
+    top: 265px;
+    overflow: scroll;
+    .record {
+      position: relative;
+      width: 327px;
+      height: 148px;
+      margin-top: 23px;
+      margin-left: 24px;
+      box-shadow: 1px 4px 8px rgba(101, 101, 101, 0.14);
+      border-radius: 10px;
+      overflow: hidden;
+      #datetitle {
+        position: absolute;
+        width: 52px;
+        height: 18px;
+        left: 24px;
+        top: 12px;
+        font-family: Taipei Sans TC Beta;
+        font-size: 13px;
+        line-height: 18px;
+        align-items: center;
+        color: #20E2D7;
+      }
+      #date {
+        position: absolute;
+        width: 67px;
+        height: 17px;
+        left: 80px;
+        top: 12px;
+        font-family: SF Compact Display;
+        font-size: 14px;
+        line-height: 17px;
+        align-items: center;
+        letter-spacing: -0.24px;
+        color: #4F4F4F;
+      }
+      #timetitle {
+        position: absolute;
+        width: 52px;
+        height: 18px;
+        left: 176px;
+        top: 11px;
+        font-family: Taipei Sans TC Beta;
+        font-size: 13px;
+        line-height: 18px;
+        align-items: center;
+        color: #20E2D7;
+      }
+      #time {
+        position: absolute;
+        width: 74px;
+        height: 17px;
+        left: 233px;
+        top: 12px;
+        font-family: SF Compact Display;
+        font-size: 14px;
+        line-height: 17px;
+        align-items: center;
+        letter-spacing: -0.24px;
+        color: #4F4F4F;
+      }
+      #splitline {
+        position: absolute;
+        width: 327px;
+        height: 0px;
+        left: 0px;
+        top: 36px;
+        border: 1px solid #E6E6E6;
+      }
+      #nametitle {
+        position: absolute;
+        width: 91px;
+        height: 18px;
+        left: 24px;
+        top: 49px;
+        font-family: Taipei Sans TC Beta;
+        font-size: 13px;
+        line-height: 18px;
+        align-items: center;
+        color: #BDBDBD;
+      }
+      #name {
+        position: absolute;
+        width: 90px;
+        height: 20px;
+        left: 24px;
+        top: 71px;
+        font-family: Taipei Sans TC Beta;
+        font-size: 15px;
+        line-height: 20px;
+        align-items: center;
+        color: #4F4F4F;
+      }
+      #statetitle {
+        position: absolute;
+        width: 52px;
+        height: 18px;
+        left: 176px;
+        top: 49px;
+        font-family: Taipei Sans TC Beta;
+        font-size: 13px;
+        line-height: 18px;
+        align-items: center;
+        color: #BDBDBD;
+      }
+      #st {
+        position: absolute;
+        width: 60px;
+        height: 20px;
+        left: 176px;
+        top: 71px;
+        font-family: Taipei Sans TC Beta;
+        font-weight: bold;
+        font-size: 15px;
+        line-height: 20px;
+        align-items: center;
+        color: #20E2D7;
+      }
+      .describecontent {
+        position: absolute;
+        width: 164px;
+        height: 43px;
+        left: 0px;
+        top: 105px;
+        background: linear-gradient(180deg, #20E2D7 -40.7%, #96FBC4 209.22%, #F9FEA5 469.77%);
+        border: 1px solid #E0E0E0;
+        box-sizing: border-box;
+        border-radius: 10px 0px 0px 0px;
+        
+        transform: matrix(1, 0, 0, -1, 0, 0);
+      }
+      .contenttext {
+        position: absolute;
+        width: 64px;
+        height: 22px;
+        left: 50px;
+        top: 116px;
+        font-family: PingFang HK;
+        font-size: 16px;
+        line-height: 22px;
+        align-items: center;
+        letter-spacing: -0.24px;
+        color: #FFFFFF;
+      }
+      .describecontentbig {
+        width: 327px;
+      }
+      .contenttextbig {
+        left: 137px;
+      }
+      #cancel {
+        position: absolute;
+        width: 164px;
+        height: 43px;
+        left: 164px;
+        top: 105px;
+        border: 1px solid #E0E0E0;
+        box-sizing: border-box;
+        border-radius: 10px 0px 0px 0px;
+        transform: rotate(-180deg);
+               
+        
+      }
+      #canceltext {
+        position: absolute;
+        top: 116px;
+        left: 213px;
+        width: 64px;
+        height: 22px;
+        font-family: PingFang HK;
+        font-size: 16px;
+        line-height: 22px;
+        align-items: center;
+        letter-spacing: -0.24px;
+        color: #20E2D7;
+      }
+    }
+    .recordpast {
+      margin-top: 31px;
+    }
+  }
+  .recordcontainer::-webkit-scrollbar {
+    display: none;
+  }
+  .recordpastcontainer{
+    position: absolute;
+    width: 375px;
+    height: 566px;
+    top: 121px;
   }
 }
 </style>

@@ -2,7 +2,7 @@
   <div class="profile-container">
     <div class="navbar">
       <div class="vector">
-        <a href="/homepage"> <img src="@/assets/pic/Vector2.png" /> </a>
+        <a href="/home"> <img src="@/assets/pic/Vector2.png" /> </a>
       </div>
       <div class="navText">我的檔案</div>
 
@@ -62,7 +62,7 @@ export default {
   },
   methods: {
     goback_home() {
-      this.$router.push("/Homepage");
+      this.$router.push("/home");
     },
     goto_reservationRecord() {
       this.$router.push("/reservation");

@@ -1,7 +1,6 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import profile from '@/views/profile.vue'
-import homepage from '@/views/homepage.vue'
 import reservation from '@/views/reservation.vue'
 import Picktime from '@/views/Picktime.vue'
 import Matchresult from '@/views/Matchresult.vue'
@@ -11,6 +10,10 @@ import Temp from '@/views/Temp.vue'
 import DiaryMain from '@/views/DiaryMain.vue'
 import DiaryWrite from '@/views/DiaryWrite.vue'
 import Home from '@/views/Homepage.vue'
+import reserve from '@/views/reserve.vue'
+import start from '@/views/start.vue'
+import analysis from '@/views/analysis.vue'
+import Otherresource from '@/views/Otherresource.vue'
 
 Vue.use(Router)
 
@@ -21,10 +24,6 @@ export default new Router({
     {
       path: '/profile',
       component: profile
-    },
-    {
-      path: '/homepage',
-      component: homepage
     },
     {
       path: '/reservation',
@@ -64,6 +63,23 @@ export default new Router({
     {
       path: '/home',
       component: Home
+    },
+    {
+      path: '/reserve',
+      component: reserve
+    },
+    {
+      path: '/start',
+      component: start
+    },
+    {
+      path: '/analysis',
+      component: analysis
+    },
+    {
+      path: '/Otherresource',
+      name: 'Otherresource',
+      component: Otherresource
     }
   ]
 })

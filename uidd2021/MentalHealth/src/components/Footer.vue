@@ -15,7 +15,7 @@
                 </b-col>
                 <b-col class="text-center">
                     <!--暫時link到空頁面-->
-                    <router-link to="/temp">
+                    <router-link to="/reserve">
                         <img  v-if="showSchedule" class="iconimg" src="@/assets/svg/scheduleA.svg">
                         <img  v-else class="iconimg" src="@/assets/svg/schedule.svg">
                         <div v-if="showSchedule" class="icontext iconActivetext">諮商預約</div>

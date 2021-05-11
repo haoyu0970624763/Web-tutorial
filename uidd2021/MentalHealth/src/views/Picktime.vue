@@ -21,7 +21,7 @@
           @click="clickphoto2"
         >
           <div class="photocircle" id="c2" :style="photo2"></div>
-          <div class="phototext">陳陳陳</div>
+          <div class="phototext">陳大名</div>
         </div>
         <div
           class="photobox"
@@ -30,7 +30,7 @@
           @click="clickphoto3"
         >
           <div class="photocircle" id="c3" :style="photo3"></div>
-          <div class="phototext">陳陳陳</div>
+          <div class="phototext">陳大名</div>
         </div>
         <div
           class="photobox"
@@ -39,7 +39,7 @@
           @click="clickphoto4"
         >
           <div class="photocircle" id="c4" :style="photo4"></div>
-          <div class="phototext">陳陳陳</div>
+          <div class="phototext">陳大名</div>
         </div>
         <div
           class="photobox"
@@ -48,7 +48,7 @@
           @click="clickphoto5"
         >
           <div class="photocircle" id="c5" :style="photo5"></div>
-          <div class="phototext">陳陳陳</div>
+          <div class="phototext">陳大名</div>
         </div>
         <div
           class="photobox"
@@ -57,7 +57,7 @@
           @click="clickphoto6"
         >
           <div class="photocircle" id="c6" :style="photo6"></div>
-          <div class="phototext">陳陳陳</div>
+          <div class="phototext">陳大名</div>
         </div>
       </div>
     </div>
@@ -98,7 +98,7 @@
         :class="{ Clickstyle: nextavailable }"
         @click="nstep"
       >
-        下一步
+      下一步
       </div>
     </div>
     <div class="Description" v-if="seen">
@@ -126,16 +126,24 @@ export default {
   data() {
     return {
       //
-          userID:"F74072120",
+          /*userID:"F74072120",
           year:2021,
           months:5,
-          day:1,
+          day:15,
           time:9,  // it means 9:00 to 11:00
           time2:11 ,// it means 11:00 to 13:00
-          teacher:"teacher1",
+          teacher:"teacher1",*/
       //
-      pickval: 0,
+      reservationselect: {
+        year: "",
+        months: "",
+        day: "",
+        timeselect: "",
+        personselect: "陳大名",
+
+      },
       dateselect: '',
+      pickval: 0,
       isActive:{
         a1: false,
         a2: false,
@@ -145,8 +153,6 @@ export default {
         a6: false,
       },
       seen: false,
-      timeselect: '',
-      personselect: '',
       nextavailable: false,
       photo1: {
         backgroundImage: "url(" + require("@/assets/svg/photo1.svg") + ")",
@@ -202,15 +208,23 @@ export default {
   watch: {
     dateselect: function(val, oldVal){
       this.nextavailable = false;
-      this.timeselect = "";
-      this.personselect = "";
+      this.reservationselect.timeselect = "";
+      this.reservationselect.personselect = "";
+      this.reservationselect.year = "";
+      this.reservationselect.months = "";
+      this.reservationselect.day = "";
       this.availabletimelist = [];
       if(this.dateselect != '')
       {
         var randm = Math.floor(Math.random() * (4 - 1 + 1)) + 1;
         for(var i = 0; i < randm; i++)
         {
-          this.availabletimelist.push({avaltime: "9:00-10:00", name: "王王王", isClick: false});
+          var t1 = Math.floor(Math.random() * (15 - 1 + 1)) + 7;
+          var t2 = t1 + 1;
+          t1 = String(t1) + ":00";
+          t2 = String(t2) + ":00";
+          var t = [t1, t2];
+          this.availabletimelist.push({avaltime: t.join('-'), name: "陳大名", isClick: false});
         }
       }      
     },
@@ -235,8 +249,9 @@ export default {
       })
       this.nextavailable = true;
       si.isClick = true;
-      this.timeselect = si.avaltime;
-      this.personselect = si.name;
+      this.reservationselect.timeselect = si.avaltime;
+      this.reservationselect.personselect = si.name;
+      [this.reservationselect.year, this.reservationselect.months, this.reservationselect.day] = this.dateselect.split('-');
     },
     pickbarscroll(pv) {
       this.clickSrollLeft("pickbar", (pv - 1) * 95);
@@ -382,15 +397,15 @@ export default {
     nstep() {
       this.$http
         .post("/api/book", {
-          userID:this.userID,
-          year:this.year,
-          months:this.months,
-          day:this.day,
-          time:this.time,  // it means 9:00 to 11:00
-          teacher:this.teacher,
+          userID:"F74072120",
+          year:this.reservationselect.year,
+          months:this.reservationselect.months,
+          day:this.reservationselect.day,
+          time:this.reservationselect.timeselect,  // it means 9:00 to 11:00
+          teacher:"teacher1",
         })
         .then((res) => {
-          this.$router.push("/Reservationsuccess");
+          this.$router.push({name: 'Reservationsuccess'});
         });
       
     }
@@ -402,6 +417,10 @@ export default {
 </script>
 
 <style rel="stylesheet/scss" lang="scss" scoped>
+@font-face {
+  font-family: "Taipei Sans TC Beta";
+  src: url("../assets/font/TaipeiSansTCBeta.ttf");
+}
 .desktop {
   position: absolute;
   display: block;
@@ -457,6 +476,7 @@ export default {
   border: 2px solid rgba(150, 251, 196, 1);
   border-radius: 53px;
   margin-left: 1px;
+  filter: drop-shadow(5px 5px 25px rgba(204, 204, 204, 0.75));
 }
 .phototext {
   font-family: Taipei Sans TC Beta;
@@ -478,8 +498,9 @@ export default {
   opacity: 0.2;
 }
 #calendar {
+  margin-top: 17px;
   width: 375px;
-  height: 263px;
+  height: 246px;
   text-align: center;
   overflow: scroll;
 }
