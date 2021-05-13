@@ -15,6 +15,10 @@ import start from '@/views/start.vue'
 import analysis from '@/views/analysis.vue'
 import Otherresource from '@/views/Otherresource.vue'
 
+/* 新增 */
+import Press from '@/yo_0512/Press.vue'
+import PressQ1 from '@/yo_0512/PressQ1.vue'
+
 Vue.use(Router)
 
 export default new Router({
@@ -23,10 +27,12 @@ export default new Router({
   routes: [
     {
       path: '/profile',
+      name: 'profile',
       component: profile
     },
     {
       path: '/reservation',
+      name: 'reservation',
       component: reservation
     },
     {
@@ -80,6 +86,16 @@ export default new Router({
       path: '/Otherresource',
       name: 'Otherresource',
       component: Otherresource
+    },
+    {
+      path: '/press',
+      name: 'Press',
+      component: Press
+    },
+    {
+      path: '/press/q1',
+      name: 'PressQ1',
+      component: PressQ1
     }
   ]
 })

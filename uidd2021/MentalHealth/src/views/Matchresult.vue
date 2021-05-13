@@ -5,9 +5,13 @@
         </div>
         <div class="ornament"></div>
         <div class="ornament" id="rotate"></div>
-        <div id="bigphoto" :style="fitperson.bigphotostyle"></div>
+        <transition name="photo">
+            <div v-if="pickdone" id="bigphoto" :style="fitperson.bigphotostyle"></div>
+        </transition>
         <div id="fittext">最適合你的心理師是</div>
-        <div id="fitname">{{ fitperson.name }}</div>
+        <transition name="text">
+            <div v-if="pickdone" id="fitname">{{ fitperson.name }}</div>
+        </transition>
         <div class="nextstep" @click="makereservation">預約時間</div>
     </div>
 </template>
@@ -20,10 +24,52 @@ export default {
     },
     data() {
         return {
+            pickdone: false,
+            expert: {
+                2: {
+                    photo: 
+                    {
+                        backgroundImage: "url(" + require("@/assets/Tim/expert1.svg") +")",
+                    },
+                    name: "許欣宜",
+                    id: 2,
+                }, 
+                3: {
+                    photo: 
+                    {
+                        backgroundImage: "url(" + require("@/assets/Tim/expert2.svg") +")",
+                    },
+                    name: "林宜華",
+                    id: 3,
+                }, 
+                4: {
+                    photo: 
+                    {
+                        backgroundImage: "url(" + require("@/assets/Tim/expert3.svg") +")",
+                    },
+                    name: "陳以玟",
+                    id: 4,
+                }, 
+                5: {
+                    photo: 
+                    {
+                        backgroundImage: "url(" + require("@/assets/Tim/expert4.svg") +")",
+                    },
+                    name: "王浩偉",
+                    id: 5,
+                }, 
+                6: {
+                    photo: 
+                    {
+                        backgroundImage: "url(" + require("@/assets/Tim/expert5.svg") +")",
+                    },
+                    name: "陳俊宇",
+                    id: 6,
+                }
+            },
             fitperson: {
                 name: "",
                 bigphotostyle: {
-                    backgroundImage: "url(" + require("@/assets/pic/avatar.jpg") + ")",
                 },
             },
             pick: 0,
@@ -32,19 +78,29 @@ export default {
     methods: {
         pickmostfit() {
             this.pick = Math.floor(Math.random() * 5) + 2;
-            this.fitperson.name = "陳陳陳";
-            this.fitperson.bigphotostyle = {backgroundImage: "url(" + require("@/assets/svg/bigphoto.svg") + ")",};
+            this.fitperson.name = this.expert[this.pick].name;
+            this.fitperson.bigphotostyle = this.expert[this.pick].photo;
+        },
+        enteranimate() {
+            this.pickdone=true;
         },
         makereservation() {
             this.$router.push({name: 'Picktime', params: { pickid: this.pick }});
         }
     },
-    mounted() {
+    created() {
         this.pickmostfit();
     },
+    mounted() {
+        this.enteranimate();
+    }
 };
 </script>
 <style rel="stylesheet/scss" lang="scss" scoped>
+@font-face {
+  font-family: "Taipei Sans TC Beta";
+  src: url("../assets/font/TaipeiSansTCBeta.ttf");
+}
 .desktop {
 	position: absolute;
     display: block;
@@ -70,6 +126,20 @@ export default {
     transform: rotate(-155.12deg);
     left: 72.275px;
     top: 152.44px;
+}
+.photo-enter-active {
+  transition: all 0.8s ease;
+}
+.photo-enter {
+  transform: translateX(15px);
+  opacity: 0;
+}
+.text-enter-active {
+  transition: all 1.6s ease;
+}
+.text-enter {
+  transform: translateX(25px);
+  opacity: 0;
 }
 #bigphoto {
     position: absolute;

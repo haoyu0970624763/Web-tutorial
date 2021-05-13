@@ -7,7 +7,7 @@
                 <!--事件名稱-->
                 <div>
                     <div class="icon"><img  src="@/assets/svg/icon_diary_pen.svg"></div>
-                    <input id="intput_event_name" type="text" placeholder="事件名稱" >
+                    <input id="intput_event_name" type="text" placeholder="事件名稱" autocomplete="off">
                 </div>
                 <!--日期-->
                 <div class="datebox" style="margin-top:15px;">
@@ -37,14 +37,14 @@
                     <div class="icon"><img  src="@/assets/svg/icon_diary_schedule.svg"></div>
                     <span class="text">事情的經過/想法</span>   
                 </div>
-                <textarea  placeholder="請輸入內容"></textarea>
+                <textarea  placeholder="請輸入內容" autocomplete="off"></textarea>
 
                 <!--事情的結果-->
                 <div class="datebox" style="margin-top:15px;">
                     <div class="icon"><img  src="@/assets/svg/icon_diary_schedule.svg"></div>
-                    <span class="text">事情的經過/想法</span>   
+                    <span class="text">結果/處理方式</span>   
                 </div>
-                <textarea  placeholder="請輸入內容"></textarea>
+                <textarea  placeholder="請輸入內容" autocomplete="off"></textarea>
             </div>
 
 
@@ -53,7 +53,7 @@
                 <b-row class="text-center">
                     <b-col>
                         <router-link to="/feeling">
-                            <div class="btn_submit">送出</div>
+                            <div class="btn_submit" @click="clickSubmit" >送出</div>
                         </router-link>
                     </b-col>
                     <b-col>
@@ -206,7 +206,7 @@ input::-moz-placeholder{
     color: #C7C7C7;}
 #intput_event_name{
     height: 38px;
-    width: 290px;
+    width: 280px;
     padding-left: 15px;
 }
 input{
@@ -223,6 +223,7 @@ input{
     border: 1px solid transparent;
     border-radius:10px;
     display:inline-block;
+    
 
 }
 .icon{
@@ -345,6 +346,14 @@ import Nav from '@/components/Nav.vue'
 
 export default {
     name: 'Feeling',
+    methods: {
+    clickSubmit: function () {
+
+      console.log(localStorage.getItem("isWater"));
+      localStorage.setItem("isWater","T");
+      
+    },
+  },
     components:{
         Nav,
         

@@ -8,56 +8,18 @@
         <div
           class="photobox"
           id="b1"
-          :class="{ photoboxB: isActive.a1 }"
-          @click="clickphoto1"
+          :class="{ photoboxB: picktimeisactive }"
         >
-          <div class="photocircle" id="c1" :style="photo1"></div>
+          <div class="photocircle" :class="{ photocircleB: picktimeisactive }" @click="clickpicktime">
+            <div class="photocircleinner" id="c1"></div>
+          </div>
           <div class="phototext">挑時間</div>
         </div>
-        <div
-          class="photobox"
-          id="b2"
-          :class="{ photoboxB: isActive.a2 }"
-          @click="clickphoto2"
-        >
-          <div class="photocircle" id="c2" :style="photo2"></div>
-          <div class="phototext">陳大名</div>
-        </div>
-        <div
-          class="photobox"
-          id="b3"
-          :class="{ photoboxB: isActive.a3 }"
-          @click="clickphoto3"
-        >
-          <div class="photocircle" id="c3" :style="photo3"></div>
-          <div class="phototext">陳大名</div>
-        </div>
-        <div
-          class="photobox"
-          id="b4"
-          :class="{ photoboxB: isActive.a4 }"
-          @click="clickphoto4"
-        >
-          <div class="photocircle" id="c4" :style="photo4"></div>
-          <div class="phototext">陳大名</div>
-        </div>
-        <div
-          class="photobox"
-          id="b5"
-          :class="{ photoboxB: isActive.a5 }"
-          @click="clickphoto5"
-        >
-          <div class="photocircle" id="c5" :style="photo5"></div>
-          <div class="phototext">陳大名</div>
-        </div>
-        <div
-          class="photobox"
-          id="b6"
-          :class="{ photoboxB: isActive.a6 }"
-          @click="clickphoto6"
-        >
-          <div class="photocircle" id="c6" :style="photo6"></div>
-          <div class="phototext">陳大名</div>
+        <div class="photobox" v-for="item in expert" :class="{ photoboxB: item.isActive }">
+          <div class="photocircle" :class="{ photocircleB: item.isActive }" @click="clickphoto(item.id)">
+            <div class="photocircleinner" :style="item.photo"></div>
+          </div>
+          <div class="phototext">{{ item.name }}</div>
         </div>
       </div>
     </div>
@@ -73,7 +35,7 @@
     </div>
     <div id="response">
       <div id="describe">請點選上方藍色日期，查看心理師有空的時間</div>
-      <div id="container" v-if="pickval === 1">
+      <div id="container" v-if="picktimeisactive">
         <div
           class="availablereservation"
           v-for="item in availabletimelist"
@@ -139,69 +101,61 @@ export default {
         months: "",
         day: "",
         timeselect: "",
-        personselect: "陳大名",
-
+        personselect: "",
       },
+      namelist: {1: "挑時間",2: "許欣宜", 3: "林宜華", 4: "陳以玟", 5: "王浩偉", 6: "陳俊宇"},
       dateselect: '',
       pickval: 0,
-      isActive:{
-        a1: false,
-        a2: false,
-        a3: false,
-        a4: false,
-        a5: false,
-        a6: false,
-      },
       seen: false,
       nextavailable: false,
-      photo1: {
-        backgroundImage: "url(" + require("@/assets/svg/photo1.svg") + ")",
-        backgroundRepeat: "no-repeat",
-        backgroundSize: "24px 24px",
-        backgroundPosition: "center",
-      },
-      photo2: {
-        backgroundImage: "url(" + require("@/assets/svg/photo2.svg") + ")",
-        backgroundRepeat: "no-repeat",
-        backgroundSize: "45px 45px",
-        backgroundPosition: "center",
-      },
-      photo3: {
-        backgroundImage: "url(" + require("@/assets/svg/photo3.svg") + ")",
-        backgroundRepeat: "no-repeat",
-        backgroundSize: "45px 45px",
-        backgroundPosition: "center",
-      },
-      photo4: {
-        backgroundImage: "url(" + require("@/assets/svg/photo4.svg") + ")",
-        backgroundRepeat: "no-repeat",
-        backgroundSize: "45px 45px",
-        backgroundPosition: "center",
-      },
-      photo5: {
-        backgroundImage: "url(" + require("@/assets/svg/photo5.svg") + ")",
-        backgroundRepeat: "no-repeat",
-        backgroundSize: "45px 45px",
-        backgroundPosition: "center",
-      },
-      photo6: {
-        backgroundImage: "url(" + require("@/assets/svg/photo6.svg") + ")",
-        backgroundRepeat: "no-repeat",
-        backgroundSize: "45px 45px",
-        backgroundPosition: "center",
-      },
+      picktimeisactive: false,
+      expert: [{
+          photo: {
+            backgroundImage: "url(" + require("@/assets/Tim/expert1.svg") +")",
+          },
+          name: "許欣宜",
+          isActive: false,
+          id: 2,
+        }, {
+          photo: {
+            backgroundImage: "url(" + require("@/assets/Tim/expert2.svg") +")",
+          },
+          name: "林宜華",
+          isActive: false,
+          id: 3,
+        }, {
+          photo: {
+            backgroundImage: "url(" + require("@/assets/Tim/expert3.svg") +")",
+          },
+          name: "陳以玟",
+          isActive: false,
+          id: 4,
+        }, {
+          photo: {
+            backgroundImage: "url(" + require("@/assets/Tim/expert4.svg") +")",
+          },
+          name: "王浩偉",
+          isActive: false,
+          id: 5,
+        }, {
+          photo: {
+            backgroundImage: "url(" + require("@/assets/Tim/expert5.svg") +")",
+          },
+          name: "陳俊宇",
+          isActive: false,
+          id: 6,
+        }
+      ],
       description: {
         photostyle: {
-          backgroundImage: "url(" + require("@/assets/svg/photo.svg") + ")",
-          backgroundRepeat: "no-repeat",
-          backgroundSize: "83px 95px",
+          backgroundImage: "url(" + require("@/assets/svg/photo.svg") +")",
         },
         maximtext: '“ 抱持對人性的理解，開創出人生的新解 ”',
         gendercontent: '女',
         expertcontent: '情緒管理、生涯探索與規劃、性別議題、情感探索與經驗、人際適應',
         talkstylecontent: 'place holder',
       },
-      availabledatelist: [],
+      availabledatelist: {"挑時間": [],"許欣宜": [], "林宜華": [], "陳以玟": [], "王浩偉": [], "陳俊宇": []},
       availabletimelist: [],
     };
   },
@@ -209,40 +163,46 @@ export default {
     dateselect: function(val, oldVal){
       this.nextavailable = false;
       this.reservationselect.timeselect = "";
-      this.reservationselect.personselect = "";
       this.reservationselect.year = "";
       this.reservationselect.months = "";
       this.reservationselect.day = "";
       this.availabletimelist = [];
       if(this.dateselect != '')
       {
-        var randm = Math.floor(Math.random() * (4 - 1 + 1)) + 1;
-        for(var i = 0; i < randm; i++)
+        for(var k = 0; k < 3; k++)
         {
-          var t1 = Math.floor(Math.random() * (15 - 1 + 1)) + 7;
-          var t2 = t1 + 1;
-          t1 = String(t1) + ":00";
-          t2 = String(t2) + ":00";
-          var t = [t1, t2];
-          this.availabletimelist.push({avaltime: t.join('-'), name: "陳大名", isClick: false});
+          if(k == 1)
+          {
+            var n = (this.pickval == 1)?Math.floor(Math.random() * 5) + 2:this.pickval;
+            this.availabletimelist.push({avaltime: "14:00-15:00", name: this.namelist[n], isClick: false});
+          }
+          else{
+            var n = (this.pickval == 1)?Math.floor(Math.random() * 5) + 2:this.pickval;
+            var t1 = Math.floor(Math.random() * (5)) + 7 + 5*k;
+            var t2 = t1 + 1;
+            t1 = String(t1) + ":00";
+            t2 = String(t2) + ":00";
+            var t = [t1, t2];
+            this.availabletimelist.push({avaltime: t.join('-'), name: this.namelist[n], isClick: false});
+          }
         }
       }      
     },
-    pickval: function(val, oldVal){
-      this.availabledatelist = [];
-      this.dateselect = '';
-      var randm = Math.floor(Math.random() * (20 - 1 + 1)) + 1;
-      for(var i = 0; i < randm; i++)
-      {
-        var y = "2021";
-        var m = "05";
-        var d = String(Math.floor(Math.random() * (30 - 1 + 1)) + 10);
-        var ymd = [y, m, d];
-        this.availabledatelist.push(ymd.join('-'));
-      }
-    }
   },
   methods: {
+    setavailabledatelist() {
+      for(var i = 1; i < 7; i++){
+        for(var j = 0; j < 5; j++)
+        {
+          var y = "2021";
+          var m = "05";
+          var d = String(Math.floor(Math.random() * (30 - 1 + 1)) + 10);
+          var ymd = [y, m, d];
+          this.availabledatelist[this.namelist[i]].push(ymd.join('-'));
+        }
+        this.availabledatelist[this.namelist[i]].push("2021-05-21");
+      }
+    },
     setselect(si) {
       this.availabletimelist.forEach(i=>{
         i.isClick = false;
@@ -254,73 +214,34 @@ export default {
       [this.reservationselect.year, this.reservationselect.months, this.reservationselect.day] = this.dateselect.split('-');
     },
     pickbarscroll(pv) {
-      this.clickSrollLeft("pickbar", (pv - 1) * 95);
+      this.clickSrollLeft("pickbar", (pv - 1) * 93.75);
     },
-    clickphoto1() {
-      this.isActive.a1=true;
-      this.isActive.a2=false;
-      this.isActive.a3=false;
-      this.isActive.a4=false;
-      this.isActive.a5=false;
-      this.isActive.a6=false;
-      this.seen=false;
+    clickpicktime() {
+      this.picktimeisactive = true;
+      this.expert.forEach(i=>{
+        i.isActive = false;
+      })
+      this.seen = false;
       this.pickbarscroll(1);
-      this.pickval=1;
+      this.pickval = 1;
+      this.reservationselect.personselect = "";
+      this.dateselect = '';
     },
-    clickphoto2() {
-      this.isActive.a1=false;
-      this.isActive.a2=true;
-      this.isActive.a3=false;
-      this.isActive.a4=false;
-      this.isActive.a5=false;
-      this.isActive.a6=false;
-      this.seen=true;
-      this.pickbarscroll(2);
-      this.pickval=2;
-    },
-    clickphoto3() {
-      this.isActive.a1=false;
-      this.isActive.a2=false;
-      this.isActive.a3=true;
-      this.isActive.a4=false;
-      this.isActive.a5=false;
-      this.isActive.a6=false;
-      this.seen=true;
-      this.pickbarscroll(3);
-      this.pickval=3;
-    },
-    clickphoto4() {
-      this.isActive.a1=false;
-      this.isActive.a2=false;
-      this.isActive.a3=false;
-      this.isActive.a4=true;
-      this.isActive.a5=false;
-      this.isActive.a6=false;
-      this.seen=true;
-      this.pickbarscroll(4);
-      this.pickval=4;
-    },
-    clickphoto5() {
-      this.isActive.a1=false;
-      this.isActive.a2=false;
-      this.isActive.a3=false;
-      this.isActive.a4=false;
-      this.isActive.a5=true;
-      this.isActive.a6=false;
-      this.seen=true;
-      this.pickbarscroll(5);
-      this.pickval=5;
-    },
-    clickphoto6() {
-      this.isActive.a1=false;
-      this.isActive.a2=false;
-      this.isActive.a3=false;
-      this.isActive.a4=false;
-      this.isActive.a5=false;
-      this.isActive.a6=true;
-      this.seen=true;
-      this.pickbarscroll(6);
-      this.pickval=6;
+    clickphoto(id) {
+      this.picktimeisactive = false;
+      this.expert.forEach(i=>{
+        i.isActive = false;
+        if(i.id == id)
+        {
+          i.isActive = true;
+          this.description.photostyle = i.photo;
+          this.reservationselect.personselect = i.name;
+        }
+      })
+      this.seen = true;
+      this.pickbarscroll(id);
+      this.pickval = id;
+      this.dateselect = '';
     },
     clickSrollLeft(Id, pos) {
       var timer;
@@ -332,6 +253,7 @@ export default {
           {
             document.getElementById(Id).scrollLeft = pos;
             clearInterval(timer);
+            
           }
           else
           {
@@ -357,7 +279,7 @@ export default {
       this.seen = false;
     },
     dateDisabled(ymd, date) {
-      if(this.availabledatelist.indexOf(ymd) > -1) {
+      if(this.availabledatelist[this.namelist[this.pickval]].indexOf(ymd) > -1) {
         return false;
       }
       else{
@@ -368,30 +290,14 @@ export default {
         return ['table-primary', 'border-0', 'rounded-circle'];
     },
     getpickid() {
-      this.pickval = this.$route.params.pickid;
-      if(this.pickval === 1)
+      var pickid = this.$route.params.pickid;
+      if(pickid === 1)
       {
-        this.clickphoto1();
+        this.clickpicktime();
       }
-      else if(this.pickval === 2)
+      else if(pickid > 1)
       {
-        this.clickphoto2();
-      }
-      else if(this.pickval === 3)
-      {
-        this.clickphoto3();
-      }
-      else if(this.pickval === 4)
-      {
-        this.clickphoto4();
-      }
-      else if(this.pickval === 5)
-      {
-        this.clickphoto5();
-      }
-      else if(this.pickval === 6)
-      {
-        this.clickphoto6();
+        this.clickphoto(pickid);
       }
     },
     nstep() {
@@ -405,10 +311,27 @@ export default {
           teacher:"teacher1",
         })
         .then((res) => {
-          this.$router.push({name: 'Reservationsuccess'});
+          this.$router.push({
+            name: 'Reservationsuccess', 
+            params: {
+              date: [this.reservationselect.months.replace('0',''),this.reservationselect.day].join('/'), 
+              time: this.reservationselect.timeselect, 
+              name: this.reservationselect.personselect
+            }
+          });
         });
-      
+      /*this.$router.push({
+        name: 'Reservationsuccess', 
+        params: {
+          date: [this.reservationselect.months.replace('0',''),this.reservationselect.day].join('/'), 
+          time: this.reservationselect.timeselect, 
+          name: this.reservationselect.personselect
+        }
+      });*/
     }
+  },
+  created() {
+    this.setavailabledatelist();
   },
   mounted() {
     this.getpickid();
@@ -446,37 +369,55 @@ export default {
   display: none;
 }
 #innerpickbar {
+  display: table;
+  word-spacing: -1em;
   position: absolute;
-  width: 850px;
+  left: 0px;
+  width: 843.75px;
   height: 84px;
 }
 .photobox {
   display: inline-block;
   width: 53px;
   height: 72px;
-  margin-left: 42px;
+  margin-left: 40.75px;
   margin-top: 6px;
   opacity: 40%;
 }
 .photoboxB {
-  display: inline-block;
-  width: 53px;
-  height: 72px;
-  margin-left: 42px;
-  margin-top: 6px;
   opacity: 100%;
+  background-blend-mode: normal;
 }
 #b1 {
   margin-left: 161px;
 }
 .photocircle {
-  box-sizing: border-box;
+  position: relative;
   width: 53px;
   height: 53px;
-  border: 2px solid rgba(150, 251, 196, 1);
   border-radius: 53px;
-  margin-left: 1px;
+  background: #C7C7C7;
+}
+.photocircleB {
+  background: linear-gradient(180deg, #F9FEA5 -100.8%, #96FBC4 10.62%, #20E2D7 126.79%);
+  background-blend-mode: normal;
+}
+.photocircleinner {
+  position: absolute;
+  width: 49px;
+  height: 49px;
+  border-radius: 49px;
+  left: 2px;
+  top: 2px;
   filter: drop-shadow(5px 5px 25px rgba(204, 204, 204, 0.75));
+  background-color: #ffffff;
+  background-repeat: no-repeat;
+  background-Size: 45px 45px;
+  background-position: center;
+}
+#c1 {
+  background-image: url("../assets/svg/photo1.svg");
+  background-Size: 24px 24px;
 }
 .phototext {
   font-family: Taipei Sans TC Beta;
@@ -538,7 +479,7 @@ export default {
 .availabletime {
   display: inline-block;
   overflow-wrap: normal;
-  padding: 10px 25px;
+  padding: 10px ;
   flex-grow: 0;
   flex-shrink: 0;
   margin-top: 15px;
@@ -608,6 +549,9 @@ export default {
   height: 95px;
   left: 30px;
   top: 47px;
+  background-repeat: no-repeat;
+  background-size: 83px 83px;
+  background-position: center;
 }
 #maxim {
   position: absolute;

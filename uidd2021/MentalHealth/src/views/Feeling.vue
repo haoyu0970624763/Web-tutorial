@@ -1,6 +1,13 @@
 <template>
   <div>
     <Nav showUser="true" />
+    <div ref="canWater" class="canWater">
+      <div class="canWaterBox">
+        <img  class="canWaterimg" src="@/yo_0512/feeling_canWaterimg.svg">
+        <div class="canWaterText">已新增日記，<br>可以去澆水囉！</div>
+        <div @click="clickOK" class="btn_ok">了解</div>
+      </div>
+    </div>
     <!--
             心情小樹區
         -->
@@ -8,7 +15,7 @@
       <b-container style="padding-top: 15px">
         <b-row align-v="center">
           <b-col @click="clickWatering">
-            <img src="@/assets/svg/btn_plant_water.svg" />
+            <img ref="btn_water" class="noWater" src="@/assets/svg/btn_plant_water.svg" />
           </b-col>
           <b-col class="text-center">
             <div class="btn_stage">第1階段</div>
@@ -20,7 +27,7 @@
           </b-col>
         </b-row>
       </b-container>
-      <div class="text" id="text_watering">距離下一階段還需澆水3次</div>
+      <div class="text" id="text_watering">{{msg}}</div>
       <img class="cloud" src="@/assets/svg/plant_cloud.svg" />
       <img class="cloud" src="@/assets/svg/plant_cloud.svg" />
       <img class="cloud" src="@/assets/svg/plant_cloud.svg" />
@@ -62,7 +69,9 @@
           </router-link>
         </b-col>
         <b-col class="text-center">
-          <img src="@/assets/svg/btn_plant_press.svg" />
+          <router-link to="/press">
+            <img src="@/assets/svg/btn_plant_press.svg" />
+          </router-link>
         </b-col>
       </b-row>
     </b-container>
@@ -71,6 +80,82 @@
   </div>
 </template>
 <style scoped>
+.box_none{
+  display: none;
+}
+.btn_ok{
+  position: absolute;
+  width: 139px;
+  height: 43px;
+  left: calc(50% - 139px/2);
+  top: 177px;
+
+  background: #20E2D7;
+  box-shadow: 0px 4px 17px -1px rgba(107, 182, 177, 0.51);
+  border-radius: 33px;
+
+  font-family: Taipei Sans TC Beta;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 16px;
+  line-height: 43px;
+  text-align: center;
+
+  color: #FFFFFF;
+
+}
+.canWaterText{
+  
+
+  font-family: Taipei Sans TC Beta;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 13px;
+  padding-top: 130px;
+  text-align: center;
+
+  color: #4F4F4F;
+}
+.canWaterimg{
+  position: absolute;
+  left: calc(50% - 17.12px/2 - 17.44px);
+  top:30px;
+}
+.canWaterBox{
+  /* Frame 171 */
+  position: absolute;
+  
+
+  left: 74px;
+  top: 191px;
+  
+  
+  width: 227px;
+  height: 243px;
+
+
+  background: #FFFFFF;
+  border-radius: 20px;
+}
+.canWater{
+  /* Rectangle 51 */
+    z-index: 100;
+    position: fixed;
+    width: 375px;
+    height: 687px;
+    left: 0px;
+    top: 0px;
+
+    background: rgba(27, 27, 27, 0.5);
+    text-align: center;
+
+}
+.noWater{
+  opacity: 0.5;
+}
+.isWater{
+  opacity: 1;
+}
 .plant {
   position: relative;
   height: 307px;
@@ -506,37 +591,73 @@ import Footer from "@/components/Footer.vue";
 export default {
   name: "Feeling",
   data() {
-    return {};
+    return {
+      msg:"距離下一階段還需澆水3次"
+    };
+  },
+  created () {
+    
+  },
+  mounted: function(){
+    console.log('== mounted ==')
+    console.log('this.a: ' + this.a)
+    console.log('this.$el: ' + this.$el)
+    if(localStorage.getItem("isWater")!="F")
+    {
+      
+      console.log("可澆水")
+      
+      this.$refs.btn_water.classList.remove("noWater");
+      this.$refs.btn_water.classList.add("isWater");
+    }
+    else{
+      this.$refs.canWater.classList.add("box_none");
+    }
   },
   methods: {
+    clickOK:function () {
+      console.log("ok");
+      this.$refs.canWater.classList.add("box_none");
+    },
     clickWatering: function () {
-      //重啟動畫
-      this.$refs.stalk.classList.remove("grow");
-      this.$refs.leaf_1.classList.remove("grow");
-      this.$refs.leaf_2.classList.remove("grow");
-      this.$refs.stalk1.classList.remove("stalk1grow");
-      this.$refs.leaf_3.classList.remove("leaf3grow");
-      this.$refs.leaf_4.classList.remove("leaf4grow");
-      this.$refs.leaf_5.classList.remove("leaf5grow");
-      this.$refs.watercan.classList.remove("watercan");
-      this.$refs.drop1.classList.remove("drop1");
-      this.$refs.drop2.classList.remove("drop2");
-      this.$refs.drop3.classList.remove("drop3");
-      this.$refs.drop4.classList.remove("drop4");
-      this.timeout = setTimeout(() => {
-        this.$refs.stalk.classList.add("grow");
-        this.$refs.leaf_1.classList.add("grow");
-        this.$refs.leaf_2.classList.add("grow");
-        this.$refs.stalk1.classList.add("stalk1grow");
-        this.$refs.leaf_3.classList.add("leaf3grow");
-        this.$refs.leaf_4.classList.add("leaf4grow");
-        this.$refs.leaf_5.classList.add("leaf5grow");
-        this.$refs.watercan.classList.add("watercan");
-        this.$refs.drop1.classList.add("drop1");
-        this.$refs.drop2.classList.add("drop2");
-        this.$refs.drop3.classList.add("drop3");
-        this.$refs.drop4.classList.add("drop4");
-      }, 100);
+
+      console.log(localStorage.getItem("isWater"));
+      console.log(this.$refs.btn_water.classList)
+      if(localStorage.getItem("isWater")!="F")
+      {
+        this.msg="距離下一階段還需澆水2次"
+        this.$refs.btn_water.classList.add("noWater");
+        this.$refs.btn_water.classList.remove("isWater");
+        localStorage.setItem("isWater","F");
+            //重啟動畫
+          this.$refs.stalk.classList.remove("grow");
+          this.$refs.leaf_1.classList.remove("grow");
+          this.$refs.leaf_2.classList.remove("grow");
+          this.$refs.stalk1.classList.remove("stalk1grow");
+          this.$refs.leaf_3.classList.remove("leaf3grow");
+          this.$refs.leaf_4.classList.remove("leaf4grow");
+          this.$refs.leaf_5.classList.remove("leaf5grow");
+          this.$refs.watercan.classList.remove("watercan");
+          this.$refs.drop1.classList.remove("drop1");
+          this.$refs.drop2.classList.remove("drop2");
+          this.$refs.drop3.classList.remove("drop3");
+          this.$refs.drop4.classList.remove("drop4");
+          this.timeout = setTimeout(() => {
+            this.$refs.stalk.classList.add("grow");
+            this.$refs.leaf_1.classList.add("grow");
+            this.$refs.leaf_2.classList.add("grow");
+            this.$refs.stalk1.classList.add("stalk1grow");
+            this.$refs.leaf_3.classList.add("leaf3grow");
+            this.$refs.leaf_4.classList.add("leaf4grow");
+            this.$refs.leaf_5.classList.add("leaf5grow");
+            this.$refs.watercan.classList.add("watercan");
+            this.$refs.drop1.classList.add("drop1");
+            this.$refs.drop2.classList.add("drop2");
+            this.$refs.drop3.classList.add("drop3");
+            this.$refs.drop4.classList.add("drop4");
+          }, 100);
+      }
+      
     },
   },
   components: {

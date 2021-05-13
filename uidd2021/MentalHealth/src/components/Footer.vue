@@ -6,7 +6,7 @@
             <b-row>
                 <b-col class="text-center">
                     <!--暫時link到空頁面-->
-                    <router-link to="/temp">
+                    <router-link to="/home">
                         <img  v-if="showHome" class="iconimg" src="@/assets/svg/homeA.svg">
                         <img  v-else class="iconimg" src="@/assets/svg/home.svg">
                         <div v-if="showHome" class="icontext iconActivetext">首頁</div>
@@ -32,7 +32,7 @@
                 </b-col>
                 <b-col class="text-center">
                     <!--暫時link到空頁面-->
-                    <router-link to="/temp">
+                    <router-link to="/Otherresource">
                         <img  v-if="showResouce" class="iconimg" src="@/assets/svg/resouceA.svg">
                         <img  v-else class="iconimg" src="@/assets/svg/resouce.svg">
                         <div v-if="showResouce" class="icontext iconActivetext">其他資源</div>

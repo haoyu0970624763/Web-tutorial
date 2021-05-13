@@ -2,7 +2,10 @@
     <div>
         
         <Nav showUser=ture />
-        <div class="banner"></div>
+        <div class="banner">
+            <img  id="slide1" src="@/yo_0512/home_slide1.svg">
+            <img  id="slide2" src="@/yo_0512/home_slide2.svg">
+        </div>
         <div class="title">關於AURA</div>
         <div class="text_nofade">
             Aura是一個為了增進學生心理健康的平台，讓使用者們除了能更快更好的預約到適合的服務，也能以更多元的方式抒發壓力。
@@ -52,6 +55,63 @@
     
 </template>
 <style scoped>
+#slide1{
+    position: absolute;
+    /* animation 參數設定 */
+    animation-name:slidemove_1;    /*動畫名稱，需與 keyframe 名稱對應*/
+    animation-duration: 7s;    /*動畫持續時間，單位為秒*/
+    animation-delay: 0s;    /*動畫延遲開始時間*/
+    animation-iteration-count: infinite;    /*動畫次數，infinite 為無限次*/ 
+
+}
+#slide2{
+    position: absolute;
+    right: -375px;
+    /* animation 參數設定 */
+    animation-name:slidemove_2;    /*動畫名稱，需與 keyframe 名稱對應*/
+    animation-duration: 7s;    /*動畫持續時間，單位為秒*/
+    animation-delay: 0s;    /*動畫延遲開始時間*/
+    animation-iteration-count: infinite;    /*動畫次數，infinite 為無限次*/ 
+
+}
+
+@keyframes slidemove_1{
+    /* 中間 */
+    0% { transform: translateX(0px);}
+    40% { transform: translateX(0px);}
+
+    /* out */
+    40% { transform: translateX(0px);}
+    50% {transform: translateX(-375px); opacity: 1;}
+
+    /* 等待slide2 */
+    51% {transform: translateX(-375px);opacity: 0;}
+    52% {transform: translateX(375px);opacity: 0;}
+    53% {transform: translateX(375px);opacity: 1;}
+
+    /* in */
+    90% {transform: translateX(375px);opacity: 1;}
+    100% {transform: translateX(0px); }
+}
+@keyframes slidemove_2{
+    /* 等待 */
+    0% { transform: translateX(0px);opacity: 0;}
+    40% { transform: translateX(0px);opacity: 1;}
+
+    /* in */
+    40% { transform: translateX(0px);}
+    50% {transform: translateX(-375px); opacity: 1;}
+
+    /* 中間 */
+    50% {transform: translateX(-375px); opacity: 1;}
+    90% {transform: translateX(-375px); opacity: 1;}
+    
+
+    /* out */
+    
+    100% {transform: translateX(-750px);opacity: 0; }
+    
+}
 .bottom{
     margin-top: 60px;
     padding-top: 16px;
@@ -210,10 +270,10 @@
     color: #4F4F4F;
 }
 .banner{
-    
+    position: relative;
     width: 375px;
     height: 220px;
-
+    overflow: hidden;
 
     background: #EFFFFD;
     box-shadow: 0px 1px 0px rgba(0, 0, 0, 0.1);
@@ -231,11 +291,16 @@ export default {
         }
     },
     created () {
+        console.log('== created ==')
         window.addEventListener('scroll', this.handleScroll);
+        localStorage.clear();
+        localStorage.setItem("isWater","F");
     },
     destroyed () {
+        console.log('== destroyed ==')
         window.removeEventListener('scroll', this.handleScroll);
     },
+    
     methods: {
         handleScroll () {
             var scrollTop = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop

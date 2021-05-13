@@ -44,8 +44,8 @@
         <div id="name">{{ recorditem.expertname }}心理師</div>
         <div id="statetitle">諮商狀態</div>
         <div id="st">{{ recorditem.state }}</div>
-        <div id="cancel" v-if="rightFlag===0"></div>
-        <div id="canceltext" v-if="rightFlag===0">取消預約</div>
+        <div id="cancel" v-if="rightFlag===0" @click="cancelreservation"></div>
+        <div id="canceltext" v-if="rightFlag===0" @click="cancelreservation">取消預約</div>
         <div class="describecontent" :class="{describecontentbig : rightFlag}"></div>
         <div class="contenttext" :class="{contenttextbig : rightFlag}">詳細內容</div>     
       </div>
@@ -63,7 +63,6 @@ export default {
       userDepartmentLevel: "資訊系 大三",
       leftFlag: 1,
       rightFlag: 0,
-
       classObject: {
         active: true,
         "text-danger": false,
@@ -81,6 +80,7 @@ export default {
       // 显示不同的view
       typeView: 0,
       errorMeg: "",
+      isCancel: false,
     };
   },
   methods: {
@@ -98,28 +98,45 @@ export default {
       this.getpastrecord();
     },
     getrecord() {
+      var y, m, d;
+      [m,d] = this.$route.params.date.split('/');
+      m = "0" + m;
+      var time = this.$route.params.time;
+      var name = this.$route.params.name;
       this.reservationrecord = [];
       this.reservationrecord.push({
           reservationyear: "2021",
-          reservationmonth: "05",
-          reservationday: "21",
-          reservationtime: "14:00-15:00",
-          expertname: "陳大名",
+          reservationmonth: m,
+          reservationday: d,
+          reservationtime: time,
+          expertname: name,
           state: "預約成立",
         }
       );
     },
     getpastrecord() {
+      var y, m, d;
+      [m,d] = this.$route.params.date.split('/');
+      m = "0" + m;
+      var time = this.$route.params.time;
+      var name = this.$route.params.name;
       this.reservationrecord = [];
-      this.reservationrecord.push({
-          reservationyear: "2021",
-          reservationmonth: "02",
-          reservationday: "28",
-          reservationtime: "13:00-14:00",
-          expertname: "陳大名",
-          state: "結案",
-        }
-      );
+      if(this.isCancel)
+      {
+        this.reservationrecord.push({
+            reservationyear: "2021",
+            reservationmonth: m,
+            reservationday: d,
+            reservationtime: time,
+            expertname: name,
+            state: "結案",
+          }
+        );
+      }     
+    },
+    cancelreservation() {
+      this.reservationrecord = [];
+      this.isCancel = true;
     }
   },
   created() {
