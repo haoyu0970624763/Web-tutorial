@@ -50,6 +50,7 @@
         <div class="contenttext" :class="{contenttextbig : rightFlag}">詳細內容</div>     
       </div>
     </div>
+    <Footer showRecord="true" />
   </div>
 </template>
 

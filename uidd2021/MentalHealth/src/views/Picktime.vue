@@ -1,7 +1,7 @@
 <template>
   <div class="desktop" :class="{ darken: seen }">
     <div id="namebar">
-      <Nav showBackArrow showText navText="挑選日期與時間" />
+      <Nav showBackArrow showText navText="挑選日期與時間" destination="analysis" />
     </div>
     <div id="pickbar">
       <div id="innerpickbar">
@@ -23,6 +23,7 @@
         </div>
       </div>
     </div>
+    <div>{{this.pickID}}</div>
     <div id="splitline"></div>
     <div id="calendar">
       <b-calendar
@@ -63,32 +64,35 @@
       下一步
       </div>
     </div>
-    <div class="Description" v-if="seen">
-      <div id="photo" :style="description.photostyle"></div>
-      <div id="maxim">{{ description.maximtext }}</div>
-      <button type="button" id="closebtn" @click="closedescription"></button>
-      <div class="contenttitle" id="gender">性別</div>
-      <div class="contenttitle" id="expert">擅長議題</div>
-      <div class="contenttitle" id="talkstyle">諮商風格</div>
-      <div class="content" id="genderc">{{ description.gendercontent }}</div>
-      <div class="content" id="expertc">{{ description.expertcontent }}</div>
-      <div class="content" id="talkstylec">
-        {{ description.talkstylecontent }}
+    <transition name="descript">
+      <div class="Description" v-if="seen">
+        <div id="photo" :style="description.photostyle"></div>
+        <div id="maxim">{{ description.maximtext }}</div>
+        <button type="button" id="closebtn" @click="closedescription"></button>
+        <div class="contenttitle" id="gender">性別</div>
+        <div class="contenttitle" id="expert">擅長議題</div>
+        <div class="contenttitle" id="talkstyle">諮商風格</div>
+        <div class="content" id="genderc">{{ description.gendercontent }}</div>
+        <div class="content" id="expertc">{{ description.expertcontent }}</div>
+        <div class="content" id="talkstylec">
+          {{ description.talkstylecontent }}
+        </div>
       </div>
+    </transition>
     </div>
   </div>
 </template>
 <script>
-import Nav from '@/components/Nav.vue'
+import Nav from "@/components/Nav.vue";
 export default {
-  name: 'Picktime',
-  components:{
+  name: "Picktime",
+  components: {
     Nav,
   },
   data() {
     return {
       //
-          /*userID:"F74072120",
+      /*userID:"F74072120",
           year:2021,
           months:5,
           day:15,
@@ -103,172 +107,157 @@ export default {
         timeselect: "",
         personselect: "",
       },
-      namelist: {1: "挑時間",2: "許欣宜", 3: "林宜華", 4: "陳以玟", 5: "王浩偉", 6: "陳俊宇"},
-      dateselect: '',
+
+      namelist: {
+        1: "挑時間",
+        2: "許欣宜",
+        3: "林宜華",
+        4: "陳以玟",
+        5: "王浩偉",
+        6: "陳俊宇",
+      },
+      dateselect: "",
       pickval: 0,
       seen: false,
       nextavailable: false,
       picktimeisactive: false,
-      expert: [{
-          photo: {
-            backgroundImage: "url(" + require("@/assets/Tim/expert1.svg") +")",
-          },
-          name: "許欣宜",
-          isActive: false,
-          id: 2,
-        }, {
-          photo: {
-            backgroundImage: "url(" + require("@/assets/Tim/expert2.svg") +")",
-          },
-          name: "林宜華",
-          isActive: false,
-          id: 3,
-        }, {
-          photo: {
-            backgroundImage: "url(" + require("@/assets/Tim/expert3.svg") +")",
-          },
-          name: "陳以玟",
-          isActive: false,
-          id: 4,
-        }, {
-          photo: {
-            backgroundImage: "url(" + require("@/assets/Tim/expert4.svg") +")",
-          },
-          name: "王浩偉",
-          isActive: false,
-          id: 5,
-        }, {
-          photo: {
-            backgroundImage: "url(" + require("@/assets/Tim/expert5.svg") +")",
-          },
-          name: "陳俊宇",
-          isActive: false,
-          id: 6,
-        }
-      ],
+      expert: [],
       description: {
         photostyle: {
-          backgroundImage: "url(" + require("@/assets/svg/photo.svg") +")",
+          backgroundImage: "url(" + require("@/assets/svg/photo.svg") + ")",
         },
-        maximtext: '“ 抱持對人性的理解，開創出人生的新解 ”',
-        gendercontent: '女',
-        expertcontent: '情緒管理、生涯探索與規劃、性別議題、情感探索與經驗、人際適應',
-        talkstylecontent: 'place holder',
+        maximtext: "“ 抱持對人性的理解，開創出人生的新解 ”",
+        gendercontent: "女",
+        expertcontent:
+          "情緒管理、生涯探索與規劃、性別議題、情感探索與經驗、人際適應",
+        talkstylecontent: "place holder",
       },
-      availabledatelist: {"挑時間": [],"許欣宜": [], "林宜華": [], "陳以玟": [], "王浩偉": [], "陳俊宇": []},
+      availabledatelist: {
+        挑時間: [],
+        許欣宜: [],
+        林宜華: [],
+        陳以玟: [],
+        王浩偉: [],
+        陳俊宇: [],
+      },
       availabletimelist: [],
     };
   },
+
   watch: {
-    dateselect: function(val, oldVal){
+    dateselect: function (val, oldVal) {
       this.nextavailable = false;
       this.reservationselect.timeselect = "";
       this.reservationselect.year = "";
       this.reservationselect.months = "";
       this.reservationselect.day = "";
       this.availabletimelist = [];
-      if(this.dateselect != '')
-      {
-        for(var k = 0; k < 3; k++)
-        {
-          if(k == 1)
-          {
-            var n = (this.pickval == 1)?Math.floor(Math.random() * 5) + 2:this.pickval;
-            this.availabletimelist.push({avaltime: "14:00-15:00", name: this.namelist[n], isClick: false});
-          }
-          else{
-            var n = (this.pickval == 1)?Math.floor(Math.random() * 5) + 2:this.pickval;
-            var t1 = Math.floor(Math.random() * (5)) + 7 + 5*k;
+      if (this.dateselect != "") {
+        for (var k = 0; k < 3; k++) {
+          if (k == 1) {
+            var n =
+              this.pickval == 1
+                ? Math.floor(Math.random() * 5) + 2
+                : this.pickval;
+            this.availabletimelist.push({
+              avaltime: "14:00-15:00",
+              name: this.namelist[n],
+              isClick: false,
+            });
+          } else {
+            var n =
+              this.pickval == 1
+                ? Math.floor(Math.random() * 5) + 2
+                : this.pickval;
+            var t1 = Math.floor(Math.random() * 5) + 7 + 5 * k;
             var t2 = t1 + 1;
             t1 = String(t1) + ":00";
             t2 = String(t2) + ":00";
             var t = [t1, t2];
-            this.availabletimelist.push({avaltime: t.join('-'), name: this.namelist[n], isClick: false});
+            this.availabletimelist.push({
+              avaltime: t.join("-"),
+              name: this.namelist[n],
+              isClick: false,
+            });
           }
         }
-      }      
+      }
+    },
+
+    pickval: function (val, oldVal) {
+      this.dateselect = "";
     },
   },
   methods: {
     setavailabledatelist() {
-      for(var i = 1; i < 7; i++){
-        for(var j = 0; j < 5; j++)
-        {
+      for (var i = 1; i < 7; i++) {
+        for (var j = 0; j < 5; j++) {
           var y = "2021";
-          var m = "05";
+          var m = "06";
           var d = String(Math.floor(Math.random() * (30 - 1 + 1)) + 10);
           var ymd = [y, m, d];
-          this.availabledatelist[this.namelist[i]].push(ymd.join('-'));
+          this.availabledatelist[this.namelist[i]].push(ymd.join("-"));
         }
-        this.availabledatelist[this.namelist[i]].push("2021-05-21");
+        this.availabledatelist[this.namelist[i]].push("2021-06-21");
       }
     },
     setselect(si) {
-      this.availabletimelist.forEach(i=>{
+      this.availabletimelist.forEach((i) => {
         i.isClick = false;
-      })
+      });
       this.nextavailable = true;
       si.isClick = true;
       this.reservationselect.timeselect = si.avaltime;
       this.reservationselect.personselect = si.name;
-      [this.reservationselect.year, this.reservationselect.months, this.reservationselect.day] = this.dateselect.split('-');
+      [
+        this.reservationselect.year,
+        this.reservationselect.months,
+        this.reservationselect.day,
+      ] = this.dateselect.split("-");
     },
     pickbarscroll(pv) {
       this.clickSrollLeft("pickbar", (pv - 1) * 93.75);
     },
     clickpicktime() {
       this.picktimeisactive = true;
-      this.expert.forEach(i=>{
+      this.expert.forEach((i) => {
         i.isActive = false;
-      })
+      });
       this.seen = false;
       this.pickbarscroll(1);
       this.pickval = 1;
       this.reservationselect.personselect = "";
-      this.dateselect = '';
     },
     clickphoto(id) {
       this.picktimeisactive = false;
-      this.expert.forEach(i=>{
+      this.expert.forEach((i) => {
         i.isActive = false;
-        if(i.id == id)
-        {
+        if (i.id == id) {
           i.isActive = true;
           this.description.photostyle = i.photo;
           this.reservationselect.personselect = i.name;
         }
-      })
+      });
       this.seen = true;
       this.pickbarscroll(id);
       this.pickval = id;
-      this.dateselect = '';
     },
     clickSrollLeft(Id, pos) {
       var timer;
-      timer = setInterval(function() {
+      timer = setInterval(function () {
         var current = document.getElementById(Id).scrollLeft;
-        if(current >= pos)
-        {
-          if(current - pos <= 1)
-          {
+        if (current >= pos) {
+          if (current - pos <= 1) {
             document.getElementById(Id).scrollLeft = pos;
             clearInterval(timer);
-            
-          }
-          else
-          {
+          } else {
             document.getElementById(Id).scrollLeft = current - 1;
           }
-        }
-        else
-        {
-          if(pos - current <= 1)
-          {
+        } else {
+          if (pos - current <= 1) {
             document.getElementById(Id).scrollLeft = pos;
             clearInterval(timer);
-          }
-          else
-          {
+          } else {
             document.getElementById(Id).scrollLeft = current + 2;
           }
         }
@@ -279,45 +268,52 @@ export default {
       this.seen = false;
     },
     dateDisabled(ymd, date) {
-      if(this.availabledatelist[this.namelist[this.pickval]].indexOf(ymd) > -1) {
+      if (
+        this.availabledatelist[this.namelist[this.pickval]].indexOf(ymd) > -1
+      ) {
         return false;
-      }
-      else{
+      } else {
         return true;
       }
     },
     dateClass(ymd, date) {
-        return ['table-primary', 'border-0', 'rounded-circle'];
+      return ["table-primary", "border-0", "rounded-circle"];
+    },
+    getexpertsort() {
+      this.$store.state.mentalInfo.forEach((i) => {
+        this.expert.push(i);
+      });
     },
     getpickid() {
-      var pickid = this.$route.params.pickid;
-      if(pickid === 1)
-      {
+      var pickid = this.$store.state.mentalId;
+
+      if (parseInt(pickid) == 1) {
         this.clickpicktime();
-      }
-      else if(pickid > 1)
-      {
+      } else {
         this.clickphoto(pickid);
       }
     },
     nstep() {
       this.$http
         .post("/api/book", {
-          userID:"F74072120",
-          year:this.reservationselect.year,
-          months:this.reservationselect.months,
-          day:this.reservationselect.day,
-          time:this.reservationselect.timeselect,  // it means 9:00 to 11:00
-          teacher:"teacher1",
+          userID: "F74072120",
+          year: this.reservationselect.year,
+          months: this.reservationselect.months,
+          day: this.reservationselect.day,
+          time: this.reservationselect.timeselect, // it means 9:00 to 11:00
+          teacher: "teacher1",
         })
         .then((res) => {
           this.$router.push({
-            name: 'Reservationsuccess', 
+            name: "Reservationsuccess",
             params: {
-              date: [this.reservationselect.months.replace('0',''),this.reservationselect.day].join('/'), 
-              time: this.reservationselect.timeselect, 
-              name: this.reservationselect.personselect
-            }
+              date: [
+                this.reservationselect.months.replace("0", ""),
+                this.reservationselect.day,
+              ].join("/"),
+              time: this.reservationselect.timeselect,
+              name: this.reservationselect.personselect,
+            },
           });
         });
       /*this.$router.push({
@@ -328,14 +324,15 @@ export default {
           name: this.reservationselect.personselect
         }
       });*/
-    }
+    },
   },
   created() {
+    this.getexpertsort();
     this.setavailabledatelist();
   },
   mounted() {
     this.getpickid();
-  }
+  },
 };
 </script>
 
@@ -396,10 +393,15 @@ export default {
   width: 53px;
   height: 53px;
   border-radius: 53px;
-  background: #C7C7C7;
+  background: #c7c7c7;
 }
 .photocircleB {
-  background: linear-gradient(180deg, #F9FEA5 -100.8%, #96FBC4 10.62%, #20E2D7 126.79%);
+  background: linear-gradient(
+    180deg,
+    #f9fea5 -100.8%,
+    #96fbc4 10.62%,
+    #20e2d7 126.79%
+  );
   background-blend-mode: normal;
 }
 .photocircleinner {
@@ -412,12 +414,12 @@ export default {
   filter: drop-shadow(5px 5px 25px rgba(204, 204, 204, 0.75));
   background-color: #ffffff;
   background-repeat: no-repeat;
-  background-Size: 45px 45px;
+  background-size: 45px 45px;
   background-position: center;
 }
 #c1 {
   background-image: url("../assets/svg/photo1.svg");
-  background-Size: 24px 24px;
+  background-size: 24px 24px;
 }
 .phototext {
   font-family: Taipei Sans TC Beta;
@@ -453,6 +455,15 @@ export default {
   width: 375px;
   height: 290px;
 }
+.descript-enter-active,
+.descript-leave-active {
+  transition: all 0.8s ease;
+}
+.descript-enter,
+.descript-leave-to {
+  transform: translateY(-15px);
+  opacity: 0;
+}
 #describe {
   position: absolute;
   width: 284px;
@@ -479,7 +490,7 @@ export default {
 .availabletime {
   display: inline-block;
   overflow-wrap: normal;
-  padding: 10px ;
+  padding: 10px;
   flex-grow: 0;
   flex-shrink: 0;
   margin-top: 15px;

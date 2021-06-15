@@ -43,7 +43,14 @@ export default {
   methods:{
     goOff(){
         //回到上一頁
-        this.$router.go(-1);
+        if(this.destination == "0")
+        {
+            this.$router.go(-1);
+        }
+        else
+        {
+            this.$router.push({name: this.destination});
+        }
     }
   },
   props: { //props讀取外部傳入的屬性。
@@ -51,7 +58,11 @@ export default {
     showBackArrow:Boolean,
     showRecord:Boolean,
     showUser:Boolean,
-    navText: String
+    navText: String,
+    destination: {
+        type: String,
+        default: "0"
+    }
   }
 }
 </script>

@@ -8,20 +8,30 @@ export default new Vuex.Store({
 
   state: {
     userName: '',
-    userPassword: ''
+    PressScore: '',
+    analysisResult: '',
+    mentalId: 'k',
+    mentalInfo: '',
   },
 
   mutations: {
     // 设置用户信息
-    setUserInfo (state, name, pwd) {
+    setUserInfo(state, name) {
       state.userName = name
-      state.userPassword = pwd
     },
-    // 清除用户信息
-    clearUserInfo (state) {
-      state.userName = ''
-      state.userPassword = ''
-    }
+    setPressScore(state, PressScore) {
+      state.PressScore = PressScore
+    },
+    setAnalysisResult(state, analysisResult) {
+      state.analysisResult = analysisResult
+    },
+    setMentalId(state, mentalId) {
+      state.mentalId = mentalId
+    },
+    setMentalInfo(state, mentalInfo) {
+      state.mentalInfo = mentalInfo
+    },
+
   },
   plugins: [createPersistedState()]
 })

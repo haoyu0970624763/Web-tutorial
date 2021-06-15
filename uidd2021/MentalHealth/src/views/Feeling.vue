@@ -3,7 +3,7 @@
     <Nav showUser="true" />
     <div ref="canWater" class="canWater">
       <div class="canWaterBox">
-        <img  class="canWaterimg" src="@/yo_0512/feeling_canWaterimg.svg">
+        <img  class="canWaterimg" src="@/assets/yoyoLin/feeling_canWaterimg.svg">
         <div class="canWaterText">已新增日記，<br>可以去澆水囉！</div>
         <div @click="clickOK" class="btn_ok">了解</div>
       </div>

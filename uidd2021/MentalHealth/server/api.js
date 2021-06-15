@@ -31,7 +31,7 @@ pool.getConnection((err, connection) => {
 
     if (err) throw err;
     var sql = "SHOW TABLES LIKE 'user'"
-    var sql2 = "CREATE TABLE user (id VARCHAR(20), password VARCHAR(20) , name VARCHAR(20) , DepartmentLevel VARCHAR(20) )";
+    var sql2 = "CREATE TABLE user (id VARCHAR(20), password VARCHAR(20) , name VARCHAR(20))";
 
     var sql3 = "SHOW TABLES LIKE 'BookTeacher1'"
     var sql4 = "CREATE TABLE BookTeacher1 (Year VARCHAR(20) , months VARCHAR(20), day VARCHAR(20) , time VARCHAR(20), user_id VARCHAR(20) , valid VARCHAR(20))";
@@ -238,11 +238,10 @@ pool.getConnection((err, connection) => {
 module.exports = {
 
     login(req, res, next) {
-
-        var id = req.body.id;
+        var id = req.body.ID;
         var password = req.body.password;
         pool.getConnection((err, connection) => {
-            var sql = sqlMap.login;
+            var sql = "select * from user where id=?"
             connection.query(sql, [id], (err, result) => {
 
                 if (result.length == 0) {
@@ -261,13 +260,31 @@ module.exports = {
         })
     },
     register(req, res, next) {
-        var id = req.body.id;
+       
+        var id = req.body.ID;
         var password = req.body.password;
+        var name = req.body.name;
+
+        var sql_add = "insert into user(`id`,`password`,`name`) values(?,?,?)"
+        var sql_checkID = "select * from user where id=?"
+
         pool.getConnection((err, connection) => {
-            var sql = sqlMap.register;
-            connection.query(sql, [id, password], (err, result) => {
+
+            connection.query(sql_checkID, [id],(err, result) => {
+                if (err) throw err;
+                if (result.length == 0) {
+                    //帳號沒有人用過
+                    connection.query(sql_add, [id,password,name],(err, result) => {
+                        if (err) throw err;
+                        res.send("success")
+                    });
+                }
+                else{
+                    //帳號已有人用過
+                    res.send("fail")
+                }
                 connection.release();
-            })
+            });
         })
     },
     book(req, res, next) {
