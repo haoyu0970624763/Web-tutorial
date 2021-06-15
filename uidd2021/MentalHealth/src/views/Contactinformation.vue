@@ -177,7 +177,7 @@ export default {
     position: absolute;
     width: 17.7px;
     height: 13px;
-    background-image: url("../assets/Tim/email.svg");
+    //background-image: url("../assets/Tim/email.svg");
     background-repeat: no-repeat;
     background-size: 17.7px 13px;
     left: 20.01px;
@@ -187,7 +187,7 @@ export default {
     position: absolute;
     width: 14px;
     height: 20px;
-    background-image: url("../assets/Tim/phone.svg");
+    //background-image: url("../assets/Tim/phone.svg");
     background-repeat: no-repeat;
     background-size: 14px 20px;
     left: 20px;
@@ -197,7 +197,7 @@ export default {
     position: absolute;
     width: 15px;
     height: 15.41px;
-    background-image: url("../assets/Tim/address.svg");
+   // background-image: url("../assets/Tim/address.svg");
     background-repeat: no-repeat;
     background-size: 15px 15.41px;
     left: 19.5px;
@@ -207,7 +207,7 @@ export default {
     position: absolute;
     width: 17.03px;
     height: 16.25px;
-    background-image: url("../assets/Tim/contact.svg");
+    //background-image: url("../assets/Tim/contact.svg");
     background-repeat: no-repeat;
     background-size: 17.03px 16.25px;
     left: 18.48px;
@@ -217,7 +217,7 @@ export default {
     position: absolute;
     width: 16.67px;
     height: 16.67px;
-    background-image: url("../assets/Tim/contactnum.svg");
+    //background-image: url("../assets/Tim/contactnum.svg");
     background-repeat: no-repeat;
     background-size: 16.67px 16.67px;
     left: 18.67px;

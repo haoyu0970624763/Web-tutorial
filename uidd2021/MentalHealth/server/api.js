@@ -10,21 +10,6 @@ const pool = mysql.createPool({
     multipleStatements: true    // 多語句查詢
 });
 
-// set UTF8
-pool.getConnection((err, connection) => {
-
-    var sql = "alter database uidd2021_groupH character set utf8;"
-    var sql2 = "SET NAMES 'utf8'";
-
-    connection.query(sql, function (err, result) {
-        if (err) throw err;
-    });
-    connection.query(sql2, function (err, result) {
-        if (err) throw err;
-    });
-
-    connection.release();
-})
 //  check whether the tables are exist , if not create it
 
 pool.getConnection((err, connection) => {
@@ -33,17 +18,9 @@ pool.getConnection((err, connection) => {
     var sql = "SHOW TABLES LIKE 'user'"
     var sql2 = "CREATE TABLE user (id VARCHAR(20), password VARCHAR(20) , name VARCHAR(20))";
 
-    var sql3 = "SHOW TABLES LIKE 'BookTeacher1'"
-    var sql4 = "CREATE TABLE BookTeacher1 (Year VARCHAR(20) , months VARCHAR(20), day VARCHAR(20) , time VARCHAR(20), user_id VARCHAR(20) , valid VARCHAR(20))";
+    var sql3 = "SHOW TABLES LIKE 'BookTable'"
+    var sql4 = "CREATE TABLE BookTable (Year VARCHAR(20) , months VARCHAR(20), day VARCHAR(20) , time VARCHAR(20), user_id VARCHAR(20) , mentalName VARCHAR(20))";
 
-    var sql5 = "SHOW TABLES LIKE 'BookTeacher2'"
-    var sql6 = "CREATE TABLE BookTeacher2 (Year VARCHAR(20), months VARCHAR(20) , day VARCHAR(20) , time VARCHAR(20) , user_id VARCHAR(20), valid VARCHAR(20))";
-
-    var sql7 = "SHOW TABLES LIKE 'BookTeacher3'"
-    var sql8 = "CREATE TABLE BookTeacher3 (Year VARCHAR(20) , months VARCHAR(20), day VARCHAR(20) , time VARCHAR(20), user_id VARCHAR(20) , valid VARCHAR(20))";
-
-    var sql9 = "SHOW TABLES LIKE 'BookTeacher4'"
-    var sql10 = "CREATE TABLE BookTeacher4 (Year VARCHAR(20) , months VARCHAR(20), day VARCHAR(20) , time VARCHAR(20), user_id VARCHAR(20) , valid VARCHAR(20))";
 
     connection.query(sql, function (err, result) {
         if (err) throw err;
@@ -59,181 +36,59 @@ pool.getConnection((err, connection) => {
         if (result.length == 0) {
             connection.query(sql4, function (err, result) {
                 if (err) throw err;
-                console.log("table of BookTeacher1 created");
+                console.log("table of BookTable created");
+                var sql5 = "select * from BookTable"
+                var sql6 = "insert into BookTable(Year,months,day,time,user_id,mentalName) values(?,?,?,?,?,?)"
+
+                var year = 2021;
+                var months = 7;
+                var user_id = "";
+                var mentalName1 = "許欣宜";
+                var mentalName2 = "林宜華";
+                var mentalName3 = "陳以玟";
+                var mentalName4 = "王浩偉";
+                var mentalName5 = "陳俊宇";
+
+                connection.query(sql5, function (err, result) {
+                    if (err) throw err;
+                    if (result.length == 0) {
+                        for (i = 1; i <= 10; i++) {
+                            for (j = 10; j < 15; j += 1) {
+                                if (j == 12) {
+                                    continue;
+                                }
+                                var timeStr = j.toString() + ":00" + "-" + (j + 1).toString() + ":00";
+                                connection.query(sql6, [year, months, i, timeStr, user_id, mentalName1], function (err, result) {
+                                    if (err) throw err;
+                                })
+                                connection.query(sql6, [year, months, i, timeStr, user_id, mentalName2], function (err, result) {
+                                    if (err) throw err;
+                                })
+                                connection.query(sql6, [year, months, i, timeStr, user_id, mentalName3], function (err, result) {
+                                    if (err) throw err;
+                                })
+                                connection.query(sql6, [year, months, i, timeStr, user_id, mentalName4], function (err, result) {
+                                    if (err) throw err;
+                                })
+                                connection.query(sql6, [year, months, i, timeStr, user_id, mentalName5], function (err, result) {
+                                    if (err) throw err;
+                                })
+                            }
+                        }
+                    }
+                    else {
+                        console.log("the table has been established");
+                    }
+                });
+
             })
         }
         else {
-            console.log("Table of BookTeacher1 exists");
-        }
-    });
-    connection.query(sql5, function (err, result) {
-        if (err) throw err;
-        if (result.length == 0) {
-            connection.query(sql6, function (err, result) {
-                if (err) throw err;
-                console.log("table of BookTeacher2 created");
-            })
-        }
-        else {
-            console.log("Table of BookTeacher2 exists");
-        }
-    });
-    connection.query(sql7, function (err, result) {
-        if (err) throw err;
-        if (result.length == 0) {
-            connection.query(sql8, function (err, result) {
-                if (err) throw err;
-                console.log("table of BookTeacher3 created");
-            })
-        }
-        else {
-            console.log("Table of BookTeacher3 exists");
-        }
-    });
-    connection.query(sql9, function (err, result) {
-        if (err) throw err;
-        if (result.length == 0) {
-            connection.query(sql10, function (err, result) {
-                if (err) throw err;
-                console.log("table of BookTeacher4 created");
-            })
-        }
-        else {
-            console.log("Table of BookTeacher4 exists");
-        }
-    });
-    
-    connection.release();
-})
-/*
-//  check whether the table has data , if not add it
-pool.getConnection((err, connection) => {
-
-    var sql = "select * from user"
-    var sql2 = "insert into user(id,password,name,DepartmentLevel) values(?,?,?,?)"
-
-    var sql3 = "select * from BookTeacher1"
-    var sql4 = "insert into BookTeacher1(Year,months,day,time,user_id,valid) values(?,?,?,?,?,?)"
-
-    var sql3 = "select * from BookTeacher2"
-    var sql4 = "insert into BookTeacher2(Year,months,day,time,user_id,valid) values(?,?,?,?,?,?)"
-
-    var sql5 = "select * from BookTeacher3"
-    var sql6 = "insert into BookTeacher3(Year,months,day,time,user_id,valid) values(?,?,?,?,?,?)"
-
-    var sql7 = "select * from BookTeacher4"
-    var sql8 = "insert into BookTeacher4(Year,months,day,time,user_id,valid) values(?,?,?,?,?,?)"
-
-    var id = "F74072120";
-    var password = "f74072120";
-    var name = "彭皓瑜"
-    var DepartmentLevel = "資訊系 大三";
-
-    var year = 2021;
-    var months = 5;
-    var user_id = "";
-    var valid = "yes";
-
-    // add user information
-    connection.query(sql, function (err, result) {
-        if (err) throw err;
-        if (result.length == 0) {
-            connection.query(sql2, [id, password, name, DepartmentLevel], function (err, result) {
-                if (err) throw err;
-                console.log("add user");
-            })
-        }
-        else{
-            console.log("user exists");
-        }
-    });
-
-    connection.query(sql3, function (err, result) {
-        if (err) throw err;
-        if (result.length == 0) {
-            for (i = 1; i <= 31; i++) {
-                for (j = 9; j <= 15; j+=2) {
-                    connection.query(sql4, [year, months, i, j, user_id, valid], function (err, result) {
-                        if (err) throw err;
-                    })
-                }
-            }
-            console.log("finish")
-        }
-        else{
-            console.log("the table has been established");
-        }
-    });
-
-    connection.query(sql5, function (err, result) {
-        if (err) throw err;
-        if (result.length == 0) {
-            for (i = 1; i <= 31; i++) {
-                for (j = 9; j <= 15; j+=2) {
-                    connection.query(sql6, [year, months, i, j, user_id, valid], function (err, result) {
-                        if (err) throw err;
-                    })
-                }
-            }
-            console.log("finish")
-        }
-        else{
-            console.log("the table has been established");
-        }
-    });
-
-    connection.query(sql7, function (err, result) {
-        if (err) throw err;
-        if (result.length == 0) {
-            for (i = 1; i <= 31; i++) {
-                for (j = 9; j <= 15; j+=2) {
-                    connection.query(sql8, [year, months, i, j, user_id, valid], function (err, result) {
-                        if (err) throw err;
-                    })
-                }
-            }
-            console.log("finish")
-        }
-        else{
-            console.log("the table has been established");
+            console.log("Table of BookTable exists");
         }
     });
     connection.release();
 })
-
-pool.getConnection((err, connection) => {
-
-    var sql = "select * from reservation where user_id=?";
-    var sql2 = "update reservation set user_id=?, teacher=? where  Year=? and months=? and day=?  AND time=?";
-    var year = 2021;
-    var months = 5;
-    var day1 = 1;
-    var time1 = 14;
-    var day2 = 15;
-    var time2 = 13;
-    var user_id = "F74072120";
-    var teacher = "teacher1"
-    
-    connection.query(sql2, [user_id, teacher, year, months, day1, time1], function (err, result) {
-        if (err) throw err;
-    });
-    connection.query(sql2, [user_id, teacher, year, months, day2, time2], function (err, result) {
-        if (err) throw err;
-    });
-    
-    
-    // add user information
-    connection.query(sql, [user_id], function (err, result) {
-        if (err) throw err;
-        if (result.length > 0) {
-            console.log(result);
-        }
-    });
-    
-
-    connection.release();
-})
-*/
 
 module.exports = {
 
@@ -260,7 +115,7 @@ module.exports = {
         })
     },
     register(req, res, next) {
-       
+
         var id = req.body.ID;
         var password = req.body.password;
         var name = req.body.name;
@@ -270,16 +125,16 @@ module.exports = {
 
         pool.getConnection((err, connection) => {
 
-            connection.query(sql_checkID, [id],(err, result) => {
+            connection.query(sql_checkID, [id], (err, result) => {
                 if (err) throw err;
                 if (result.length == 0) {
                     //帳號沒有人用過
-                    connection.query(sql_add, [id,password,name],(err, result) => {
+                    connection.query(sql_add, [id, password, name], (err, result) => {
                         if (err) throw err;
                         res.send("success")
                     });
                 }
-                else{
+                else {
                     //帳號已有人用過
                     res.send("fail")
                 }
@@ -287,33 +142,49 @@ module.exports = {
             });
         })
     },
+    GetBookInfo(req, res, next) {
+
+        var sql = "select * from BookTable";
+
+        pool.getConnection((err, connection) => {
+
+            connection.query(sql, (err, result) => {
+
+                if (result.length != 0) {
+                    res.send(result)
+                }
+                connection.release();
+            })
+        })
+
+    },
     book(req, res, next) {
-        var userID=req.body.userID;
-        var year=req.body.year;
-        var months=req.body.months;
-        var day=req.body.day;
-        var time=req.body.time;
-        var teacher=req.body.teacher;
-        var valid="false";
-        
-       
+        var userID = req.body.userID;
+        var year = req.body.year;
+        var months = req.body.months;
+        var day = req.body.day;
+        var time = req.body.time;
+        var teacher = req.body.teacher;
+        var valid = "false";
+
+
         var sql = "select * from BookTeacher1 where months=? AND day=? AND time=?"
         var sql2 = "insert into BookTeacher1(Year,months,day,time,user_id,valid) values(?,?,?,?,?,?)"
 
-        if(teacher=="teacher1"){
+        if (teacher == "teacher1") {
             pool.getConnection((err, connection) => {
-                connection.query(sql, [year,months.day,time],(err, result) => {
-                    if(err) throw err;
-                    if(result.length==0){
+                connection.query(sql, [year, months.day, time], (err, result) => {
+                    if (err) throw err;
+                    if (result.length == 0) {
 
-                        connection.query(sql2, [year,months,day,time,userID,valid],(err, result) => {
-                            if(err) throw err;
+                        connection.query(sql2, [year, months, day, time, userID, valid], (err, result) => {
+                            if (err) throw err;
                         })
                     }
                     res.send("success");
                 })
             })
         }
-        
+
     },
 }

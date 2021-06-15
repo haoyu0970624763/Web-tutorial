@@ -10,6 +10,9 @@ router.post('/login', (req, res, next) => {
 router.post('/register', (req, res, next) => {
     api.register(req, res, next);
 });
+router.post('/GetBookInfo', (req, res, next) => {
+    api.GetBookInfo(req, res, next);
+});
 router.post('/book', (req, res, next) => {
     api.book(req, res, next);
 });

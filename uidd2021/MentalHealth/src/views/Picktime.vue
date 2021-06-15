@@ -63,6 +63,9 @@
       >
       下一步
       </div>
+      <div>
+        {{this.BookInfo}}
+      </div>
     </div>
     <transition name="descript">
       <div class="Description" v-if="seen">
@@ -91,15 +94,7 @@ export default {
   },
   data() {
     return {
-      //
-      /*userID:"F74072120",
-          year:2021,
-          months:5,
-          day:15,
-          time:9,  // it means 9:00 to 11:00
-          time2:11 ,// it means 11:00 to 13:00
-          teacher:"teacher1",*/
-      //
+      BookInfo: "",
       reservationselect: {
         year: "",
         months: "",
@@ -328,6 +323,9 @@ export default {
   },
   created() {
     this.getexpertsort();
+    this.$http.post("/api/GetBookInfo", {}).then((res) => {
+      this.BookInfo = res.body;
+    });
     this.setavailabledatelist();
   },
   mounted() {
