@@ -142,10 +142,24 @@ module.exports = {
             });
         })
     },
+    GetUserInfo(req, res, next) {
+        
+        var sql = "select * from user";
+        pool.getConnection((err, connection) => {
+
+            connection.query(sql, (err, result) => {
+
+                if (result.length != 0) {
+                    console.log(result)
+                    res.send(result)
+                }
+                connection.release();
+            })
+        })
+    },
     GetBookInfo(req, res, next) {
 
         var sql = "select * from BookTable";
-
         pool.getConnection((err, connection) => {
 
             connection.query(sql, (err, result) => {
@@ -156,35 +170,34 @@ module.exports = {
                 connection.release();
             })
         })
-
     },
     book(req, res, next) {
+
         var userID = req.body.userID;
         var year = req.body.year;
         var months = req.body.months;
         var day = req.body.day;
         var time = req.body.time;
-        var teacher = req.body.teacher;
-        var valid = "false";
+        var name = req.body.name;
 
+        console.log(userID)
+        console.log(year)
+        console.log(months)
+        console.log(day)
+        console.log(time)
+        console.log(name)
 
-        var sql = "select * from BookTeacher1 where months=? AND day=? AND time=?"
-        var sql2 = "insert into BookTeacher1(Year,months,day,time,user_id,valid) values(?,?,?,?,?,?)"
-
-        if (teacher == "teacher1") {
+        var sql = "UPDATE `BookTable` SET `user_id` = ?  where day=? AND time=? AND mentalName=?"
+        
             pool.getConnection((err, connection) => {
-                connection.query(sql, [year, months.day, time], (err, result) => {
+                connection.query(sql, [userID,day, time,name], (err, result) => {
                     if (err) throw err;
-                    if (result.length == 0) {
-
-                        connection.query(sql2, [year, months, day, time, userID, valid], (err, result) => {
-                            if (err) throw err;
-                        })
+                    if (result.length != 0) {
+                        res.send("success");
                     }
-                    res.send("success");
                 })
             })
-        }
+        
 
     },
 }

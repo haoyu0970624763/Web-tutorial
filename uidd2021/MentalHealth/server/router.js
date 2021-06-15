@@ -13,6 +13,9 @@ router.post('/register', (req, res, next) => {
 router.post('/GetBookInfo', (req, res, next) => {
     api.GetBookInfo(req, res, next);
 });
+router.post('/GetUserInfo', (req, res, next) => {
+    api.GetUserInfo(req, res, next);
+});
 router.post('/book', (req, res, next) => {
     api.book(req, res, next);
 });

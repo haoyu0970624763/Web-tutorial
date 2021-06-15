@@ -5,12 +5,13 @@
         </div>
         <div id="successtext">預約成功！</div>
         <div id="successtext2">已預約 個人諮商</div>
-        <div id="successtext3">{{ reservationinfo.date }} {{ reservationinfo.time }} {{ reservationinfo.name }} 心理師</div>
+        <div id="successtext3">{{this.$store.state.month}}/{{this.$store.state.day}} {{ this.$store.state.time }} {{ reservationinfo.name }} 心理師</div>
         <div id="successphoto"></div>
         <div id="confirmtext">可到「我的檔案」中「預約紀錄」查看</div>
         <div id="infotext">如果需要取消預約，請務必在預約時間24小時之前，進行取消。</div>
+        <div id="toDiary" class="nextstep" @click="toDiary">填寫心情日記</div>
         <div class="nextstep" @click="tofile">前往我的檔案</div>
-        <div class="nextstep" id="backhome" @click="tohome">回首頁</div>
+        <div id="backhome" @click="tohome">回首頁</div>
     </div>
 </template>
 <script>
@@ -40,18 +41,13 @@ export default {
                 }
             });
         },
-        setreservationinfo() {
-            this.reservationinfo.date = this.$route.params.date;
-            this.reservationinfo.time = this.$route.params.time;
-            this.reservationinfo.name = this.$route.params.name;
-        },
         tohome() {
             this.$router.push("/home");
+        },
+        toDiary() {
+            this.$router.push("/diary");
         }
     },
-    created() {
-        this.setreservationinfo();
-    }
 };
 </script>
 <style rel="stylesheet/scss" lang="scss" scoped>
@@ -150,7 +146,7 @@ export default {
     width: 313px;
     height: 43px;
     left: 31px;
-    top: 512px;
+    top: 575px;
     background: #20E2D7;
     box-shadow: 0px 4px 17px -1px rgba(107, 182, 177, 0.51);
     border-radius: 33px;
@@ -160,7 +156,23 @@ export default {
     text-align: center;
     color: #FFFFFF;
 }
+#toDiary {
+    top: 512px;
+
+}
 #backhome {
-    top: 575px;
+    position: absolute;
+    width: 313px;
+    height: 43px;
+    left: 31px;
+    top: 638px;
+    border: 1px solid rgba(32, 226, 215, 1);
+    border-radius: 33px;
+    font-family: Taipei Sans TC Beta;
+    font-size: 16px;
+    line-height: 43px;
+    text-align: center;
+    background:white;
+    color: #20E2D7;
 }
 </style>

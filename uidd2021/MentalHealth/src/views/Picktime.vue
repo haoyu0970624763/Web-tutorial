@@ -25,6 +25,8 @@
     </div>
     <div>{{this.pickID}}</div>
     <div id="splitline"></div>
+
+
     <div id="calendar">
       <b-calendar
         v-model="dateselect"
@@ -62,9 +64,6 @@
         @click="nstep"
       >
       下一步
-      </div>
-      <div>
-        {{this.BookInfo}}
       </div>
     </div>
     <transition name="descript">
@@ -188,12 +187,11 @@ export default {
       for (var i = 1; i < 7; i++) {
         for (var j = 0; j < 5; j++) {
           var y = "2021";
-          var m = "06";
+          var m = "07";
           var d = String(Math.floor(Math.random() * (30 - 1 + 1)) + 10);
           var ymd = [y, m, d];
           this.availabledatelist[this.namelist[i]].push(ymd.join("-"));
         }
-        this.availabledatelist[this.namelist[i]].push("2021-06-21");
       }
     },
     setselect(si) {
@@ -289,14 +287,25 @@ export default {
       }
     },
     nstep() {
+      var count=0;
+      this.$store.commit("setBookMonth", this.reservationselect.months);
+      this.$store.commit("setBookDay", this.reservationselect.day);
+      this.$store.commit("setBookTime", this.reservationselect.timeselect);
+      this.$store.commit("setBookMental", this.reservationselect.personselect);
+      if (this.$store.state.month != ""  && this.$store.state.day !=""  && this.$store.state.time!="" && this.$store.state.mental!="") {
+        this.$router.push({
+          name: "Contactinformation",
+        });
+      }
+      /*
       this.$http
         .post("/api/book", {
-          userID: "F74072120",
+          userID: this.$store.state.userName,
           year: this.reservationselect.year,
           months: this.reservationselect.months,
           day: this.reservationselect.day,
-          time: this.reservationselect.timeselect, // it means 9:00 to 11:00
-          teacher: "teacher1",
+          time: this.reservationselect.timeselect,
+          name: this.reservationselect.personselect,
         })
         .then((res) => {
           this.$router.push({
@@ -311,14 +320,7 @@ export default {
             },
           });
         });
-      /*this.$router.push({
-        name: 'Reservationsuccess', 
-        params: {
-          date: [this.reservationselect.months.replace('0',''),this.reservationselect.day].join('/'), 
-          time: this.reservationselect.timeselect, 
-          name: this.reservationselect.personselect
-        }
-      });*/
+        */
     },
   },
   created() {

@@ -10,8 +10,12 @@ export default new Vuex.Store({
     userName: '',
     PressScore: '',
     analysisResult: '',
-    mentalId: 'k',
+    mentalId: '',
     mentalInfo: '',
+    month:'',
+    day:'',
+    time:'',
+    mental:'',
   },
 
   mutations: {
@@ -31,6 +35,19 @@ export default new Vuex.Store({
     setMentalInfo(state, mentalInfo) {
       state.mentalInfo = mentalInfo
     },
+    setBookMonth(state,month){
+      state.month = month
+    },
+    setBookDay(state,day){
+      state.day = day
+    
+    },
+    setBookTime(state,time){
+      state.time = time
+    },
+    setBookMental(state,mental){
+      state.mental = mental
+    }
 
   },
   plugins: [createPersistedState()]
