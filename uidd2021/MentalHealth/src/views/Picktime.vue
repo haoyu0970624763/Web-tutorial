@@ -531,7 +531,7 @@ export default {
   height: 43px;
   border-radius: 33px;
   left: 46px;
-  top: 211px;
+  top: 240px;
   font-family: Taipei Sans TC Beta;
   font-size: 16px;
   line-height: 43px;

@@ -46,7 +46,7 @@ export default {
             this.reservationinfo.name = this.$route.params.name;
         },
         tohome() {
-            this.$router.push("/");
+            this.$router.push("/home");
         }
     },
     created() {

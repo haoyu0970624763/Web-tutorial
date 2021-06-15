@@ -11,10 +11,13 @@ import reserve from '@/views/reserve.vue'
 import start from '@/views/start.vue'
 import analysis from '@/views/analysis.vue'
 import Matchresult from '@/views/Matchresult.vue'
-
-import profile from '@/views/profile.vue'
 import reservation from '@/views/reservation.vue'
 import Picktime from '@/views/Picktime.vue'
+import Contactinformation from '@/views/Contactinformation.vue'
+
+
+
+import profile from '@/views/profile.vue'
 import Reservationsuccess from '@/views/Reservationsuccess.vue'
 import Feeling from '@/views/Feeling.vue'
 import Temp from '@/views/Temp.vue'
@@ -80,22 +83,27 @@ export default new Router({
       name: 'Matchresult',
       component: Matchresult
     },
-
-    {
-      path: '/profile',
-      name: 'profile',
-      component: profile
-    },
     {
       path: '/reservation',
       name: 'reservation',
       component: reservation
     },
-    
     {
       path: '/Picktime',
       name: 'Picktime',
       component: Picktime
+    },
+    {
+      path: '/Contactinformation',
+      name: 'Contactinformation',
+      component: Contactinformation
+    },
+
+
+    {
+      path: '/profile',
+      name: 'profile',
+      component: profile
     },
     {
       path: '/Reservationsuccess',
