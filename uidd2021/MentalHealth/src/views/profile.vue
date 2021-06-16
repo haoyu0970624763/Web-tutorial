@@ -2,7 +2,7 @@
   <div class="profile-container">
     <div class="navbar">
       <div class="vector">
-        <a href="/homepage"> <img src="@/assets/pic/Vector2.png" /> </a>
+        <a href="/home"> <img src="@/assets/pic/Vector2.png" /> </a>
       </div>
       <div class="navText">我的檔案</div>
 
@@ -10,29 +10,20 @@
         <div class="profile_pic">
           <img src="@/assets/pic/Ellipse43.png" />
         </div>
-        <div class="name">{{ userName }}</div>
-        <div class="DepartmentLevel">{{ userDepartmentLevel }}</div>
-        <div class="vectorRegion">
-          <img class="vector" src="@/assets/pic/Vector1.png" />
-        </div>
+        <div class="name">{{ this.user[0].name }}</div>
+        <div class="id">學號：{{ this.user[0].id }}</div>
       </div>
-      <div class="function" id="first">
+      <div class="function" id="first" @click="goto_reservationRecord()">
         <div class="pic">
-          <img src="@/assets/pic/record.png" @click="goto_reservationRecord"/>
+          <img src="@/assets/pic/record.png" />
         </div>
-        <div class="functionWord" @click="goto_reservationRecord">預約紀錄</div>
+        <div class="functionWord">預約紀錄</div>
       </div>
       <div class="function" id="second">
         <div class="pic">
           <img src="@/assets/pic/position.png" />
         </div>
         <div class="functionWord">心輔室位置圖</div>
-      </div>
-      <div class="function" id="third">
-        <div class="pic">
-          <img src="@/assets/pic/question.png" />
-        </div>
-        <div class="functionWord">常見問題</div>
       </div>
     </div>
   </div>
@@ -43,37 +34,25 @@ export default {
   name: "profile",
 
   data() {
-    return{
-      userName: "彭皓瑜",
-      userDepartmentLevel: "資訊系 大三",
-      formLogin: {
-        userName: "",
-        userPassword: "",
-      },
-      formRegister: {
-        userName: "",
-        userPassword: "",
-        userPassword2: "",
-      },
-      // 显示不同的view
-      typeView: 0,
-      errorMeg: "",
+    return {
+      user: "",
     };
   },
   methods: {
-    goback_home() {
-      this.$router.push("/Homepage");
-    },
     goto_reservationRecord() {
       this.$router.push({
-                name: 'reservation', 
-                params: {
-                    date: this.$route.params.date,
-                    time: this.$route.params.time,
-                    name: this.$route.params.name
-                }
-            });
+        name: "reservation",
+      });
     },
+  },
+  created() {
+    this.$http
+      .post("/api/GetUserInfo", {
+        userID: this.$store.state.userName,
+      })
+      .then((res) => {
+        this.user = res.body;
+      });
   },
 };
 </script>
@@ -168,9 +147,9 @@ export default {
       align-items: center;
       color: #ffffff;
     }
-    .DepartmentLevel {
+    .id {
       position: absolute;
-      width: 84px;
+      width: 150px;
       height: 21px;
       left: 119px;
       top: 60px;
@@ -182,26 +161,12 @@ export default {
       line-height: 21px;
       /* identical to box height, or 131% */
       display: flex;
+      flex-direction: row;
       align-items: center;
       /* 白 */
       color: #ffffff;
 
       opacity: 0.8;
-    }
-    .vectorRegion {
-      position: absolute;
-      width: 28px;
-      height: 28px;
-      right: 27px;
-      top: 43px;
-
-      background: #ffffff;
-      box-shadow: 2px 2px 10px #45c9c1;
-      border-radius: 20px;
-    }
-    .vector {
-      position: absolute;
-      left: 10px;
     }
   }
   #first {
@@ -230,8 +195,8 @@ export default {
       position: absolute;
       height: 24px;
       width: 19px;
-      left: 34.6px;
-      top: 20px;
+      left: 30px;
+      top: 15px;
       border-radius: 0px;
     }
     .functionWord {
