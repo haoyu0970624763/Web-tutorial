@@ -7,7 +7,7 @@
 
         <p5>只需回答幾個問題，讓我們為您推薦</p5>
 
-        <div class="short_button" onclick="location.href='./analysis'">
+        <div class="short_button" @click="analysis()">
           <font class="button_font">立即開始</font>
         </div>
       </div>
@@ -189,6 +189,9 @@ export default {
         });
       }
     },
+    analysis(){
+      this.$router.push("/analysis");
+    }
   },
 };
 </script>
