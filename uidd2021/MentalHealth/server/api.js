@@ -143,17 +143,16 @@ module.exports = {
         })
     },
     GetUserInfo(req, res, next) {
-        
-        var sql = "select * from user";
+
+        var id = req.body.userID;
+        var sql = "select * from user where id=?";
         pool.getConnection((err, connection) => {
 
-            connection.query(sql, (err, result) => {
+            connection.query(sql, [id],(err, result) => {
 
                 if (result.length != 0) {
-                    console.log(result)
                     res.send(result)
                 }
-                connection.release();
             })
         })
     },

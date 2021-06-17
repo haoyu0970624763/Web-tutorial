@@ -65,6 +65,7 @@
       >
       下一步
       </div>
+      <div>{{this.BookInfo}}</div>
     </div>
     <transition name="descript">
       <div class="Description" v-if="seen">
@@ -287,7 +288,7 @@ export default {
       }
     },
     nstep() {
-      var count=0;
+      
       this.$store.commit("setBookMonth", this.reservationselect.months);
       this.$store.commit("setBookDay", this.reservationselect.day);
       this.$store.commit("setBookTime", this.reservationselect.timeselect);
