@@ -214,18 +214,22 @@ export default {
   methods: {
     clickFunction1: function () {
       if (this.Pressure < 6) {
+        this.$router.push("/Others/Relax");
       } else if (this.Pressure < 10) {
+        this.$router.push("/Others/Relax");
       } else if (this.Pressure < 15) {
         this.$router.push("/reserve");
       } else {
+        this.$router.push("/Others/Medical");
       }
     },
     clickFunction2: function () {
       if (this.Pressure < 6) {
+        this.$router.push("/Others/Article");
       } else if (this.Pressure < 10) {
         this.$router.push("/diary/write");
       } else if (this.Pressure < 15) {
-        
+        this.$router.push("/Others/Medical");
       } else {
         this.$router.push("/reserve");
       }
@@ -234,13 +238,12 @@ export default {
       if (this.Pressure < 6) {
         this.$router.push("/diary/write");
       } else if (this.Pressure < 10) {
+        this.$router.push("/reserve");
       } else if (this.Pressure < 15) {
         this.$router.push("/diary/write");
       } else {
+        this.$router.push("/Others/Support");
       }
-    },
-    toHome: function () {
-      this.$router.push("/home");
     },
   },
   mounted() {

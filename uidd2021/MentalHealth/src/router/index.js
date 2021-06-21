@@ -14,6 +14,11 @@ import Matchresult from '@/views/Matchresult.vue'
 import reservation from '@/views/reservation.vue'
 import Picktime from '@/views/Picktime.vue'
 import Contactinformation from '@/views/Contactinformation.vue'
+import Relax from '@/views/Relax.vue'
+import Medical from '@/views/Medical.vue'
+import Support from '@/views/Support.vue'
+import Article from '@/views/Article.vue'
+import Content from '@/views/Content.vue'
 import State from '@/views/State.vue'
 
 
@@ -21,7 +26,6 @@ import State from '@/views/State.vue'
 import profile from '@/views/profile.vue'
 import Reservationsuccess from '@/views/Reservationsuccess.vue'
 import Feeling from '@/views/Feeling.vue'
-import Temp from '@/views/Temp.vue'
 import DiaryMain from '@/views/DiaryMain.vue'
 import DiaryWrite from '@/views/DiaryWrite.vue'
 import Otherresource from '@/views/Otherresource.vue'
@@ -101,6 +105,31 @@ export default new Router({
       component: Contactinformation
     },
     {
+      path: '/Others/Relax',
+      name: 'Relax',
+      component: Relax
+    },
+    {
+      path: '/Others/Medical',
+      name: 'Medical',
+      component: Medical
+    },
+    {
+      path: '/Others/Support',
+      name: 'Support',
+      component: Support
+    },
+    {
+      path: '/Others/Article',
+      name: 'Article',
+      component: Article
+    },
+    {
+      path: '/Others/Article/Content',
+      name: 'Content',
+      component: Content
+    },
+    {
       path: '/State',
       name: 'State',
       component: State
@@ -116,10 +145,6 @@ export default new Router({
       path: '/Reservationsuccess',
       name: 'Reservationsuccess',
       component: Reservationsuccess
-    },
-    {
-      path: '/temp',
-      component: Temp
     },
     {
       path: '/feeling',

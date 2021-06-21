@@ -20,7 +20,7 @@
             <div v-if="showRecord === 'true'">
               <img class="usericonimg" src="@/assets/svg/recored.svg" />
             </div>
-            <div v-if="showUser === 'true'">
+            <div v-if="showUser === 'true'" @click="goProfile()">
               <img class="usericonimg" src="@/assets/svg/usericon.svg" />
             </div>
           </b-col>
@@ -45,6 +45,9 @@ export default {
       } else {
         this.$router.push({ name: this.destination });
       }
+    },
+    goProfile() {
+      this.$router.push("/profile");
     },
   },
   props: {
