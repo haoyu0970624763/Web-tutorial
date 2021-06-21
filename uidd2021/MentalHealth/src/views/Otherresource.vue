@@ -4,7 +4,7 @@
             <Nav showUser />
         </div>
         <div id="pic"></div>
-        <div id="text1">Hi, 曉潔</div>
+        <div id="text1">Hi, {{this.user}}</div>
         <div id="text2">來了解更多自我舒壓與校外求助資源吧！</div>
         <div id="title1">自我了解與舒壓</div>
         <div id="more1" class="more"></div>
@@ -42,12 +42,22 @@ export default {
     },
     data() {
         return {
-
+            user:'',
         };
     },
     methods: {
 
     },
+    created(){
+        this.$http
+      .post("/api/GetUserInfo", {
+        userID: this.$store.state.userName,
+      })
+      .then((res) => {
+        this.user = res.body[0].name;
+      });
+    }
+    
 };
 </script>
 <style rel="stylesheet/scss" lang="scss" scoped>

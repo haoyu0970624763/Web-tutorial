@@ -2,7 +2,7 @@
   <div class="profile-container">
     <div class="navbar">
       <div class="vector" @click="goBack()">
-         <img src="@/assets/pic/Vector2.png" /> </a>
+         <img src="@/assets/pic/Vector2.png" />
       </div>
       <div class="navText">我的檔案</div>
 
