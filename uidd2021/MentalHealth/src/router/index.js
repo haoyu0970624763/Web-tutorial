@@ -21,11 +21,10 @@ import Article from '@/views/Article.vue'
 import Content from '@/views/Content.vue'
 import State from '@/views/State.vue'
 
-
+import MoodTree from '@/views/MoodTreeMain.vue'
 
 import profile from '@/views/profile.vue'
 import Reservationsuccess from '@/views/Reservationsuccess.vue'
-import Feeling from '@/views/Feeling.vue'
 import DiaryMain from '@/views/DiaryMain.vue'
 import DiaryWrite from '@/views/DiaryWrite.vue'
 import Otherresource from '@/views/Otherresource.vue'
@@ -134,8 +133,6 @@ export default new Router({
       name: 'State',
       component: State
     },
-
-
     {
       path: '/profile',
       name: 'profile',
@@ -147,11 +144,6 @@ export default new Router({
       component: Reservationsuccess
     },
     {
-      path: '/feeling',
-      name: 'Feeling',
-      component: Feeling
-    },
-    {
       path: '/diary',
       component: DiaryMain
     },
@@ -159,7 +151,11 @@ export default new Router({
       path: '/diary/write',
       component: DiaryWrite
     },
-
+    {
+      path: '/mood',
+      name: 'MoodTree',
+      component: MoodTree
+    },
 
     {
       path: '/Otherresource',

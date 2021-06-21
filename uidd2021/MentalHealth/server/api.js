@@ -20,6 +20,8 @@ pool.getConnection((err, connection) => {
     var sql3 = "SHOW TABLES LIKE 'BookTable'"
     var sql4 = "CREATE TABLE BookTable (Year VARCHAR(20) , months VARCHAR(20), day VARCHAR(20) , time VARCHAR(20), user_id VARCHAR(20) , mentalName VARCHAR(20))";
 
+    var sql5 = "SHOW TABLES LIKE 'TreeNum'"
+    var sql6 = "CREATE TABLE TreeNum (Num VARCHAR(20), id VARCHAR(20))";
 
     connection.query(sql, function (err, result) {
         if (err) throw err;
@@ -86,6 +88,15 @@ pool.getConnection((err, connection) => {
             console.log("Table of BookTable exists");
         }
     });
+    connection.query(sql5, function (err, result) {
+        if (err) throw err;
+        if (result.length == 0) {
+            connection.query(sql6, function (err, result) {
+                if (err) throw err;
+                console.log("table of TreeNum created");
+            })
+        }
+    });
     connection.release();
 })
 
@@ -147,7 +158,7 @@ module.exports = {
         var sql = "select * from user where id=?";
         pool.getConnection((err, connection) => {
 
-            connection.query(sql, [id],(err, result) => {
+            connection.query(sql, [id], (err, result) => {
 
                 if (result.length != 0) {
                     res.send(result)
@@ -175,12 +186,12 @@ module.exports = {
         var sql = "select * from BookTable where user_id=?";
         pool.getConnection((err, connection) => {
 
-            connection.query(sql,[id], (err, result) => {
+            connection.query(sql, [id], (err, result) => {
 
                 if (result.length != 0) {
                     res.send(result)
                 }
-                else{
+                else {
                     res.send("NoData")
                 }
                 connection.release();
@@ -195,21 +206,95 @@ module.exports = {
         var time = req.body.time;
         var name = req.body.name;
 
-        if(day[0]=='0'){
-            day=day[1];
+        if (day[0] == '0') {
+            day = day[1];
         }
 
         var sql = "UPDATE `BookTable` SET `user_id` = ?  where day=? AND time=? AND mentalName=?"
-        
-            pool.getConnection((err, connection) => {
-                connection.query(sql, [userID,day, time,name], (err, result) => {
-                    if (err) throw err;
-                    if (result.length != 0) {
-                        res.send("success");
-                    }
-                })
-            })
-        
 
+        pool.getConnection((err, connection) => {
+            connection.query(sql, [userID, day, time, name], (err, result) => {
+                if (err) throw err;
+                if (result.length != 0) {
+                    res.send("success");
+                }
+            })
+        })
+    },
+    GetTreeNum(req, res, next) {
+
+        var id = req.body.id;
+        var sql = "select * from TreeNum where id=?";
+        var number;
+
+        var sql2 = "select * from TreeNum where Num=?";
+        var sql3 = "insert into TreeNum(`Num`,`id`) values(?,?)"
+
+        
+        pool.getConnection((err, connection) => {
+
+            connection.query(sql, [id], (err, result) => {
+                if (err) throw err;
+                if (result.length == 0) {
+
+                    number = (Math.floor(Math.random() * 1000)).toString();
+                    connection.query(sql2, [number], (err, result) => {
+                        if (err) throw err;
+                        if (result.length == 0) {
+                            connection.query(sql3, [number, id], (err, result) => {
+                                if (err) throw err;
+                                res.send(number);
+                            })
+
+                        }
+                    });
+                }
+                else {
+                    res.send(result[0].Num)
+                }
+                connection.release();
+            });
+        })
+    },
+    writeDiary(req, res, next) {
+
+        var sql_add = "INSERT INTO `diary` (`user_id`, `eventname`, `date`, `time`, `category`, `mood`, `course`, `diaryresult`, `ispublic`, `additional`, `number`, `hug`, `comment`, `comment_notRead`) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);"
+
+        var id = req.body.id
+        var name = req.body.name
+        var category = req.body.category
+        var emoji = req.body.emoji
+        var date = req.body.date
+        var text1 = req.body.text1
+        var text2 = req.body.text1
+        var time = req.body.time
+        var isPublic = req.body.isPublic
+        var addtext = req.body.addtext
+        var number = req.body.number
+
+        pool.getConnection((err, connection) => {
+            connection.query(sql_add, [id, name, date, time, category, emoji, text1, text2, isPublic, addtext, number, 0, 0, 'n'], (err, result) => {
+                if (err) throw err;
+                res.send("success");
+                connection.release();
+            });
+
+        })
+    },
+    checkDiaryDate(req, res, next) {
+
+        var sql = "SELECT DISTINCT date FROM `diary` WHERE user_id=?";
+
+        var id = req.body.id
+
+
+        pool.getConnection((err, connection) => {
+            connection.query(sql, id, (err, result) => {
+                if (err) throw err;
+                res.send(result);
+                connection.release();
+            });
+
+        })
     },
 }

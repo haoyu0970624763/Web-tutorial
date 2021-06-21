@@ -25,7 +25,7 @@
             </div>
             <div v-else class="icontext iconGraytext">諮商預約</div>
           </b-col>
-          <b-col class="text-center" @click="toFeeling()">
+          <b-col class="text-center" @click="toMood()">
             <img
               v-if="showMood"
               class="iconimg"
@@ -78,9 +78,9 @@ export default {
         name: "reserve",
       });
     },
-    toFeeling() {
+    toMood() {
       this.$router.push({
-        name: "Feeling",
+        name: "MoodTree",
       });
     },
     toOthers() {
