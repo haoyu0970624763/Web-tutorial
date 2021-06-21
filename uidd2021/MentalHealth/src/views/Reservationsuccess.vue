@@ -7,7 +7,7 @@
     <div id="successtext2">已預約 個人諮商</div>
     <div id="successtext3">
       {{ this.$store.state.month }}/{{ this.$store.state.day }}
-      {{ this.$store.state.time }} {{ reservationinfo.name }} 心理師
+      {{ this.$store.state.time }} {{ this.$store.state.mental  }} 心理師
     </div>
     <div id="successphoto"></div>
     <div id="confirmtext">可到「我的檔案」中「預約紀錄」查看</div>

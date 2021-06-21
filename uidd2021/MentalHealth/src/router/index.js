@@ -14,6 +14,7 @@ import Matchresult from '@/views/Matchresult.vue'
 import reservation from '@/views/reservation.vue'
 import Picktime from '@/views/Picktime.vue'
 import Contactinformation from '@/views/Contactinformation.vue'
+import State from '@/views/State.vue'
 
 
 
@@ -33,7 +34,7 @@ export default new Router({
   routes: [
     {
       path: '/',
-      redirect:'/login'
+      redirect: '/login'
     },
     {
       path: '/login',
@@ -48,7 +49,7 @@ export default new Router({
     {
       path: '/home',
       component: Home,
-      name:'home'
+      name: 'home'
     },
     {
       path: '/press',
@@ -98,6 +99,11 @@ export default new Router({
       name: 'Contactinformation',
       component: Contactinformation
     },
+    {
+      path: '/State',
+      name: 'State',
+      component: State
+    },
 
 
     {
@@ -127,14 +133,14 @@ export default new Router({
       component: DiaryWrite
     },
 
-    
+
     {
       path: '/Otherresource',
       name: 'Otherresource',
       component: Otherresource
     },
-    
-  
-    
+
+
+
   ]
 })

@@ -31,6 +31,13 @@ export default {
           photo: {
             backgroundImage: "url(" + require("@/assets/Tim/expert1.svg") + ")",
           },
+          descripphoto: {
+            backgroundImage: "url(" + require("@/assets/Tim/descripexpert1.svg") + ")",
+          },
+          maximtext: "“ 生命是不斷發現與開拓的冒險旅程 ”",
+          gendercontent: "女",
+          expertcontent: "情緒低落,感情議題,自我探索",
+          talkstylecontent: "溫柔安慰,理性辯證",
           name: "許欣宜",
           isActive: false,
           id: 2,
@@ -56,6 +63,13 @@ export default {
           photo: {
             backgroundImage: "url(" + require("@/assets/Tim/expert2.svg") + ")",
           },
+          descripphoto: {
+            backgroundImage: "url(" + require("@/assets/Tim/descripexpert2.svg") + ")",
+          },
+          maximtext: "“ 抱持對人性的理解，開創出人生的新解 ”",
+          gendercontent: "女",
+          expertcontent: "情緒低落,性別議題,自我探索",
+          talkstylecontent: "客觀視角分析,溫柔安慰",
           name: "林宜華",
           isActive: false,
           id: 3,
@@ -81,6 +95,13 @@ export default {
           photo: {
             backgroundImage: "url(" + require("@/assets/Tim/expert3.svg") + ")",
           },
+          descripphoto: {
+            backgroundImage: "url(" + require("@/assets/Tim/descripexpert3.svg") + ")",
+          },
+          maximtext: "“ 生命中的所有經驗，最終都會化作生命的養分 ”",
+          gendercontent: "女",
+          expertcontent: "情緒低落,睡眠問題,家庭狀況",
+          talkstylecontent: "溫柔安慰,客觀視角分析",
           name: "陳以玟",
           isActive: false,
           id: 4,
@@ -106,6 +127,13 @@ export default {
           photo: {
             backgroundImage: "url(" + require("@/assets/Tim/expert4.svg") + ")",
           },
+          descripphoto: {
+            backgroundImage: "url(" + require("@/assets/Tim/descripexpert4.svg") + ")",
+          },
+          maximtext: "“ 人生就像旅行，總有不同風景 ”",
+          gendercontent: "男",
+          expertcontent: "情緒低落,人際相處,感情議題",
+          talkstylecontent: "客觀視角分析",
           name: "王浩偉",
           isActive: false,
           id: 5,
@@ -131,6 +159,13 @@ export default {
           photo: {
             backgroundImage: "url(" + require("@/assets/Tim/expert5.svg") + ")",
           },
+          descripphoto: {
+            backgroundImage: "url(" + require("@/assets/Tim/descripexpert5.svg") + ")",
+          },
+          maximtext: "“ 理智是人生的燈塔 ”",
+          gendercontent: "男",
+          expertcontent: "情緒低落,生活變故,生涯規劃",
+          talkstylecontent: "客觀視角分析,理性辯證",
           name: "陳俊宇",
           isActive: false,
           id: 6,
@@ -170,16 +205,13 @@ export default {
     },
     pickmostfit() {
       this.$store.state.analysisResult.forEach((element) => {
-        console.log(element);
         this.expert.forEach((i) => {
-          console.log(i[element]);
           i.score = i.score + i[element];
         });
       });
       this.sortbykey(this.expert, "score");
       this.expert.forEach((i, index) => {
         i.id = index + 2;
-        console.log(i);
       });
       this.pick = 2;
       this.fitperson.name = this.expert[0].name;

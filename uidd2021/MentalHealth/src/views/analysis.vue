@@ -1,6 +1,6 @@
 <template>
   <div>
-    <Nav showBackArrow="true" showText="true" navText="匹配問題填答"></Nav>
+    <Nav showBackArrow showText navText="匹配問題填答"></Nav>
     <div id="layout_down">
       <div class="content_box">
         <p1>1. 這次主要想和心理師談什麼呢？</p1>
@@ -389,6 +389,9 @@ export default {
         });
       }
     },
+  },
+  mounted() {
+    console.log(this.$store.state.userName, "anay");
   },
 };
 </script>

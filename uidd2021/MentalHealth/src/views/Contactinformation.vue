@@ -90,7 +90,7 @@ export default {
   methods: {
     tonext() {
       this.$router.push({
-        name: "Reservationsuccess",
+        name: "State",
       });
     },
     tocancel() {

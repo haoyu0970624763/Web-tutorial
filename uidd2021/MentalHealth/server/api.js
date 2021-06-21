@@ -1,6 +1,5 @@
 const mysql = require('mysql');
 const dbConfig = require('./db');
-const sqlMap = require('./sqlMap');
 const pool = mysql.createPool({
     host: dbConfig.mysql.host,
     user: dbConfig.mysql.user,
