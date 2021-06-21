@@ -68,6 +68,7 @@ export default new Router({
     },
     {
       path: '/reserve',
+      name: 'reserve',
       component: reserve
     },
     {
@@ -122,6 +123,7 @@ export default new Router({
     },
     {
       path: '/feeling',
+      name: 'Feeling',
       component: Feeling
     },
     {

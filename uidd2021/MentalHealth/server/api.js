@@ -169,21 +169,35 @@ module.exports = {
             })
         })
     },
+    GetUserBookInfo(req, res, next) {
+
+        var id = req.body.userID;
+        var sql = "select * from BookTable where user_id=?";
+        pool.getConnection((err, connection) => {
+
+            connection.query(sql,[id], (err, result) => {
+
+                if (result.length != 0) {
+                    res.send(result)
+                }
+                else{
+                    res.send("NoData")
+                }
+                connection.release();
+            })
+        })
+    },
     book(req, res, next) {
 
         var userID = req.body.userID;
-        var year = req.body.year;
         var months = req.body.months;
         var day = req.body.day;
         var time = req.body.time;
         var name = req.body.name;
 
-        console.log(userID)
-        console.log(year)
-        console.log(months)
-        console.log(day)
-        console.log(time)
-        console.log(name)
+        if(day[0]=='0'){
+            day=day[1];
+        }
 
         var sql = "UPDATE `BookTable` SET `user_id` = ?  where day=? AND time=? AND mentalName=?"
         

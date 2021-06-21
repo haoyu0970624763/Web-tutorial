@@ -2,7 +2,7 @@
   <div class="desktop" :class="{ darken: seen }">
     <div id="namebar">
       <Nav
-        showBackArrow
+        showBackArrow="true"
         showText
         navText="挑選日期與時間"
         destination="analysis"
@@ -369,18 +369,10 @@ export default {
         this.getpickid();
       });
   },
-  mounted() {
-    console.log("username:", this.$store.state.userName);
-    //this.getpickid();
-  },
 };
 </script>
 
 <style rel="stylesheet/scss" lang="scss" scoped>
-@font-face {
-  font-family: "Taipei Sans TC Beta";
-  src: url("../assets/font/TaipeiSansTCBeta.ttf");
-}
 .desktop {
   position: absolute;
   display: block;

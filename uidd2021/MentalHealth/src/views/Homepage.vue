@@ -1,6 +1,18 @@
 <template>
   <div>
-    <Nav showUser="ture" />
+    <div class="logobar">
+      <b-container>
+        <b-row>
+          <b-col class="text-center">
+            <img class="logoimg" src="@/assets/svg/logo.svg" />
+          </b-col>
+        </b-row>
+        <b-col class="imgright">
+          <img @click="toProfile()" class="usericonimg" src="@/assets/svg/usericon.svg" />
+        </b-col>
+      </b-container>
+    </div>
+    <div class="emptybar"></div>
     <div class="banner">
       <img id="slide1" src="@/assets/yoyoLin/home_slide1.svg" />
       <img id="slide2" src="@/assets/yoyoLin/home_slide2.svg" />
@@ -44,7 +56,9 @@
     </div>
     <div class="title2" ref="c2_title">促進自我情緒與壓力的了解</div>
     <div id="redText" class="text" ref="c2_text">
-     Aura 提供心情記錄功能，讓使用者能透過日記的方式覺察日常情緒波動，而壓力量表則能讓使用者在不確定是否該諮商時，提供當前壓力評估與建議。此外，Aura 也建立了有趣的養成模式，以幫助使用者定期的使用與回顧。
+      Aura
+      提供心情記錄功能，讓使用者能透過日記的方式覺察日常情緒波動，而壓力量表則能讓使用者在不確定是否該諮商時，提供當前壓力評估與建議。此外，Aura
+      也建立了有趣的養成模式，以幫助使用者定期的使用與回顧。
     </div>
 
     <!--滑動區塊3-->
@@ -100,6 +114,38 @@ button {
 
   display: inline-block;
 }
+.logobar {
+  z-index: 1;
+  position: fixed;
+
+  width: 100%;
+  top: 0px;
+  margin: 0px auto;
+  background: #ffffff;
+  box-shadow: 0px 2px 10px rgba(118, 156, 145, 0.25);
+
+  /* 讓內容物垂直置中*/
+  height: 50px;
+  line-height: 50px;
+}
+.logoimg {
+  height: 20px;
+  width: auto;
+}
+.usericonimg {
+  top: -50px;
+  position: relative;
+  height: 28px;
+  width: auto;
+  padding-right: 12.5px;
+}
+.imgright {
+  text-align: right;
+}
+.emptybar {
+  height: 50px;
+  background-color: #ffffff;
+}
 
 #slide1 {
   position: absolute;
@@ -123,8 +169,8 @@ button {
   position: relative;
   bottom: 5px;
 }
-#redText{
-    color: red;
+#redText {
+  color: red;
 }
 
 @keyframes slidemove_1 {
@@ -387,8 +433,8 @@ button {
 }
 </style>
 <script>
-import Nav from "@/components/Nav.vue";
-import Footer from "@/components/Footer.vue";
+import Nav from "../components/Nav.vue";
+import Footer from "../components/Footer.vue";
 
 export default {
   name: "Homepage",
@@ -396,13 +442,11 @@ export default {
     return {};
   },
   created() {
-    console.log("== created ==");
     window.addEventListener("scroll", this.handleScroll);
     localStorage.clear();
     localStorage.setItem("isWater", "F");
   },
   destroyed() {
-    console.log("== destroyed ==");
     window.removeEventListener("scroll", this.handleScroll);
   },
 
@@ -412,7 +456,6 @@ export default {
         window.pageYOffset ||
         document.documentElement.scrollTop ||
         document.body.scrollTop;
-      console.log(scrollTop);
       if (scrollTop >= 50) {
         this.$refs.c1.classList.add("leftin");
         this.$refs.c1_img.classList.add("rightin");
@@ -435,6 +478,11 @@ export default {
     pressTab() {
       this.$router.push({
         name: "Press",
+      });
+    },
+    toProfile() {
+      this.$router.push({
+        name: "profile",
       });
     },
   },

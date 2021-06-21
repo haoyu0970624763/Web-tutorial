@@ -284,7 +284,6 @@ export default {
       this.$http
         .post("/api/book", {
           userID: this.$store.state.userName,
-          year: 2021,
           months: this.$store.state.month,
           day: this.$store.state.day,
           time: this.$store.state.time,

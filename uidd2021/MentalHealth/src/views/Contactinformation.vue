@@ -1,11 +1,11 @@
 <template>
   <div class="desktop">
     <div id="namebar">
-      <Nav showBackArrow showText navText="聯絡資料" />
+      <Nav showBackArrow="true" showText navText="聯絡資料" />
     </div>
     <div class="title" id="title1">基本資料</div>
     <div class="text" id="text1">姓名</div>
-    <div class="text" id="name">{{ this.user[0].name }}</div>
+    <div class="text" id="name">{{ this.user }}</div>
     <div class="text" id="text2">學號</div>
     <div class="text" id="num">{{ this.$store.state.userName }}</div>
     <div class="title" id="title2">聯絡資料填寫</div>
@@ -103,16 +103,12 @@ export default {
         userID: this.$store.state.userName,
       })
       .then((res) => {
-        this.user = res.body;
+        this.user = res.body[0].name;
       });
   },
 };
 </script>
 <style rel="stylesheet/scss" lang="scss" scoped>
-@font-face {
-  font-family: "Taipei Sans TC Beta";
-  src: url("../assets/font/TaipeiSansTCBeta.ttf");
-}
 .desktop {
   position: absolute;
   display: block;

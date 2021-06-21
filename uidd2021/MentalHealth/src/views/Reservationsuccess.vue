@@ -1,7 +1,7 @@
 <template>
   <div class="desktop">
     <div id="namebar">
-      <Nav showBackArrow showText navText="預約成功" />
+      <Nav showBackArrow="true" showText navText="預約成功" />
     </div>
     <div id="successtext">預約成功！</div>
     <div id="successtext2">已預約 個人諮商</div>
@@ -51,10 +51,6 @@ export default {
 };
 </script>
 <style rel="stylesheet/scss" lang="scss" scoped>
-@font-face {
-  font-family: "Taipei Sans TC Beta";
-  src: url("../assets/font/TaipeiSansTCBeta.ttf");
-}
 .desktop {
   position: absolute;
   display: block;

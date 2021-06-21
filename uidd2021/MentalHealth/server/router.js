@@ -16,6 +16,9 @@ router.post('/GetBookInfo', (req, res, next) => {
 router.post('/GetUserInfo', (req, res, next) => {
     api.GetUserInfo(req, res, next);
 });
+router.post('/GetUserBookInfo', (req, res, next) => {
+    api.GetUserBookInfo(req, res, next);
+});
 router.post('/book', (req, res, next) => {
     api.book(req, res, next);
 });

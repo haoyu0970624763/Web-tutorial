@@ -1,6 +1,22 @@
 <template>
   <div>
-    <Nav showRecord="true" showUser="true" />
+    <div class="logobar">
+      <b-container>
+        <b-row>
+          <b-col class="text-center">
+            <img class="logoimg" src="@/assets/svg/logo.svg" />
+          </b-col>
+        </b-row>
+        <b-col class="imgright">
+          <img
+            @click="toProfile()"
+            class="usericonimg"
+            src="@/assets/svg/usericon.svg"
+          />
+        </b-col>
+      </b-container>
+    </div>
+    <div class="emptybar"></div>
     <div id="layout_up">
       <div id="famous_box">
         <img
@@ -15,66 +31,66 @@
         </div>
 
         <div id="famous_box_right">
-          <p1
-            >「任何人只要願意深入探索自己的心靈，便能發現那等待我們已久的共同寶藏。」</p1
+          <p id="p1"
+            >「任何人只要願意深入探索自己的心靈，便能發現那等待我們已久的共同寶藏。」</p
           >
-          <p1>--馬克．列維特</p1>
+          <p id="p1">--馬克．列維特</p>
         </div>
       </div>
 
       <div id="remind">
-        <p2 style="color: #c7c7c7">
+        <p id="p2" style="color: #c7c7c7">
           首先感謝你鼓起勇氣，願意嘗試和心理師談談你的煩惱，請你先閱讀以下注意事項，也幫助你對個人諮商有一些基本的了解。
-        </p2>
+        </p >
       </div>
     </div>
 
     <div id="layout_down">
       <div id="content">
-        <t1>個人諮商初談注意事項</t1>
+        <p id="t1">個人諮商初談注意事項</p>
 
-        <t2>初談和續談是什麼？</t2>
+        <p id="t2">初談和續談是什麼？</p>
         <blockquote>
           <div class="content_list">
             <li></li>
-            <p3>個人諮商一次50分鐘···</p3>
+            <p id="p3">個人諮商一次50分鐘···</p>
           </div>
         </blockquote>
 
         <blockquote>
           <div class="content_list">
             <li></li>
-            <p3>如有需要，心理師會和您討論後為您預約續談 若是不需要續談</p3>
+            <p id="p3">如有需要，心理師會和您討論後為您預約續談 若是不需要續談</p>
           </div>
         </blockquote>
 
         <blockquote>
           <div class="content_list">
             <li></li>
-            <p3
-              >若是不需要續談，則會已結案處理，之後再有需要可以再次預約初談</p3
+            <p id="p3"
+              >若是不需要續談，則會已結案處理，之後再有需要可以再次預約初談</p
             >
           </div>
         </blockquote>
 
-        <t2>保密原則的例外狀況</t2>
-        <p3
-          >基於法律要求、學校政策以及心理專業人員的專業倫理規範，在尊重生命與安全的前提下，需進行危機處理或通報，以便引進更多的資源協助解決你的困境。這樣的用意是為了保護你與他人的生命財產安全，最終讓自己有機會慢慢地回到軌道上。</p3
+        <p id="p2">保密原則的例外狀況</p>
+        <p id="p3"
+          >基於法律要求、學校政策以及心理專業人員的專業倫理規範，在尊重生命與安全的前提下，需進行危機處理或通報，以便引進更多的資源協助解決你的困境。這樣的用意是為了保護你與他人的生命財產安全，最終讓自己有機會慢慢地回到軌道上。</p
         >
 
-        <t3>以下兩種類別的狀況發生時，心理師有通報的責任：</t3>
+        <p id="p3">以下兩種類別的狀況發生時，心理師有通報的責任：</p>
         <blockquote>
           <div class="content_list">
             <li></li>
-            <p3
-              >罹患嚴重精神疾病（精神衛生法）、家庭暴力（家庭暴力防治法）、一般性侵害（性侵害犯罪防治法）、校園性侵害/性騷擾/性霸凌（性別平等教育法）、兒少性剝削（兒童及少年性剝削防制條例），以及兒童及少年福利與權益保障法所規定之通報事項（含施用毒品）。</p3
+            <p id="p3"
+              >罹患嚴重精神疾病（精神衛生法）、家庭暴力（家庭暴力防治法）、一般性侵害（性侵害犯罪防治法）、校園性侵害/性騷擾/性霸凌（性別平等教育法）、兒少性剝削（兒童及少年性剝削防制條例），以及兒童及少年福利與權益保障法所規定之通報事項（含施用毒品）。</p
             >
           </div>
         </blockquote>
         <blockquote>
           <div class="content_list">
             <li></li>
-            <p3>來談者有危害自己或他人生命安全之緊急情況。</p3>
+            <p id="p3">來談者有危害自己或他人生命安全之緊急情況。</p>
           </div>
         </blockquote>
       </div>
@@ -87,23 +103,28 @@
     </div>
 
     <div id="base"></div>
-    <Footer showSchedule="true" />
+    <Footer showSchedule="true"/>
   </div>
 </template>
 
 <script>
-import Nav from "@/components/Nav.vue";
-import Footer from "@/components/Footer.vue";
+
+import Footer from "../components/Footer.vue";
 
 export default {
-  name: "Feeling",
+  name: "reserve",
+  created() {},
   components: {
-    Nav,
     Footer,
   },
   methods: {
     toStart: function () {
       this.$router.push("/start");
+    },
+    toProfile() {
+      this.$router.push({
+        name: "profile",
+      });
     },
   },
 };
@@ -128,11 +149,55 @@ button {
   border-radius: 1vw;
   cursor: pointer;
 }
+.logobar {
+  z-index: 1;
+  position: fixed;
 
+  width: 100%;
+  top: 0px;
+  margin: 0px auto;
+  background: #ffffff;
+  box-shadow: 0px 2px 10px rgba(118, 156, 145, 0.25);
+
+  /* 讓內容物垂直置中*/
+  height: 50px;
+  line-height: 50px;
+}
+.logoimg {
+  height: 20px;
+  width: auto;
+}
+.usericonimg {
+  position: relative;
+  top: -50px;
+  height: 28px;
+  width: auto;
+  padding-right: 12.5px;
+}
+.imgright {
+  text-align: right;
+}
+.emptybar {
+  height: 50px;
+  background-color: #ffffff;
+}
 blockquote {
   margin-block: 0;
 }
+.logobar {
+  z-index: 1;
+  position: fixed;
 
+  width: 100%;
+  top: 0px;
+  margin: 0px auto;
+  background: #ffffff;
+  box-shadow: 0px 2px 10px rgba(118, 156, 145, 0.25);
+
+  /* 讓內容物垂直置中*/
+  height: 50px;
+  line-height: 50px;
+}
 .button_font {
   /*font-family: Taipei Sans TC Beta;*/
   font-size: 2.22vh;
@@ -236,7 +301,7 @@ blockquote {
   padding: 31% 0 30% 27%;
 }
 
-p1 {
+#p1 {
   font-size: 1.4vh;
   padding: 0 20% 0 0;
   line-height: 2.5vh;
@@ -248,7 +313,7 @@ p1 {
   top: 5vh;
 }
 
-p2 {
+#p2 {
   font-size: 1.4vh;
   line-height: 2.5vh;
 }
@@ -267,7 +332,7 @@ p2 {
   color: #5c5c5c;
 }
 
-t1 {
+#t1 {
   font-size: 2.6vh;
   font-style: normal;
   font-weight: 400;
@@ -276,13 +341,13 @@ t1 {
   color: #20e2d7;
 }
 
-t2 {
+#t2 {
   font-size: 1.8vh;
   font-weight: 400;
   line-height: 5vh;
 }
 
-t3 {
+#t3 {
   font-size: 1.4vh;
   font-weight: 400;
   line-height: 5vh;
@@ -298,7 +363,7 @@ li {
   line-height: 2.5vh;
 }
 
-p3 {
+#p3 {
   font-size: 1.4vh;
   font-weight: 300;
   line-height: 2.5vh;

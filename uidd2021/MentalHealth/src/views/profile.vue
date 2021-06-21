@@ -1,8 +1,8 @@
 <template>
   <div class="profile-container">
     <div class="navbar">
-      <div class="vector">
-        <a href="/home"> <img src="@/assets/pic/Vector2.png" /> </a>
+      <div class="vector" @click="goBack()">
+         <img src="@/assets/pic/Vector2.png" /> </a>
       </div>
       <div class="navText">我的檔案</div>
 
@@ -10,8 +10,8 @@
         <div class="profile_pic">
           <img src="@/assets/pic/Ellipse43.png" />
         </div>
-        <div class="name">{{ this.user[0].name }}</div>
-        <div class="id">學號：{{ this.user[0].id }}</div>
+        <div class="name">{{ this.name }}</div>
+        <div class="id">學號：{{ this.id }}</div>
       </div>
       <div class="function" id="first" @click="goto_reservationRecord()">
         <div class="pic">
@@ -35,7 +35,9 @@ export default {
 
   data() {
     return {
-      user: "",
+      user: '',
+      name:'',
+      id:''
     };
   },
   methods: {
@@ -44,6 +46,9 @@ export default {
         name: "reservation",
       });
     },
+    goBack() {
+      this.$router.go(-1);
+    },
   },
   created() {
     this.$http
@@ -51,17 +56,15 @@ export default {
         userID: this.$store.state.userName,
       })
       .then((res) => {
-        this.user = res.body;
+        this.user = res.body[0];
+        this.name = this.user.name;
+        this.id = this.user.id;
       });
   },
 };
 </script>
 
 <style rel="stylesheet/scss" lang="scss" scoped>
-@font-face {
-  font-family: "Taipei Sans TC Beta";
-  src: url("../assets/font/TaipeiSansTCBeta.ttf");
-}
 .profile-container {
   position: relative;
   width: 100%;

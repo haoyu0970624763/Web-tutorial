@@ -17,6 +17,7 @@
 <style scoped>
 #img{
     padding-top: 30px;
+    height: 100;
     
 }
 .text{

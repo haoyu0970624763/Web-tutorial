@@ -1,6 +1,6 @@
 <template>
   <div>
-    <Nav />
+    <Nav showBackArrow="true"/>
     <div class="slideshowBox">
       <div class="slideText">
         <div class="title">Hello,</div>

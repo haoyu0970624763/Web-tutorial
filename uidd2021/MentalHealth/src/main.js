@@ -7,6 +7,7 @@ import store from './store'
 import VueRouter from 'vue-router'
 import VueResource from 'vue-resource'
 
+
 import 'bootstrap'
 // Import css file
 import 'bootstrap/dist/css/bootstrap.min.css'
@@ -20,7 +21,6 @@ Vue.use(IconsPlugin);
 Vue.config.productionTip = false
 Vue.use(VueRouter)
 Vue.use(VueResource)
-
 
 /* eslint-disable no-new */
 new Vue({

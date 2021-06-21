@@ -1,117 +1,116 @@
 <template>
   <div>
-    <Nav showBackArrow showText navText="匹配問題填答"></Nav>
+    <Nav showBackArrow="true" showText="true" navText="匹配問題填答"></Nav>
     <div id="layout_down">
       <div class="content_box">
-        <p1>1. 這次主要想和心理師談什麼呢？</p1>
+        <p id="p1">1. 這次主要想和心理師談什麼呢？</p>
       </div>
-
       <div class="button_list" style="height: 30vh">
         <div class="medium_button">
           <div id="b1" @click="press1('b1')" class="button_content">
-            <p2>生涯規劃</p2>
+            <p id="p2">生涯規劃</p>
           </div>
         </div>
 
         <div class="medium_button">
           <div id="b2" @click="press2('b2')" class="button_content">
-            <p2>家庭狀況</p2>
+            <p id="p2">家庭狀況</p>
           </div>
         </div>
 
         <div class="medium_button">
           <div id="b3" @click="press3('b3')" class="button_content">
-            <p2>自我探索</p2>
+            <p id="p2">自我探索</p>
           </div>
         </div>
 
         <div class="medium_button">
           <div id="b4" @click="press4('b4')" class="button_content">
-            <p2>感情議題</p2>
+            <p id="p2">感情議題</p>
           </div>
         </div>
 
         <div class="medium_button">
           <div id="b5" @click="press5('b5')" class="button_content">
-            <p2>生活變故</p2>
+            <p id="p2">生活變故</p>
           </div>
         </div>
 
         <div class="medium_button">
           <div id="b6" @click="press6('b6')" class="button_content">
-            <p2>情緒低落</p2>
+            <p id="p2">情緒低落</p>
           </div>
         </div>
 
         <div class="medium_button">
           <div id="b7" @click="press7('b7')" class="button_content">
-            <p2>性別議題</p2>
+            <p id="p2">性別議題</p>
           </div>
         </div>
 
         <div class="medium_button">
           <div id="b8" @click="press8('b8')" class="button_content">
-            <p2>人際相處</p2>
+            <p id="p2">人際相處</p>
           </div>
         </div>
 
         <div class="medium_button">
           <div id="b9" @click="press9('b9')" class="button_content">
-            <p2>睡眠問題</p2>
+            <p id="p2">睡眠問題</p>
           </div>
         </div>
 
         <div class="medium_button">
           <div id="b10" @click="press10('b10')" class="button_content">
-            <p2>其他</p2>
+            <p id="p2">其他</p>
           </div>
         </div>
       </div>
 
       <div class="content_box">
-        <p1>2. 有特別想選男/女性心理師嗎？</p1>
+        <p id="p1">2. 有特別想選男/女性心理師嗎？</p>
       </div>
 
       <div class="button_list" style="height: 7vh">
         <div class="short_button">
           <div id="b11" @click="press11('b11')" class="button_content">
-            <p2>不拘</p2>
+            <p id="p2">不拘</p>
           </div>
         </div>
 
         <div class="short_button">
           <div id="b12" @click="press12('b12')" class="button_content">
-            <p2>男</p2>
+            <p id="p2">男</p>
           </div>
         </div>
 
         <div class="short_button">
           <div id="b13" @click="press13('b13')" class="button_content">
-            <p2>女</p2>
+            <p id="p2">女</p>
           </div>
         </div>
       </div>
 
       <div class="content_box">
-        <p1>3. 比較喜歡以下哪種諮商風格呢？</p1>
+        <p id="p1">3. 比較喜歡以下哪種諮商風格呢？</p>
       </div>
 
       <div class="button_list" style="height: 20vh">
         <div class="long_button">
           <div id="b14" @click="press14('b14')" class="button_content">
-            <p2>想被溫柔安慰</p2>
+            <p id="p2">想被溫柔安慰</p>
           </div>
         </div>
 
         <div class="long_button">
           <div id="b15" @click="press15('b15')" class="button_content">
-            <p2>想聽客觀的視角分析</p2>
+            <p id="p2">想聽客觀的視角分析</p>
           </div>
         </div>
 
         <div class="long_button">
           <div id="b16" @click="press16('b16')" class="button_content">
-            <p2>想被溫和的罵醒</p2>
+            <p id="p2">想被溫和的罵醒</p>
           </div>
         </div>
       </div>
@@ -501,7 +500,7 @@ blockquote {
   box-sizing: border-box;
 }
 
-p1 {
+#p1 {
   font-style: normal;
   font-weight: bold;
   font-size: 2.5vh;
@@ -509,8 +508,9 @@ p1 {
 
   line-height: 3.05vh;
 }
-
-p2 {
+#p2 {
+  position: relative;
+  top: 5.5px;
   font-style: normal;
   font-weight: normal;
   font-size: 1.85vh;

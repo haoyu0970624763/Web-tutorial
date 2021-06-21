@@ -1,11 +1,11 @@
 <template>
   <div>
-    <Nav showBackArrow />
+    <Nav showBackArrow="true" />
     <div id="layout_up">
       <div class="half_region">
-        <p4>讓Aura為你匹配心理師</p4>
+        <p id="p4">讓Aura為你匹配心理師</p>
 
-        <p5>只需回答幾個問題，讓我們為您推薦</p5>
+        <p id="p5">只需回答幾個問題，讓我們為您推薦</p>
 
         <div class="short_button" @click="toanalysis">
           <font class="button_font">立即開始</font>
@@ -14,14 +14,14 @@
 
       <div id="middle">
         <div class="middle_line"></div>
-        <p5>或</p5>
+        <p id="p5">或</p>
         <div class="middle_line"></div>
       </div>
 
       <div class="half_region">
-        <p4>我想自己選</p4>
+        <p id="p4">我想自己選</p>
 
-        <p5>適用於已經有想要的心理師， <br />或只想快快預約到個人諮商的您</p5>
+        <p id="p5">適用於已經有想要的心理師， <br />或只想快快預約到個人諮商的您</p>
 
         <div class="short_button" @click="pagechange">
           <font class="button_font">預約時間</font>
@@ -235,9 +235,6 @@ export default {
       }
     },
   },
-  mounted() {
-    console.log(this.$store.state.userName, "start");
-  },
 };
 </script>
 
@@ -333,7 +330,7 @@ blockquote {
   align-items: center;
 }
 
-p4 {
+#p4 {
   font-family: Taipei Sans TC Beta;
   font-style: normal;
   font-weight: bold;
@@ -343,7 +340,7 @@ p4 {
   line-height: 4.72vh;
 }
 
-p5 {
+#p5 {
   font-family: Taipei Sans TC Beta;
   font-style: normal;
   font-weight: normal;
