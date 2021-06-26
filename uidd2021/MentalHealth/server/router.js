@@ -19,17 +19,30 @@ router.post('/GetUserInfo', (req, res, next) => {
 router.post('/GetUserBookInfo', (req, res, next) => {
     api.GetUserBookInfo(req, res, next);
 });
-
-router.post('/book', (req, res, next) => {
-    api.book(req, res, next);
+router.post('/GetCommentInfo', (req, res, next) => {
+    api.GetCommentInfo(req, res, next);
+});
+router.post('/GetDiaryInfo', (req, res, next) => {
+    api.GetDiaryInfo(req, res, next);
 });
 router.post('/GetTreeNum', (req, res, next) => {
     api.GetTreeNum(req, res, next);
 });
+router.post('/book', (req, res, next) => {
+    api.book(req, res, next);
+});
+router.post('/diaryWrite', (req, res, next) => {
+    api.diaryWrite(req, res, next);
+});
+router.post('/Comment_Write', (req, res, next) => {
+    api.Comment_Write(req, res, next);
+});
 router.post('/writeDiary', (req, res, next) => {
     api.writeDiary(req, res, next);
 });
-
+router.post('/textorder', (req, res, next) => {
+    api.textorder(req, res, next);
+});
 router.post('/checkDiaryDate', (req, res, next) => {
     api.checkDiaryDate(req, res, next);
 });

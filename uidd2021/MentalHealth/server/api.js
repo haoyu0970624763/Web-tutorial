@@ -180,6 +180,7 @@ module.exports = {
             })
         })
     },
+
     GetUserBookInfo(req, res, next) {
 
         var id = req.body.userID;
@@ -198,27 +199,77 @@ module.exports = {
             })
         })
     },
-    book(req, res, next) {
-
+    GetDiaryInfo(req, res, next) {
         var userID = req.body.userID;
-        var months = req.body.months;
-        var day = req.body.day;
-        var time = req.body.time;
-        var name = req.body.name;
-
-        if (day[0] == '0') {
-            day = day[1];
-        }
-
-        var sql = "UPDATE `BookTable` SET `user_id` = ?  where day=? AND time=? AND mentalName=?"
-
+        var operatemode = req.body.operatemode;
+        var sql = "select * from diary where user_id=?";
+        var sql_public = "select * from diary where user_id=? AND ispublic='y'";
         pool.getConnection((err, connection) => {
-            connection.query(sql, [userID, day, time, name], (err, result) => {
-                if (err) throw err;
-                if (result.length != 0) {
-                    res.send("success");
-                }
-            })
+            if(operatemode == "normal") {
+                connection.query(sql, [userID], (err, result) => {
+                    if (err) throw err;
+                    if(result.length == 0) {
+                        console.log("no data");
+                        res.send("fail");
+                    }
+                    else {
+                        //console.log(result);
+                        res.send(result);
+                    }
+                    connection.release();
+                })
+            }
+            else if(operatemode == "public") {
+                connection.query(sql_public, [userID], (err, result) => {
+                    if (err) throw err;
+                    if(result.length == 0) {
+                        console.log("no data");
+                        res.send("fail");
+                    }
+                    else {
+                        //console.log(result);
+                        res.send(result);
+                    }
+                    connection.release();
+                })
+            }
+        })
+    },
+    GetCommentInfo(req, res, next) {
+        var number = req.body.number;
+        var diary_date = req.body.diary_date;
+        var operatemode = req.body.operatemode;
+        var sql = "select * from comment where receive_number=? AND diary_date=?";
+        var sql2 = "select * from comment where send_number=?";
+        pool.getConnection((err, connection) => {
+            if(operatemode == 'MySend') {
+                connection.query(sql2, [number], (err, result) => {
+                    if (err) throw err;
+                    if(result.length == 0) {
+                        console.log("no comment");
+                        res.send("get comment fail");
+                    }
+                    else {
+                        //console.log(result);
+                        res.send(result);
+                    }
+                    connection.release();
+                })
+            }
+            else {
+                connection.query(sql, [number, diary_date], (err, result) => {
+                    if (err) throw err;
+                    if(result.length == 0) {
+                        console.log("no comment");
+                        res.send("get comment fail");
+                    }
+                    else {
+                        //console.log(result);
+                        res.send(result);
+                    }
+                    connection.release();
+                })
+            }         
         })
     },
     GetTreeNum(req, res, next) {
@@ -256,6 +307,131 @@ module.exports = {
             });
         })
     },
+    diaryWrite(req, res, next) {
+        var userID = req.body.userID;
+        var eventname= req.body.eventname;
+        var date = req.body.date;
+        var time = req.body.time;
+        var category =req.body.category;
+        var mood = req.body.mood;
+        var course = req.body.course;
+        var diaryresult = req.body.diaryresult;
+        var ispublic = req.body.ispublic;
+        var additional = req.body.additional;
+        var number = req.body.number;
+        var hug = req.body.hug;
+        var comment = req.body.comment;
+        var comment_notRead = req.body.comment_notRead;
+        var sql_add = "insert into diary(`user_id`,`eventname`,`date`,`time`,`category`,`mood`,`course`,`diaryresult`,`ispublic`,`additional`,`number`,`hug`,`comment`,`comment_notRead`) values(?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+        var sql_update = "UPDATE diary SET eventname=?, time=?, category=?, mood=?, course=?, diaryresult=?, ispublic=?, additional=?, number=? where user_id=? AND date=?";
+        var sql_check = "select * from diary where user_id=? AND date=?";
+        pool.getConnection((err, connection) => {
+            connection.query(sql_check, [userID, date], (err, result) => {
+                if (err) throw err;
+                if(result.length == 0) {
+                    //此日還沒寫過日記
+                    connection.query(sql_add, [userID,eventname,date,time,category,mood,course,diaryresult,ispublic,additional,number,hug,comment,comment_notRead], (err, result) => {
+                        if (err) throw err;
+                        res.send("success");
+                    })
+                }
+                else {
+                    //修改日記
+                    connection.query(sql_update, [eventname,time,category,mood,course,diaryresult,ispublic,additional,number,userID,date], (err, result) => {
+                        if (err) throw err;
+                        console.log("update success");
+                        res.send("success");
+                    })
+                }
+                connection.release();
+            })
+        })
+    },
+    Comment_Write(req, res, next) {
+        var send_number = req.body.send_number;
+        var receive_number = req.body.receive_number;
+        var diary_date = req.body.diary_date;
+        var send_date = req.body.send_date;
+        var send_time = req.body.send_time;
+        var content = req.body.content;
+        var hug = req.body.hug;
+        var reply = req.body.reply;
+        var sql_diarySelect = "select * from diary where number=? AND date=?";
+        var sql_diaryUpdateSelf = "UPDATE diary SET comment=? where number=? AND date=?";
+        var sql_diaryUpdate = "UPDATE diary SET comment=?, comment_notRead=? where number=? AND date=?";
+        var sql_comment = "insert into comment(`send_number`,`receive_number`,`diary_date`,`send_date`,`send_time`,`content`,`hug`,`reply`) values(?,?,?,?,?,?,?,?)"
+        pool.getConnection((err,connection) => {
+            if(err) throw err;
+            connection.query(sql_diarySelect, [receive_number,diary_date], (err, result) => {
+                if(err) throw err;
+                if(result.length == 0) {
+                    console.log("fail");
+                    res.send("fail");
+                }
+                else {
+                    var new_comment = Number(result[0].comment) + 1;
+                    if(send_number === receive_number) {
+                        connection.query(sql_diaryUpdateSelf, [new_comment,receive_number,diary_date], (err, result) => {
+                            if(err) throw err;
+                            console.log("diary update");
+                        })
+                    }
+                    else {
+                        connection.query(sql_diaryUpdate, [new_comment,'y',receive_number,diary_date], (err, result) => {
+                            if(err) throw err;
+                            console.log("diary update");
+                        })
+                    }
+                    connection.query(sql_comment, [send_number,receive_number,diary_date,send_date,send_time,content,hug,reply], (err, result) => {
+                        if(err) throw err;
+                        console.log("comment success");
+                        res.send("success");
+                    })
+                }
+                connection.release();
+            })
+        })
+    },
+    book(req, res, next) {
+
+        var userID = req.body.userID;
+        var months = req.body.months;
+        var day = req.body.day;
+        var time = req.body.time;
+        var name = req.body.name;
+
+        if (day[0] == '0') {
+            day = day[1];
+        }
+
+        var sql = "UPDATE `BookTable` SET `user_id` = ?  where day=? AND time=? AND mentalName=?"
+
+        pool.getConnection((err, connection) => {
+            connection.query(sql, [userID, day, time, name], (err, result) => {
+                if (err) throw err;
+                if (result.length != 0) {
+                    res.send("success");
+                }
+            })
+        })
+    },
+    textorder(req,res,next) {
+        var sql = req.body.order;
+        pool.getConnection((err, connection) => {
+            if(err) throw err;
+            connection.query(sql, (err, result) => {
+                if(err) throw err;
+                if(result.length != 0) {
+                    res.send("success");
+                }
+                else {
+                    res.send("fail");
+                }
+            })
+            connection.release();
+        })
+    },
+    
     writeDiary(req, res, next) {
 
         var sql_add = "INSERT INTO `diary` (`user_id`, `eventname`, `date`, `time`, `category`, `mood`, `course`, `diaryresult`, `ispublic`, `additional`, `number`, `hug`, `comment`, `comment_notRead`) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);"
@@ -286,7 +462,6 @@ module.exports = {
         var sql = "SELECT DISTINCT date FROM `diary` WHERE user_id=?";
 
         var id = req.body.id
-
 
         pool.getConnection((err, connection) => {
             connection.query(sql, id, (err, result) => {

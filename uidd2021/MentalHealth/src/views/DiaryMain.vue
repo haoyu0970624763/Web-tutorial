@@ -17,7 +17,6 @@
 <style scoped>
 #img{
     padding-top: 30px;
-    height: 100;
     
 }
 .text{
@@ -26,12 +25,10 @@
     font-weight: normal;
     font-size: 16px;
     color: #5C5C5C;
-
     /*位置*/
     text-align: center;
     padding-top:10vh;
     padding-bottom: 2vh;
-
 }
 .background{    
     height: 637px;
@@ -42,9 +39,8 @@
 </style>
 <script>
 import Nav from '@/components/Nav.vue'
-
 export default {
-    name: 'Feeling',
+    name: 'DiaryMain',
     components:{
         Nav,
     }

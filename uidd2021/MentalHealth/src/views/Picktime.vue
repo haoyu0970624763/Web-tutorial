@@ -1,35 +1,23 @@
 <template>
-  <div class="desktop" :class="{ darken: seen }">
+  <div class="desktop">
+    <div class="darken" v-show="seen"></div>
     <div id="namebar">
-      <Nav
-        showBackArrow="true"
-        showText
-        navText="挑選日期與時間"
-        destination="analysis"
-      />
+      <Nav showBackArrow="true" showText navText="挑選日期與時間" destination="analysis" />
     </div>
     <div id="pickbar">
       <div id="innerpickbar">
-        <div class="photobox" id="b1" :class="{ photoboxB: picktimeisactive }">
-          <div
-            class="photocircle"
-            :class="{ photocircleB: picktimeisactive }"
-            @click="clickpicktime"
-          >
+        <div
+          class="photobox"
+          id="b1"
+          :class="{ photoboxB: picktimeisactive }"
+        >
+          <div class="photocircle" :class="{ photocircleB: picktimeisactive }" @click="clickpicktime">
             <div class="photocircleinner" id="c1"></div>
           </div>
           <div class="phototext">挑時間</div>
         </div>
-        <div
-          class="photobox"
-          v-for="item in expert"
-          :class="{ photoboxB: item.isActive }"
-        >
-          <div
-            class="photocircle"
-            :class="{ photocircleB: item.isActive }"
-            @click="clickphoto(item.id)"
-          >
+        <div class="photobox" v-for="item in expert" :class="{ photoboxB: item.isActive }">
+          <div class="photocircle" :class="{ photocircleB: item.isActive }" @click="clickphoto(item.id)">
             <div class="photocircleinner" :style="item.photo"></div>
           </div>
           <div class="phototext">{{ item.name }}</div>
@@ -37,6 +25,7 @@
       </div>
     </div>
     <div id="splitline"></div>
+
 
     <div id="calendar">
       <b-calendar
@@ -74,7 +63,7 @@
         :class="{ Clickstyle: nextavailable }"
         @click="nstep"
       >
-        下一步
+      下一步
       </div>
     </div>
     <transition name="descript">
@@ -112,7 +101,6 @@ export default {
         timeselect: "",
         personselect: "",
       },
-
       namelist: {
         1: "挑時間",
         2: "許欣宜",
@@ -146,7 +134,6 @@ export default {
       availabletimelist: [],
     };
   },
-
   watch: {
     dateselect: function (val, oldVal) {
       this.nextavailable = false;
@@ -156,63 +143,52 @@ export default {
       this.reservationselect.day = "";
       this.availabletimelist = [];
       if (this.dateselect != "") {
-        if (this.pickval != 1) {
-          var y, m, d;
-          [y, m, d] = this.dateselect.split("-");
-          if (Number(m) < 10) {
+        if(this.pickval != 1) {
+          var y,m,d;
+          [y,m,d] = this.dateselect.split('-');
+          if(Number(m) < 10) {
             m = m.replace("0", "");
           }
-          if (Number(d) < 10) {
+          if(Number(d) < 10) {
             d = d.replace("0", "");
           }
           let timelist = this.BookInfo.filter((item, index) => {
-            if (
-              y == item.Year &&
-              m == item.months &&
-              d == item.day &&
-              item.user_id == "" &&
-              item.mentalName == this.namelist[this.pickval]
-            ) {
+            if(y == item.Year && m == item.months && d == item.day && item.user_id == "" && item.mentalName == this.namelist[this.pickval]) {
               return true;
             }
-          });
+          })
           timelist.forEach((i) => {
             this.availabletimelist.push({
               avaltime: i.time,
               name: this.namelist[this.pickval],
               isClick: false,
             });
-          });
-        } else {
-          var y, m, d;
-          [y, m, d] = this.dateselect.split("-");
-          if (Number(m) < 10) {
+          })
+        }
+        else {
+          var y,m,d;
+          [y,m,d] = this.dateselect.split('-');
+          if(Number(m) < 10) {
             m = m.replace("0", "");
           }
-          if (Number(d) < 10) {
+          if(Number(d) < 10) {
             d = d.replace("0", "");
           }
           let timelist = this.BookInfo.filter((item, index) => {
-            if (
-              y == item.Year &&
-              m == item.months &&
-              d == item.day &&
-              item.user_id == ""
-            ) {
+            if(y == item.Year && m == item.months && d == item.day && item.user_id == "") {
               return true;
             }
-          });
+          })
           timelist.forEach((i) => {
             this.availabletimelist.push({
               avaltime: i.time,
               name: i.mentalName,
               isClick: false,
             });
-          });
+          })
         }
       }
     },
-
     pickval: function (val, oldVal) {
       this.dateselect = "";
     },
@@ -220,21 +196,23 @@ export default {
   methods: {
     setavailabledatelist() {
       this.BookInfo.forEach((item) => {
-        if (item.user_id == "") {
+        if(item.user_id == "") {
           var y = item.Year;
-          if (Number(item.months) < 10) {
+          if(Number(item.months) < 10) {
             var m = "0" + item.months;
-          } else {
+          }
+          else {
             var m = item.months;
           }
-          if (Number(item.day) < 10) {
+          if(Number(item.day) < 10) {
             var d = "0" + item.day;
-          } else {
+          }
+          else {
             var d = item.day;
           }
           var ymd = [y, m, d];
           this.availabledatelist[item.mentalName].push(ymd.join("-"));
-          this.availabledatelist["挑時間"].push(ymd.join("-"));
+          this.availabledatelist['挑時間'].push(ymd.join("-"));
         }
       });
     },
@@ -310,7 +288,7 @@ export default {
       this.seen = false;
     },
     dateDisabled(ymd, date) {
-      if (this.pickval == 0) {
+      if(this.pickval == 0) {
         return true;
       }
       if (
@@ -338,7 +316,6 @@ export default {
       }
     },
     nstep() {
-  
       this.$store.commit("setBookMonth", this.reservationselect.months);
       this.$store.commit("setBookDay", this.reservationselect.day);
       this.$store.commit("setBookTime", this.reservationselect.timeselect);
@@ -357,22 +334,23 @@ export default {
   },
   created() {
     this.getexpertsort();
-    this.$http
-      .post("/api/GetBookInfo", {})
-      .then((res) => {
-        this.BookInfo = res.body;
-      })
-      .then(() => {
-        this.setavailabledatelist();
-      })
-      .then(() => {
-        this.getpickid();
-      });
+    this.$http.post("/api/GetBookInfo", {}).then((res) => {
+      this.BookInfo = res.body;
+    }).then(()=>{
+      this.setavailabledatelist();
+    }).then(()=>{
+      this.getpickid();
+    })
+  },
+  mounted() {
+    console.log("username:", this.$store.state.userName);
+      //this.getpickid();
   },
 };
 </script>
 
 <style rel="stylesheet/scss" lang="scss" scoped>
+
 .desktop {
   position: absolute;
   display: block;
@@ -381,8 +359,14 @@ export default {
   overflow: hidden;
 }
 .darken {
-  background-color: rgba(0, 0, 0, 0.2);
+  position: absolute;
+  display: block;
+  width: 375px;
+  height: 687px;
+  overflow: hidden;
+  background: rgba(27, 27, 27, 0.5);
   background-blend-mode: darken;
+  z-index: 1;
 }
 #namebar {
   width: 375px;
@@ -585,6 +569,7 @@ export default {
   box-shadow: 5px 5px 25px rgba(204, 204, 204, 0.75);
   border-radius: 10px;
   background-color: #ffffff;
+  z-index: 2;
 }
 #photo {
   position: absolute;

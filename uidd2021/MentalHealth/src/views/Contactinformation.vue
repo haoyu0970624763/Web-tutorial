@@ -5,7 +5,7 @@
     </div>
     <div class="title" id="title1">基本資料</div>
     <div class="text" id="text1">姓名</div>
-    <div class="text" id="name">{{ this.user }}</div>
+    <div class="text" id="name">{{ this.user}}</div>
     <div class="text" id="text2">學號</div>
     <div class="text" id="num">{{ this.$store.state.userName }}</div>
     <div class="title" id="title2">聯絡資料填寫</div>
@@ -109,6 +109,7 @@ export default {
 };
 </script>
 <style rel="stylesheet/scss" lang="scss" scoped>
+
 .desktop {
   position: absolute;
   display: block;

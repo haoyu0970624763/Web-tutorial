@@ -39,9 +39,10 @@ export default {
   },
   methods: {
     goOff() {
-      //回到上一頁
       if (this.destination == "0") {
         this.$router.go(-1);
+      } else if (this.destination == "reload") {
+        this.reload();
       } else {
         this.$router.push({ name: this.destination });
       }

@@ -28,6 +28,8 @@ import Reservationsuccess from '@/views/Reservationsuccess.vue'
 import DiaryMain from '@/views/DiaryMain.vue'
 import DiaryWrite from '@/views/DiaryWrite.vue'
 import Otherresource from '@/views/Otherresource.vue'
+import Mypublicdiary from '@/views/Mypublicdiary.vue'
+import Myhollow from '@/views/Myhollow.vue'
 
 Vue.use(Router)
 
@@ -161,6 +163,16 @@ export default new Router({
       path: '/Otherresource',
       name: 'Otherresource',
       component: Otherresource
+    },
+    {
+      path: '/Mypublicdiary',
+      name: 'Mypublicdiary',
+      component: Mypublicdiary
+    },
+    {
+      path: '/Myhollow',
+      name: 'Myhollow',
+      component: Myhollow
     },
 
 

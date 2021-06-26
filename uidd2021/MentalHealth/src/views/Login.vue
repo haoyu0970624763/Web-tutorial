@@ -1,15 +1,6 @@
 <template>
   <div>
-    <div class="logobar">
-      <b-container>
-        <b-row>
-          <b-col class="text-center">
-              <img class="logoimg" src="@/assets/svg/logo.svg" />
-          </b-col>
-        </b-row>
-      </b-container>
-    </div>
-    <div class="emptybar"></div>
+    <Nav />
     <div class="title">Log In</div>
     <div class="loginIMG"><img src="@/assets/yoyoLin/login_img.svg" /></div>
     <div class="inputBox">
@@ -34,7 +25,6 @@
   </div>
 </template>
 <style scoped>
-
 .text {
   margin-top: 25px;
   margin-bottom: 10px;
@@ -44,37 +34,12 @@
   font-size: 12px;
   line-height: 16px;
   /* identical to box height, or 133% */
-
   text-align: center;
-
   /* 深灰 */
-
   color: #5c5c5c;
 }
-img {
-  background-size: cover;
-}
-.logobar {
-    z-index: 1;
-    position:fixed;
-    
-    width:100%;
-    top: 0px;
-    margin:0px auto;
-    background: #FFFFFF;
-    box-shadow: 0px 2px 10px rgba(118, 156, 145, 0.25);
-
-    /* 讓內容物垂直置中*/
-    height:50px;
-    line-height : 50px;
-}
-.logoimg {    
-    height: 20px;
-    width: auto; 
-}
-.emptybar{
-    height: 50px;
-    background-color: #FFFFFF;
+img{
+    background-size: cover;
 }
 .btnBox {
   text-align: center;
@@ -93,25 +58,20 @@ img {
 .btn_reg {
   height: 43px;
   width: 284px;
-
   background: #ffffff;
   border: 1px solid #20e2d7;
   border-radius: 33px;
-
   font-family: Taipei Sans TC Beta;
   font-style: normal;
   font-weight: normal;
   font-size: 16px;
-
   text-align: center;
-
   color: #8e8e8e;
   margin-top: 15px;
 }
 .btn_login {
   height: 43px;
   width: 284px;
-
   background: #20e2d7;
   box-shadow: 0px 4px 17px -1px rgba(107, 182, 177, 0.51);
   border-radius: 33px;
@@ -121,11 +81,9 @@ img {
   font-weight: normal;
   font-size: 16px;
   text-align: center;
-
   color: #ffffff;
   margin-top: 15px;
 }
-
 .inputBox {
   text-align: center;
 }
@@ -141,18 +99,15 @@ input:focus {
   text-align: center;
   border-radius: 33px;
   border: 1px solid;
-
   /*使用 border-image 最大的問題在於，設置的 border-radius 會失效。 */
   background: linear-gradient(136.56deg, #ffffff -16.84%, #ffffff 102.5%)
       padding-box,
     /*this is your grey background*/
       linear-gradient(180deg, #96fbc4 33.15%, #20e2d7 127.81%) border-box;
-
   border: 1px solid transparent;
   border-radius: 33px;
   display: flex;
   flex-direction: row;
-
   margin: 7px;
 }
 .picBox {
@@ -177,7 +132,6 @@ input {
   font-weight: 600;
   font-size: 30px;
   text-align: center;
-
   color: #1e1e1e;
   margin-top: 35px;
   margin-bottom: 20px;
@@ -185,7 +139,6 @@ input {
 </style>
 <script>
 import Nav from "@/components/Nav.vue";
-
 export default {
   name: "Login",
   components: {
@@ -193,6 +146,7 @@ export default {
   },
   methods: {
     btn_login() {
+      console.log("press btn login");
       this.$http
         .post("/api/login", {
           ID: $("input[name=inputID]").val(),
@@ -200,18 +154,22 @@ export default {
         })
         .then((res) => {
           if (res.body.indexOf("success") != -1) {
+            
             this.$store.commit("setUserInfo", $("input[name=inputID]").val());
-            if (this.$store.state.userName != "") {
-              this.$router.push({
-                name: "home",
-              });
-            }
+              if (this.$store.state.userName != "") {
+                console.log(this.$store.state.userName, "login");
+                this.$router.push({
+                  name: "home",
+                });
+              }
           } else {
+            console.log(res.body);
             $("#login_output").html(res.body);
           }
         });
     },
     btn_reg() {
+      console.log("press btn reg");
       this.$router.push({
         name: "Register",
       });

@@ -1,13 +1,13 @@
 <template>
   <div class="desktop">
     <div id="namebar">
-      <Nav showBackArrow="true" showText navText="預約成功" />
+      <Nav showBackArrow showText navText="預約成功" />
     </div>
     <div id="successtext">預約成功！</div>
     <div id="successtext2">已預約 個人諮商</div>
     <div id="successtext3">
       {{ this.$store.state.month }}/{{ this.$store.state.day }}
-      {{ this.$store.state.time }} {{ this.$store.state.mental  }} 心理師
+      {{ this.$store.state.time }} {{ this.$store.state.mental}} 心理師
     </div>
     <div id="successphoto"></div>
     <div id="confirmtext">可到「我的檔案」中「預約紀錄」查看</div>
@@ -39,6 +39,11 @@ export default {
     tofile() {
       this.$router.push({
         name: "profile",
+        params: {
+          date: this.reservationinfo.date,
+          time: this.reservationinfo.time,
+          name: this.reservationinfo.name,
+        },
       });
     },
     tohome() {

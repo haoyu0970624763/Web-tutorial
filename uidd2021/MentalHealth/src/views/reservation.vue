@@ -75,7 +75,6 @@
 
 <script>
 export default {
-
   data() {
     return {
       info: "",
@@ -104,17 +103,10 @@ export default {
     setFlagRight: function () {
       this.leftFlag = 0;
       this.rightFlag = 1;
-      this.getpastrecord();
     },
     getrecord() {
       this.reservationrecord = [];
-      this.$http
-        .post("/api/GetUserBookInfo", {
-          userID: this.$store.state.userName,
-        })
-        .then((res) => {
-          this.info = res.body;
-        });
+
       var i;
       for (i = 0; i < this.info.length; i++) {
         this.reservationrecord.push({
@@ -136,7 +128,15 @@ export default {
     },
   },
   created() {
-    this.getrecord();
+    this.$http
+      .post("/api/GetUserBookInfo", {
+        userID: this.$store.state.userName,
+      })
+      .then((res) => {
+        this.info = res.body;
+        this.getrecord();
+      });
+    
   },
 };
 </script>

@@ -1,7 +1,7 @@
 <template>
   <div class="desktop">
     <div id="namebar">
-      <Nav showBackArrow="true" showText navText="匹配結果" />
+      <Nav showBackArrow showText navText="匹配結果" />
     </div>
     <div class="ornament"></div>
     <div class="ornament" id="rotate"></div>
@@ -249,6 +249,7 @@ export default {
 };
 </script>
 <style rel="stylesheet/scss" lang="scss" scoped>
+
 .desktop {
   position: absolute;
   display: block;
