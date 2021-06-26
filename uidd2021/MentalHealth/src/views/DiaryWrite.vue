@@ -120,9 +120,7 @@
             <div class="btn_submit" @click="showIFtreeHole">送出</div>
           </b-col>
           <b-col>
-            <router-link to="/feeling">
-              <div class="btn_cancel" @click="backMood">取消</div>
-            </router-link>
+            <div class="btn_cancel" @click="backMood">取消</div>
           </b-col>
         </b-row>
       </b-container>
