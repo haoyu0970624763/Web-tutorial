@@ -1,116 +1,119 @@
 <template>
-    <div id="layout">
-        <Nav showBackArrow=true showText=true navText="醫療院所"></Nav>
-        <div id="navbar">
-            <div @click="ShowLeft=true" :class="{'press':ShowLeft, 'nonpress':!ShowLeft}">
-                <div :class="{'show':ShowLeft, 'nonshow':!ShowLeft}">電話專線</div>
-            </div>
-            <div @click="ShowLeft=false" :class="{'press':!ShowLeft, 'nonpress':ShowLeft}">
-                <div :class="{'show':!ShowLeft, 'nonshow':ShowLeft}">心輔網站</div>
-            </div>
-        </div>
-        <div class="divide_bar"/>
+    <div>
+        <Nav showBackArrow=true showText=true navText="線上支持"></Nav>
 
-        <div v-if="ShowLeft">
-            <div class="content" @click="openLink(resource.phone[0].link)">
-                <div class="font_box">
-                    <div class="title1" v-text="resource.phone[0].name"></div>
+        <div id="layout">
+            <div id="navbar">
+                <div @click="ShowLeft=true" :class="{'press':ShowLeft, 'nonpress':!ShowLeft}">
+                    <div :class="{'show':ShowLeft, 'nonshow':!ShowLeft}">電話專線</div>
                 </div>
-                <div class="button">
-                    <img src="@/assets/anson/0610/right_button.svg"></img>
-                </div>
-            </div>
-            <div class="divide_bar"/>
-            <div class="content" @click="openLink(resource.phone[1].link)">
-                <div class="font_box">
-                    <div class="title1" v-text="resource.phone[1].name"></div>
-                </div>
-                <div class="button">
-                    <img src="@/assets/anson/0610/right_button.svg"></img>
+                <div @click="ShowLeft=false" :class="{'press':!ShowLeft, 'nonpress':ShowLeft}">
+                    <div :class="{'show':!ShowLeft, 'nonshow':ShowLeft}">心輔網站</div>
                 </div>
             </div>
             <div class="divide_bar"/>
-            <div class="content" @click="openLink(resource.phone[2].link)">
-                <div class="font_box">
-                    <div class="title1" v-text="resource.phone[2].name"></div>
+
+            <div v-if="ShowLeft">
+                <div class="content_Support" @click="openLink(resource.phone[0].link)">
+                    <div class="font_box">
+                        <div class="title1" v-text="resource.phone[0].name"></div>
+                    </div>
+                    <div class="button">
+                        <img src="@/assets/anson/0610/right_button.svg"></img>
+                    </div>
                 </div>
-                <div class="button">
-                    <img src="@/assets/anson/0610/right_button.svg"></img>
+                <div class="divide_bar"/>
+                <div class="content_Support" @click="openLink(resource.phone[1].link)">
+                    <div class="font_box">
+                        <div class="title1" v-text="resource.phone[1].name"></div>
+                    </div>
+                    <div class="button">
+                        <img src="@/assets/anson/0610/right_button.svg"></img>
+                    </div>
                 </div>
+                <div class="divide_bar"/>
+                <div class="content_Support" @click="openLink(resource.phone[2].link)">
+                    <div class="font_box">
+                        <div class="title1" v-text="resource.phone[2].name"></div>
+                    </div>
+                    <div class="button">
+                        <img src="@/assets/anson/0610/right_button.svg"></img>
+                    </div>
+                </div>
+                <div class="divide_bar"/>
+                <div class="content_Support" @click="openLink(resource.phone[3].link)">
+                    <div class="font_box">
+                        <div class="title1" v-text="resource.phone[3].name"></div>
+                    </div>
+                    <div class="button">
+                        <img src="@/assets/anson/0610/right_button.svg"></img>
+                    </div>
+                </div>
+                <div class="divide_bar"/>
+                <div class="content_Support" @click="openLink(resource.phone[4].link)">
+                    <div class="font_box">
+                        <div class="title1" v-text="resource.phone[4].name"></div>
+                    </div>
+                    <div class="button">
+                        <img src="@/assets/anson/0610/right_button.svg"></img>
+                    </div>
+                </div>
+                <div class="divide_bar"/>
             </div>
-            <div class="divide_bar"/>
-            <div class="content" @click="openLink(resource.phone[3].link)">
-                <div class="font_box">
-                    <div class="title1" v-text="resource.phone[3].name"></div>
+            <div v-else>
+                <div class="content_Support" @click="openLink(resource.website[0].link)">
+                    <div class="font_box">
+                        <div class="title1" v-text="resource.website[0].name"></div>
+                    </div>
+                    <div class="button">
+                        <img src="@/assets/anson/0610/right_button.svg"></img>
+                    </div>
                 </div>
-                <div class="button">
-                    <img src="@/assets/anson/0610/right_button.svg"></img>
+                <div class="divide_bar"/>
+                <div class="content_Support" @click="openLink(resource.website[1].link)">
+                    <div class="font_box">
+                        <div class="title1" v-text="resource.website[1].name"></div>
+                    </div>
+                    <div class="button">
+                        <img src="@/assets/anson/0610/right_button.svg"></img>
+                    </div>
                 </div>
+                <div class="divide_bar"/>
+                <div class="content_Support" @click="openLink(resource.website[2].link)">
+                    <div class="font_box">
+                        <div class="title1" v-text="resource.website[2].name"></div>
+                    </div>
+                    <div class="button">
+                        <img src="@/assets/anson/0610/right_button.svg"></img>
+                    </div>
+                </div>
+                <div class="divide_bar"/>
+                <div class="content_Support" @click="openLink(resource.website[3].link)">
+                    <div class="font_box">
+                        <div class="title1" v-text="resource.website[3].name"></div>
+                    </div>
+                    <div class="button">
+                        <img src="@/assets/anson/0610/right_button.svg"></img>
+                    </div>
+                </div>
+                <div class="divide_bar"/>
+                <div class="content_Support" @click="openLink(resource.website[4].link)">
+                    <div class="font_box">
+                        <div class="title1" v-text="resource.website[4].name"></div>
+                    </div>
+                    <div class="button">
+                        <img src="@/assets/anson/0610/right_button.svg"></img>
+                    </div>
+                </div>
+                <div class="divide_bar"/>
             </div>
-            <div class="divide_bar"/>
-            <div class="content" @click="openLink(resource.phone[4].link)">
-                <div class="font_box">
-                    <div class="title1" v-text="resource.phone[4].name"></div>
-                </div>
-                <div class="button">
-                    <img src="@/assets/anson/0610/right_button.svg"></img>
-                </div>
-            </div>
-            <div class="divide_bar"/>
-        </div>
-        <div v-else>
-            <div class="content" @click="openLink(resource.website[0].link)">
-                <div class="font_box">
-                    <div class="title1" v-text="resource.website[0].name"></div>
-                </div>
-                <div class="button">
-                    <img src="@/assets/anson/0610/right_button.svg"></img>
-                </div>
-            </div>
-            <div class="divide_bar"/>
-            <div class="content" @click="openLink(resource.website[1].link)">
-                <div class="font_box">
-                    <div class="title1" v-text="resource.website[1].name"></div>
-                </div>
-                <div class="button">
-                    <img src="@/assets/anson/0610/right_button.svg"></img>
-                </div>
-            </div>
-            <div class="divide_bar"/>
-            <div class="content" @click="openLink(resource.website[2].link)">
-                <div class="font_box">
-                    <div class="title1" v-text="resource.website[2].name"></div>
-                </div>
-                <div class="button">
-                    <img src="@/assets/anson/0610/right_button.svg"></img>
-                </div>
-            </div>
-            <div class="divide_bar"/>
-            <div class="content" @click="openLink(resource.website[3].link)">
-                <div class="font_box">
-                    <div class="title1" v-text="resource.website[3].name"></div>
-                </div>
-                <div class="button">
-                    <img src="@/assets/anson/0610/right_button.svg"></img>
-                </div>
-            </div>
-            <div class="divide_bar"/>
-            <div class="content" @click="openLink(resource.website[4].link)">
-                <div class="font_box">
-                    <div class="title1" v-text="resource.website[4].name"></div>
-                </div>
-                <div class="button">
-                    <img src="@/assets/anson/0610/right_button.svg"></img>
-                </div>
-            </div>
-            <div class="divide_bar"/>
         </div>
     </div>
 </template>
 
 <style scoped rel="stylesheet" type="text/css">
 #layout{
-    height: 100vh;
+    height: 92.5vh;
 	background: linear-gradient(180deg, #FFFFFF 42.2%, #9FFBC1 203.98%, #40E9D2 270.1%);
 }
 #navbar{
@@ -118,7 +121,6 @@
     height: 7.4vh;
     background: linear-gradient(180deg, #F9FEA5 -214.29%, #96FBC4 -47.3%, #20E2D7 126.79%);
     box-shadow: 0 0.123vh 0 rgba(0, 0, 0, 0.1);
-
     display: flex;
     justify-content: space-around;
     align-items: center;
@@ -133,7 +135,6 @@
     display: flex;
     justify-content: center;
     align-items: center;
-
     font-family: Taipei Sans TC Beta;
     font-style: normal;
     font-weight: bold;
@@ -154,7 +155,6 @@
     font-size: 2.22vh;
     background: none;
     border-radius: 1.23vh;
-
     font-family: Taipei Sans TC Beta;
     font-style: normal;
     font-weight: bold;
@@ -166,14 +166,13 @@
     position: relative;
     width: 100vw;
     height: 0;
-
     /*border: 0.2vh solid #A3FECC;*/
     border: 0.0123vh solid rgba(163, 254, 204, 1);
     background: #A3FECC;
 }
-.content{
+.content_Support{
     width: 100vw;
-    height: 8.14vh;
+    height: 9.78vh;
     background: #FFFFFF;
     cursor: pointer;
     position: relative;
@@ -184,18 +183,19 @@
 .font_box{
     width: 80vw;
     padding: 0 0 0 2.96vh;
+    text-align: left;
 }
 .button{
     position: relative;
     left: 2.96vh;
+    width: 10vw;
 }
 .title1{
     font-family: Taipei Sans TC Beta;
     font-style: normal;
     font-weight: normal;
-    font-size: 2.22vh;
+    font-size: 2.67vh;
     color: #5C5C5C;
-
     content: 'shit';
 }
 .title2{
@@ -209,7 +209,6 @@
 
 <script>
 import Nav from '@/components/Nav.vue'
-
 export default {
     name: 'Support',
     components: {

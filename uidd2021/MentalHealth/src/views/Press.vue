@@ -1,169 +1,137 @@
 <template>
-  <div>
-    <Nav showBackArrow="ture" showText="true" navText="壓力評估量表" />
+    <div>
+        <Nav showBackArrow=ture showText=true navText="壓力評估量表" />
 
-    <div id="background">
-      <div id="Question">
-        <div id="Question_number">Q1</div>
-        <div id="Question_box">
-          您最近睡眠困難的程度？
-          <br />（譬如難以入睡、易醒或早醒）
-        </div>
-      </div>
+        <div id="background">
+            <div id="Question">
+                <div id="Question_number">
+                    Q1
+                </div>
+                <div id="Question_box">
+                    您最近睡眠困難的程度？
+                    <br>（譬如難以入睡、易醒或早醒）
+                </div>
+            </div>
 
-      <div id="button_list">
-        <div
-          class="button"
-          @click="pressbutton(0)"
-          :class="{ isPress: Q[Qn].level0, nonPress: !Q[Qn].level0 }"
-        >
-          完全沒有
-        </div>
-        <div
-          class="button"
-          @click="pressbutton(1)"
-          :class="{ isPress: Q[Qn].level1, nonPress: !Q[Qn].level1 }"
-        >
-          輕微
-        </div>
-        <div
-          class="button"
-          @click="pressbutton(2)"
-          :class="{ isPress: Q[Qn].level2, nonPress: !Q[Qn].level2 }"
-        >
-          中等程度
-        </div>
-        <div
-          class="button"
-          @click="pressbutton(3)"
-          :class="{ isPress: Q[Qn].level3, nonPress: !Q[Qn].level3 }"
-        >
-          嚴重
-        </div>
-        <div
-          class="button"
-          @click="pressbutton(4)"
-          :class="{ isPress: Q[Qn].level4, nonPress: !Q[Qn].level4 }"
-        >
-          非常嚴重
-        </div>
-      </div>
+            <div id="button_list">
+                <div class="button" @click="pressbutton(0)" :class="{'isPress':Q[Qn].level0, 'nonPress':!Q[Qn].level0}">完全沒有</div>
+                <div class="button" @click="pressbutton(1)" :class="{'isPress':Q[Qn].level1, 'nonPress':!Q[Qn].level1}">輕微</div>
+                <div class="button" @click="pressbutton(2)" :class="{'isPress':Q[Qn].level2, 'nonPress':!Q[Qn].level2}">中等程度</div>
+                <div class="button" @click="pressbutton(3)" :class="{'isPress':Q[Qn].level3, 'nonPress':!Q[Qn].level3}">嚴重</div>
+                <div class="button" @click="pressbutton(4)" :class="{'isPress':Q[Qn].level4, 'nonPress':!Q[Qn].level4}">非常嚴重</div>
+            </div>
 
-      <div id="page_select">
-        <div
-          @click="lastQ()"
-          id="button_lastQ"
-          class="page_button"
-          style="opacity: 0.5"
-        >
-          上一題
-        </div>
+            <div id="page_select">
+                <div @click="lastQ()" id="button_lastQ" class="page_button" style="opacity: 0.5">
+                    上一題
+                </div>
 
-        <div @click="nextQ()" id="button_nextQ" class="page_button">下一題</div>
-      </div>
+                <div @click="nextQ()" id="button_nextQ" class="page_button">
+                    下一題
+                </div>
+            </div>
+        </div>
     </div>
-  </div>
 </template>
 
 <style rel="stylesheet" type="text/css">
-#background {
-  height: 93.7vh;
-  background: linear-gradient(
-    180deg,
-    #ffffff 42.2%,
-    #9ffbdf 203.98%,
-    #40e9d2 270.1%
-  );
-  text-align: center;
-  overflow: hidden;
+#background{
+    height: 93.7vh;
+    background: linear-gradient(180deg, #FFFFFF 42.2%, #9FFBDF 203.98%, #40E9D2 270.1%);
+    text-align: center;
+    overflow:hidden;
 }
-#Question_number {
-  width: 6.165vh;
-  height: 6.165vh;
-  background: #20e2d7;
-  border-radius: 4.07vh;
-  color: #ffffff;
-  font-family: "SF Compact Display";
-  font-style: normal;
-  font-weight: 600;
-  font-size: 2.22vh;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  position: relative;
-  top: 4.56vh;
-  left: 3.33vh;
-  z-index: 10;
+#Question_number{
+    width: 6.165vh;
+    height: 6.165vh;
+    background: #20E2D7;
+    border-radius: 4.07vh;
+    color: #FFFFFF;
+    font-family: 'SF Compact Display';
+    font-style: normal;
+    font-weight: 600;
+    font-size: 2.67vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    top: 4.56vh;
+    left: 3.33vh;
+    z-index: 10;
 }
-#Question_box {
-  position: relative;
-  top: 1.5vh;
-  left: 6.41vh;
-  width: 35.88vh;
-  height: 13.93vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  background: #ffffff;
-  border: 0.123vh solid #20e2d7;
-  box-sizing: border-box;
-  border-radius: 1.23vh;
+#Question_box{
+    position: relative;
+    top: 1.5vh;
+    left: 6.41vh;
+    width: 43.11vh;
+    height: 16.74vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: #FFFFFF;
+    border: 0.123vh solid #20E2D7;
+    box-sizing: border-box;
+    border-radius: 1.23vh;
+    font-family: Taipei Sans TC Beta;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 2.67vh;
+    color: #4F4F4F;
 }
-#button_list {
-  display: flex;
-  justify-content: space-around;
-  flex-direction: column;
-  align-items: center;
-  height: 46.36vh;
-  position: relative;
-  top: 3.5vh;
+#button_list{
+    display: flex;
+    justify-content: space-around;
+    flex-direction: column;
+    align-items: center;
+    height: 50.36vh;
+    position: relative;
+    top: 3.5vh;
 }
-.button {
-  width: 25.89vh;
-  height: 6.78vh;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-direction: row;
-  font-family: Taipei Sans TC Beta;
-  font-style: normal;
-  font-weight: normal;
-  font-size: 2.22vh;
+.button{
+    width: 31.11vh;
+    height: 8.15vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: row;
+    font-family: Taipei Sans TC Beta;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 2.67vh;
 }
-.isPress {
-  background: #20e2d7;
-  box-sizing: border-box;
-  border-radius: 4.07vh;
-  color: #ffffff;
+.isPress{
+    background: #20E2D7;
+    box-sizing: border-box;
+    border-radius: 4.07vh;
+    color: #FFFFFF;
 }
-.nonPress {
-  background: #ffffff;
-  border: 0.123vh solid #20e2d7;
-  box-sizing: border-box;
-  border-radius: 4.07vh;
-  color: #20e2d7;
+.nonPress{
+    background: #FFFFFF;
+    border: 0.123vh solid #20E2D7;
+    box-sizing: border-box;
+    border-radius: 4.07vh;
+    color: #20E2D7;
 }
-#page_select {
-  height: 7.03vh;
-  display: flex;
-  justify-content: space-around;
-  position: relative;
-  top: 8vh;
-  color: #ffffff;
-  font-size: 2.22vh;
+#page_select{
+    height: 7.03vh;
+    display: flex;
+    justify-content: space-around;
+    position: relative;
+    top: 8vh;
+    color: #FFFFFF;
+    font-size: 2.67vh;
 }
-.page_button {
-  width: 18.87vh;
-  height: 7.03vh;
-  box-shadow: 0vh 0.49vh 2.1vh -0.123vh rgba(107, 182, 177, 0.51);
-  border-radius: 4.07vh;
-  background: #20e2d7;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+.page_button{
+    width: 22.67vh;
+    height: 8.44vh;
+    box-shadow: 0vh 0.49vh 2.1vh -0.123vh rgba(107, 182, 177, 0.51);;
+    border-radius: 4.07vh;
+    background: #20E2D7;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 </style>
-
 <script>
 import Nav from "@/components/Nav.vue";
 export default {

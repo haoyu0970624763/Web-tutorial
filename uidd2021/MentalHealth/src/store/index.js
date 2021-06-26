@@ -16,6 +16,7 @@ export default new Vuex.Store({
     day:'',
     time:'',
     mental:'',
+    ContentNum:''
   },
 
   mutations: {
@@ -47,7 +48,11 @@ export default new Vuex.Store({
     },
     setBookMental(state,mental){
       state.mental = mental
+    },
+    setContentNum(state,ContentNum){
+      state.ContentNum = ContentNum
     }
+
 
   },
   plugins: [createPersistedState()]

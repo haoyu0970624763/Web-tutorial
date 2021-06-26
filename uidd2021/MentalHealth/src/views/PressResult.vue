@@ -95,29 +95,23 @@
   font-weight: normal;
   font-size: 2.22vh;
   line-height: 2.72vh;
-
   display: flex;
   text-align: left;
   color: #4f4f4f;
-
   position: relative;
   top: 8.84vh;
 }
 #title {
   width: 40.32vh;
-
   position: relative;
   top: 6vh;
-
   font-family: Taipei Sans TC Beta;
   font-style: normal;
   font-weight: normal;
   font-size: 1.97vh;
   line-height: 2.6vh;
-
   display: flex;
   text-align: left;
-
   color: #5c5c5c;
 }
 #button_list2 {
@@ -151,7 +145,6 @@
   font-weight: normal;
   font-size: 1.88vh;
   line-height: 2.84px;
-
   letter-spacing: 0.1em;
   color: #ffffff;
 }
@@ -169,7 +162,6 @@
   font-size: 2.22vh;
   line-height: 2.72vh;
   color: #ffffff;
-
   background: #20e2d7;
   box-shadow: 0vh 0.49vh 2.1vh -0.123vh rgba(107, 182, 177, 0.51);
   border-radius: 4.07vh;
@@ -186,7 +178,6 @@ export default {
   data() {
     return {
       Pressure: 0,
-
       result: [
         {
           range: "一般正常範圍",
@@ -245,6 +236,9 @@ export default {
         this.$router.push("/Others/Support");
       }
     },
+    toHome(){
+      this.$router.push("/home");
+    }
   },
   mounted() {
     this.Pressure = this.$store.state.PressScore;
@@ -253,15 +247,12 @@ export default {
       document.getElementById("content").innerHTML = this.result[0].comment;
       document.getElementById("face").style.backgroundImage =
         "url(" + require("@/assets/anson/p0.svg") + ")";
-
       document.getElementById("first").style.backgroundImage =
         "url(" + require("@/assets/anson/relax.svg") + ")";
       document.getElementById("firstWord").innerHTML = "放鬆練習";
-
       document.getElementById("second").style.backgroundImage =
         "url(" + require("@/assets/anson/word.svg") + ")";
       document.getElementById("secondWord").innerHTML = "讀讀文章";
-
       document.getElementById("third").style.backgroundImage =
         "url(" + require("@/assets/anson/pen.svg") + ")";
       document.getElementById("thirdWord").innerHTML = "心情日記";
@@ -270,15 +261,12 @@ export default {
       document.getElementById("content").innerHTML = this.result[1].comment;
       document.getElementById("face").style.backgroundImage =
         "url(" + require("@/assets/anson/p1.svg") + ")";
-
       document.getElementById("first").style.backgroundImage =
         "url(" + require("@/assets/anson/relax.svg") + ")";
       document.getElementById("firstWord").innerHTML = "放鬆練習";
-
       document.getElementById("second").style.backgroundImage =
         "url(" + require("@/assets/anson/pen.svg") + ")";
       document.getElementById("secondWord").innerHTML = "心情日記";
-
       document.getElementById("third").style.backgroundImage =
         "url(" + require("@/assets/anson/record.svg") + ")";
       document.getElementById("thirdWord").innerHTML = "預約諮商";
@@ -287,15 +275,12 @@ export default {
       document.getElementById("content").innerHTML = this.result[2].comment;
       document.getElementById("face").style.backgroundImage =
         "url(" + require("@/assets/anson/p2.svg") + ")";
-
       document.getElementById("first").style.backgroundImage =
         "url(" + require("@/assets/anson/record.svg") + ")";
       document.getElementById("firstWord").innerHTML = "預約諮商";
-
       document.getElementById("second").style.backgroundImage =
         "url(" + require("@/assets/anson/hospital.svg") + ")";
       document.getElementById("secondWord").innerHTML = "醫療院所";
-
       document.getElementById("third").style.backgroundImage =
         "url(" + require("@/assets/anson/pen.svg") + ")";
       document.getElementById("thirdWord").innerHTML = "心情日記";
@@ -304,15 +289,12 @@ export default {
       document.getElementById("content").innerHTML = this.result[3].comment;
       document.getElementById("face").style.backgroundImage =
         "url(" + require("@/assets/anson/p3.svg") + ")";
-
       document.getElementById("first").style.backgroundImage =
         "url(" + require("@/assets/anson/hospital.svg") + ")";
       document.getElementById("firstWord").innerHTML = "醫療院所";
-
       document.getElementById("second").style.backgroundImage =
         "url(" + require("@/assets/anson/record.svg") + ")";
       document.getElementById("secondWord").innerHTML = "預約諮商";
-
       document.getElementById("third").style.backgroundImage =
         "url(" + require("@/assets/anson/organ.svg") + ")";
       document.getElementById("thirdWord").innerHTML = "心輔組織";
