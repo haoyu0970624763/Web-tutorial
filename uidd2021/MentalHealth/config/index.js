@@ -16,7 +16,7 @@ module.exports = {
         target: 將所有以 /api 為開頭請求轉發到 http://localhost:2600/api
       */
       '/api': {
-        target: 'http://localhost:2605/api/',
+        target: 'http://localhost:2705/api/',
         changeOrigin: true,
         pathRewrite: {
           '^/api': ''

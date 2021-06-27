@@ -22,6 +22,9 @@ import Content from '@/views/Content.vue'
 import State from '@/views/State.vue'
 
 import MoodTree from '@/views/MoodTreeMain.vue'
+import Tree_exchange from '@/views/Tree_exchange.vue'
+import TreeHistory from '@/views/TreeHistory.vue'
+import MoodQA from '@/views/MoodQA.vue'
 
 import profile from '@/views/profile.vue'
 import Reservationsuccess from '@/views/Reservationsuccess.vue'
@@ -174,7 +177,26 @@ export default new Router({
       name: 'Myhollow',
       component: Myhollow
     },
-
+    {
+      path: '/tree_exchange',
+      name: 'Tree_exchange',
+      component: Tree_exchange
+    },
+    {
+      path: '/diary/write',
+      name:'DiaryWrite',
+      component: DiaryWrite
+    },
+    {
+      path: '/tree_history',
+      name:'TreeHistory',
+      component: TreeHistory
+    },
+    {
+      path: '/mood_QA',
+      name:'MoodQA',
+      component: MoodQA
+    },
 
 
   ]

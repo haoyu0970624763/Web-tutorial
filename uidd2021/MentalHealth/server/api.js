@@ -307,6 +307,37 @@ module.exports = {
             });
         })
     },
+    getPoint(req, res, next) {
+
+        var id = req.body.id
+
+        //先確認有沒有這個帳號
+        var sql1 = "SELECT * FROM `point_yoyo` WHERE id=?;"
+        //如果沒有帳號就insert
+        var sql2 = "INSERT into point_yoyo(ID,points) values(?,?)"
+        
+
+        pool.getConnection((err, connection) => {
+            
+            connection.query(sql1, [id],(err, result) => {
+                if (err) throw err;
+                if(result.length == 0)//還沒登入過
+                {
+                    console.log("初次登記,點數為0")
+                    connection.query(sql2, [id,0],(err, result) => {
+                        if (err) throw err;
+                        res.send("first");
+                        
+                    });
+                }
+                else{
+                    res.send(result);
+                }
+                connection.release();
+            });
+            
+        })
+    },
     diaryWrite(req, res, next) {
         var userID = req.body.userID;
         var eventname= req.body.eventname;
@@ -387,8 +418,9 @@ module.exports = {
                         console.log("comment success");
                         res.send("success");
                     })
+                    connection.release();
                 }
-                connection.release();
+
             })
         })
     },
@@ -411,6 +443,7 @@ module.exports = {
                 if (err) throw err;
                 if (result.length != 0) {
                     res.send("success");
+                    connection.release();
                 }
             })
         })
@@ -427,8 +460,8 @@ module.exports = {
                 else {
                     res.send("fail");
                 }
+                connection.release();
             })
-            connection.release();
         })
     },
     
@@ -458,18 +491,55 @@ module.exports = {
         })
     },
     checkDiaryDate(req, res, next) {
+       
+        var sql = "SELECT * FROM `diary` WHERE user_id=?";
 
-        var sql = "SELECT DISTINCT date FROM `diary` WHERE user_id=?";
-
-        var id = req.body.id
+        var id = req.body.id;
 
         pool.getConnection((err, connection) => {
-            connection.query(sql, id, (err, result) => {
+            connection.query(sql, [id],(err, result) => {
+                if (err) throw err;
+                console.log(result)
+                res.send(result);
+                connection.release();
+            });
+        })
+    },
+    checkWatering(req, res, next) {
+       
+        var sql = "SELECT * FROM `watering_yoyo` WHERE ID=? AND day=?";
+        var id = req.body.id
+
+
+        pool.getConnection((err, connection) => {
+            var now = new Date();
+            var day = ("0" + now.getDate()).slice(-2);
+            var month = ("0" + (now.getMonth() + 1)).slice(-2);
+            var today = now.getFullYear()+"-"+(month)+"-"+(day) ;
+            connection.query(sql, [id,today],(err, result) => {
                 if (err) throw err;
                 res.send(result);
                 connection.release();
             });
-
+            
         })
     },
+    addWater(req, res, next) {
+       
+        var sql = "INSERT INTO `watering_yoyo` (`day`, `ID`) VALUES (?, ?);";
+        var id = req.body.id
+
+        pool.getConnection((err, connection) => {
+            var now = new Date();
+            var day = ("0" + now.getDate()).slice(-2);
+            var month = ("0" + (now.getMonth() + 1)).slice(-2);
+            var today = now.getFullYear()+"-"+(month)+"-"+(day) ;
+            connection.query(sql, [today,id],(err, result) => {
+                if (err) throw err;
+                connection.release();
+            });
+            
+        })
+    },
+
 }

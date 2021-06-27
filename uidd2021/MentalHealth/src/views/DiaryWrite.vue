@@ -1,5 +1,5 @@
 <template>
-  <div class="container">
+  <div>
     <Nav showBackArrow="true" showText="true" navText="新增心情日記" />
     <b-alert
       :show="dismissCountDown"
@@ -171,12 +171,6 @@
   </div>
 </template>
 <style scoped>
-.container {
-  width: 100%;
-  height: 100%;
-  margin: 0px;
-  padding: 0px;
-}
 #input_anoymous {
   margin-top: 5px;
   resize: none;
@@ -187,14 +181,18 @@
   display: inline-block;
   position: relative;
   top: 2px;
+
   /* 內文3 */
+
   font-family: Taipei Sans TC Beta;
   font-style: normal;
   font-weight: normal;
   font-size: 15px;
   line-height: 20px;
   /* identical to box height, or 133% */
+
   /* 深灰 */
+
   color: #5c5c5c;
 }
 .additionalbox {
@@ -220,7 +218,9 @@
   position: relative;
 
   text-align: center;
+
   /* 深灰 */
+
   color: #5c5c5c;
 }
 .treeHoleBox .title {
@@ -232,7 +232,9 @@
   position: relative;
 
   text-align: center;
+
   /* 深灰 */
+
   color: #5c5c5c;
 }
 .showInfo {
@@ -255,6 +257,7 @@
   height: 454px;
   left: 32px;
   top: 117px;
+
   background: #ffffff;
   border-radius: 20px;
 }
@@ -264,6 +267,7 @@
   height: 687px;
   left: 0px;
   top: 0px;
+
   background: rgba(27, 27, 27, 0.5);
 }
 select {
@@ -283,11 +287,13 @@ select {
         rgba(227, 227, 227, 0.22) 105.04%
       )
       border-box;
+
   border: 1px solid transparent;
   border-radius: 10px;
   display: inline-block;
   width: 126px;
   height: 38px;
+
   font-family: Taipei Sans TC Beta;
   font-style: normal;
   font-weight: normal;
@@ -311,11 +317,13 @@ option {
         rgba(227, 227, 227, 0.22) 105.04%
       )
       border-box;
+
   border: 1px solid transparent;
   border-radius: 10px;
   display: inline-block;
   width: 126px;
   height: 38px;
+
   font-family: Taipei Sans TC Beta;
   font-style: normal;
   font-weight: normal;
@@ -328,7 +336,9 @@ option {
   font-weight: normal;
   font-size: 15px;
   text-align: center;
+
   /* 深灰 */
+
   color: #5c5c5c;
   margin-bottom: 15px;
 }
@@ -343,6 +353,7 @@ a {
   box-sizing: border-box;
   box-shadow: 0px 4px 17px -1px rgba(107, 182, 177, 0.51);
   border-radius: 33px;
+
   font-family: Taipei Sans TC Beta;
   font-style: normal;
   font-weight: normal;
@@ -357,6 +368,7 @@ a {
   background: #20e2d7;
   box-shadow: 0px 4px 17px -1px rgba(107, 182, 177, 0.51);
   border-radius: 33px;
+
   font-family: Taipei Sans TC Beta;
   font-style: normal;
   font-weight: normal;
@@ -370,6 +382,7 @@ a {
   padding-left: 15px;
   padding-right: 15px;
   padding-top: 10px;
+
   resize: none;
   width: 100%;
   height: 121px;
@@ -387,6 +400,7 @@ a {
         rgba(227, 227, 227, 0.22) 105.04%
       )
       border-box;
+
   border: 1px solid transparent;
   border-radius: 10px;
   display: inline-block;
@@ -398,8 +412,10 @@ a {
   font-size: 15px;
   vertical-align: bottom;
   /* 深灰 */
+
   color: #5c5c5c;
 }
+
 .datebox {
   position: relative;
 }
@@ -411,11 +427,15 @@ a {
   font-style: normal;
   font-weight: normal;
   font-size: 16px;
+
   color: #5c5c5c;
 }
 /* 隱藏原本的icon */
 .form-date__input[type="date"]::-webkit-calendar-picker-indicator {
-  width: 118px;
+  /* 測試用 width: 170px;*/
+
+  /* 正式 */
+  width: 0px;
   height: 100%;
   position: absolute;
   top: 0;
@@ -479,6 +499,7 @@ input {
         rgba(227, 227, 227, 0.22) 105.04%
       )
       border-box;
+
   border: 1px solid transparent;
   border-radius: 10px;
   display: inline-block;
@@ -491,7 +512,7 @@ input {
   margin-left: 5px;
 }
 .background {
-  height: 800px;
+  height: 637px;
   background: linear-gradient(
     180deg,
     #ffffff 42.2%,
@@ -502,6 +523,7 @@ input {
 
   padding-top: 15px;
 }
+
 #rating label {
   position: relative;
   top: 12px;
@@ -516,7 +538,9 @@ input {
   font-size: 11px;
   line-height: 45px;
   text-align: center;
+
   /* 深灰 */
+
   color: #5c5c5c;
 }
 #very-happy + label {
@@ -543,6 +567,7 @@ input {
   background: url("../yo_0613/Aicons_face-happy.svg") no-repeat center;
   background-size: 26px 25px;
 }
+
 #neutral + label {
   background: url("../yo_0613/icons_face-neutral.svg") no-repeat center;
   background-size: 26px 25px;
@@ -555,6 +580,7 @@ input {
   background: url("../yo_0613/Aicons_face-neutral.svg") no-repeat center;
   background-size: 26px 25px;
 }
+
 #sad + label {
   background: url("../yo_0613/icons_face-sad.svg") no-repeat center;
   background-size: 26px 25px;
@@ -567,6 +593,7 @@ input {
   background: url("../yo_0613/Aicons_face-sad.svg") no-repeat center;
   background-size: 26px 25px;
 }
+
 #very-sad + label {
   background: url("../yo_0613/icons_face-very-sad.svg") no-repeat center;
   background-size: 26px 25px;
@@ -585,6 +612,7 @@ input[type="text"]:focus {
 textarea:focus {
   outline: none;
 }
+
 input[type="radio"] {
   display: none;
 }
@@ -595,6 +623,7 @@ export default {
   name: "Feeling",
   methods: {
     showIFtreeHole: function () {
+      var id = this.$store.state.userName;
       var name = $("#intput_event_name").val();
       var category = $("#category").val();
       var emoji = $('input:radio[name="emoji_rating"]:checked').val();
@@ -726,14 +755,11 @@ export default {
     console.log(this.today);
     this.$http
       .post("/api/GetTreeNum", {
-          id:this.$store.state.userName
+        id: this.$store.state.userName,
       })
       .then((res) => {
         this.anonymous_no = res.body;
-        
       });
-
-    
   },
   components: {
     Nav,
