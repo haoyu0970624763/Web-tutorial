@@ -337,9 +337,24 @@ module.exports = {
         var operatemode = req.body.operatemode;
         var sql = "select * from comment where receive_number=? AND diary_date=?";
         var sql2 = "select * from comment where send_number=?";
+        var sql3 = "select * from comment where receive_number=?"
         pool.getConnection((err, connection) => {
             if (operatemode == 'MySend') {
                 connection.query(sql2, [number], (err, result) => {
+                    if (err) throw err;
+                    if (result.length == 0) {
+                        console.log("no comment");
+                        res.send("get comment fail");
+                    }
+                    else {
+                        //console.log(result);
+                        res.send(result);
+                    }
+                    connection.release();
+                })
+            }
+            else if(operatemode == "MyReceiveComment") {
+                connection.query(sql3, [number], (err, result) => {
                     if (err) throw err;
                     if (result.length == 0) {
                         console.log("no comment");

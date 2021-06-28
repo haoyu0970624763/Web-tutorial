@@ -33,6 +33,7 @@
 
 <script>
 export default {
+  inject:['reload'],
   name: "Nav",
   data() {
     return {};
@@ -71,13 +72,11 @@ export default {
 .logobar {
   z-index: 1;
   position: fixed;
-
   width: 100%;
   top: 0px;
   margin: 0px auto;
   background: #ffffff;
   box-shadow: 0px 2px 10px rgba(118, 156, 145, 0.25);
-
   /* 讓內容物垂直置中*/
   height: 50px;
   line-height: 50px;
@@ -110,9 +109,7 @@ export default {
   font-size: 20px;
   text-align: center;
   color: #20e2d7;
-
   white-space: nowrap; /* 強制不換行 */
-
   /* 不知道為甚麼一直沒辦法很完美的垂直置中(視覺上感覺會差一點點)只好先用這樣的方法...*/
   margin-top: 2px;
 }

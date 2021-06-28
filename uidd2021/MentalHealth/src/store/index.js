@@ -20,6 +20,7 @@ export default new Vuex.Store({
     read_number: '',
     read_date: '',
     number: '',
+    read_mode: '',
   },
 
   mutations: {
@@ -62,6 +63,9 @@ export default new Vuex.Store({
     },
     setReaddate(state, date) {
       state.read_date = date
+    },
+    setReadMode(state, read_mode) {
+      state.read_mode = read_mode
     }
   },
   plugins: [createPersistedState()]
