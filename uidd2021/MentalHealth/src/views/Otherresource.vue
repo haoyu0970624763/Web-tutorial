@@ -55,7 +55,7 @@
 
 <style scoped rel="stylesheet" type="text/css">
 #layout{
-	height: 87.8vh;
+	height: 85vh;
 	background: linear-gradient(180deg, #FFFFFF 42.2%, #9FFBC1 203.98%, #40E9D2 270.1%);
 	display: flex;
     flex-direction: column;

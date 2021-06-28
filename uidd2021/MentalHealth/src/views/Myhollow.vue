@@ -4,7 +4,7 @@
         <Nav showBackArrow="true" showText="true" navText="我的樹洞" destination="MoodTree"/>
       </div>
       <div class="user_icon"></div>
-      <div class="user_num">匿名樹友 #134</div>
+      <div class="user_num">匿名樹友 {{this.$store.state.number}}</div>
       <div class="hug_area">
           <div class="hug_icon"></div>
           <div class="hug_text">被拍拍的次數</div>

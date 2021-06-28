@@ -103,6 +103,7 @@ export default {
     setFlagRight: function () {
       this.leftFlag = 0;
       this.rightFlag = 1;
+      this.reservationrecord = [];
     },
     getrecord() {
       this.reservationrecord = [];

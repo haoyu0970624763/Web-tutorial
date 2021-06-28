@@ -34,8 +34,12 @@
         },
         methods: {
            toReadDiary(select_index) {
-               this.$store.commit("setReadnumber", this.hollowInfo[select_index].number);
-               this.$store.commit("setReaddate", this.hollowInfo[select_index].date);
+               this.$store.commit("setReadnumber", this.hollowInfo_tag[select_index].number);
+                this.$store.commit("setReaddate", this.hollowInfo_tag[select_index].date);
+                if(this.$store.state.read_number!='' && this.$store.state.date!='') 
+                this.$router.push({
+                    name: 'DiaryOthers',
+                })
            }
         },
         created() {

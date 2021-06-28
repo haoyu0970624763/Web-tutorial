@@ -26,6 +26,7 @@
         <div class="functionWord">心輔室位置圖</div>
       </div>
     </div>
+    <Footer showHome="true" />
   </div>
 </template>
 
