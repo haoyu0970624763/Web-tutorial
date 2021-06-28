@@ -623,11 +623,10 @@ export default {
   name: "Feeling",
   methods: {
     showIFtreeHole: function () {
-      var id = this.$store.state.userName;
+
       var name = $("#intput_event_name").val();
       var category = $("#category").val();
       var emoji = $('input:radio[name="emoji_rating"]:checked').val();
-      var date = $("#input-date").val();
       var text1 = $("#event_process").val();
       var text2 = $("#event_result").val();
       if (name == "") {
@@ -661,7 +660,7 @@ export default {
       this.$refs.infoBox.classList.add("noInfo");
     },
     clickSubmit: function (isPublic) {
-      /* 學號ID記得改 */
+
       var id = this.$store.state.userName;
       var name = $("#intput_event_name").val();
       var category = $("#category").val();
@@ -753,13 +752,7 @@ export default {
     this.today = now.getFullYear() + "-" + month + "-" + day;
     this.ID = this.$store.state.userName;
     console.log(this.today);
-    this.$http
-      .post("/api/GetTreeNum", {
-        id: this.$store.state.userName,
-      })
-      .then((res) => {
-        this.anonymous_no = res.body;
-      });
+    this.anonymous_no = this.$store.state.number;
   },
   components: {
     Nav,

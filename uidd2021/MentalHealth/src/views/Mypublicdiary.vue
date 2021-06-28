@@ -1,8 +1,8 @@
 <template>
     <div class="desktop">
         <div id="namebar">
-            <Nav showBackArrow showText navText="我發佈過的日記" destination="reload" v-if="isRead"/>
-            <Nav showBackArrow showText navText="我發佈過的日記" destination="Myhollow" v-else/>
+            <Nav showBackArrow="true" showText="true" navText="我發佈過的日記" destination="reload" v-if="isRead"/>
+            <Nav showBackArrow="true" showText="true" navText="我發佈過的日記" destination="Myhollow" v-else/>
         </div>
         <div v-if="mode == -1">
             <div class="darken" v-show="!isNaN(delete_index)"></div>
@@ -66,14 +66,14 @@
                 </div>
                 <div class="blank_space"></div>
             </div>
-            <div class="hug_icon"></div><div class="hug_info">{{ diaryInfo[mode].hug }}</div>
+            <div class="hug_icon" :class="{ hug_color: isHug }" @click="click_hug"></div><div class="hug_info">{{ diaryInfo[mode].hug }}</div>
             <div class="comment_icon"></div><div class="comment_info">{{ diaryInfo[mode].comment }}</div>
             <div class="comment_content" v-for="(item,index) in commentInfo">
                 <div class="comment_user_icon"></div>
                 <div class="comment_number_info">匿名樹友 #{{ item.send_number }}</div>
                 <div class="comment_date_time_info">{{ item.send_date.split('-').join('/') }}  {{ item.send_time }}</div>
                 <div class="comment_content_info">{{ item.content }}</div>
-                <div class="comment_hug_icon"></div>
+                <div class="comment_hug_icon" :class="{comment_hug_icon_color: isHugComment[index]}" @click="click_hug_comment(index)"></div>
                 <div class="comment_hug_info">{{ item.hug }}</div>
                 <div class="comment_comment_num">
                     <div class="c_c_num_info">{{ item.reply }}則回覆</div><div class="c_c_arrow"></div>
@@ -98,6 +98,7 @@ export default {
     },
     data() {
         return {
+            isHug: false,
             isRead: false,
             diaryInfo: '',
             commentInfo: [],
@@ -106,6 +107,7 @@ export default {
             delete_index: NaN,
             mode: -1,
             comment_send: '',
+            isHugComment: [],
         };
     },
     methods: {
@@ -148,12 +150,31 @@ export default {
                     diary_date: this.diaryInfo[select_index].date,
                     operatemode: 'MyReceive',
                 }).then((res) => {
-                    if(res != "get comment fail") {
+                    if(res.body != "get comment fail") {
+                        res.body.reverse().forEach((element) => {
+                            this.$http.post("/api/GetHugCommentInfo", {
+                                send_number: this.$store.state.number,
+                                receive_number: element.send_number,
+                                diary_number: this.diaryInfo[this.mode].number,
+                                diary_date: this.diaryInfo[this.mode].date,
+                                comment_date: element.send_date,
+                                comment_time: element.send_time,
+                            }).then((res) => {
+                                this.isHugComment.push(res.body);
+                            })
+                        })
                         this.commentInfo = res.body;
                     }
                     else {
-                        console.log(res);
+                        console.log(res.body);
                     }
+                })
+                this.$http.post("/api/GetHugDiaryInfo", {
+                    send_number: this.$store.state.number,
+                    receive_number: this.diaryInfo[select_index].number,
+                    receive_date: this.diaryInfo[select_index].date,
+                }).then((res) => {
+                    this.isHug = res.body;
                 })
                 if(this.isRed[select_index] == '_red') {
                     this.$http
@@ -167,7 +188,7 @@ export default {
         },
         sendComment() {
             var comment_reg = {
-                send_number: '0',
+                send_number: this.$store.state.number,
                 receive_number: this.diaryInfo[this.mode].number,
                 diary_date: this.diaryInfo[this.mode].date,
                 send_date: this.getTodayDate(),
@@ -181,8 +202,61 @@ export default {
             .then((res) => {
                 console.log(res.body);
                 this.commentInfo.splice(0, 0, comment_reg);
+                this.isHugComment.splice(0, 0, false);
                 this.diaryInfo[this.mode].comment = String(Number(this.diaryInfo[this.mode].comment) + 1);
             });
+        },
+        click_hug() {
+            if(!this.isHug) {
+                this.$http.post("/api/SendHugDiary", {
+                    send_number: this.$store.state.number,
+                    receive_number: this.diaryInfo[this.mode].number,
+                    receive_date: this.diaryInfo[this.mode].date,
+                }).then((res) => {
+                    console.log(res.body);
+                })
+                this.diaryInfo[this.mode].hug = String(Number(this.diaryInfo[this.mode].hug) + 1);
+            }
+            else {
+                this.$http.post("/api/CancelHugDiary", {
+                    send_number: this.$store.state.number,
+                    receive_number: this.diaryInfo[this.mode].number,
+                    receive_date: this.diaryInfo[this.mode].date,
+                }).then((res) => {
+                    console.log(res.body);
+                })
+                this.diaryInfo[this.mode].hug = String(Number(this.diaryInfo[this.mode].hug) - 1);
+            }
+            this.isHug = !this.isHug;
+        },
+        click_hug_comment(comment_index) {
+            if(!this.isHugComment[comment_index]) {
+                this.$http.post("/api/SendHugComment", {
+                    send_number: this.$store.state.number,
+                    receive_number: this.commentInfo[comment_index].send_number,
+                    diary_number: this.diaryInfo[this.mode].number,
+                    diary_date: this.diaryInfo[this.mode].date,
+                    comment_date: this.commentInfo[comment_index].send_date,
+                    comment_time: this.commentInfo[comment_index].send_time,
+                }).then((res) => {
+                    console.log(res.body);
+                })
+                this.commentInfo[comment_index].hug = String(Number(this.commentInfo[comment_index].hug) + 1);
+            }
+            else {
+                this.$http.post("/api/CancelHugComment", {
+                    send_number: this.$store.state.number,
+                    receive_number: this.commentInfo[comment_index].send_number,
+                    diary_number: this.diaryInfo[this.mode].number,
+                    diary_date: this.diaryInfo[this.mode].date,
+                    comment_date: this.commentInfo[comment_index].send_date,
+                    comment_time: this.commentInfo[comment_index].send_time,
+                }).then((res) => {
+                    console.log(res.body);
+                })
+                this.commentInfo[comment_index].hug = String(Number(this.commentInfo[comment_index].hug) - 1);
+            }
+            this.isHugComment[comment_index] = !this.isHugComment[comment_index];
         },
         getTodayDate() {
             var fullDate = new Date();
@@ -201,12 +275,11 @@ export default {
         }
     },
     created() {
-        this.$store.commit("setUserInfo", 'E24071043');
         this.$http.post("/api/GetDiaryInfo", {
             userID: this.$store.state.userName,
             operatemode: 'public',
         }).then((res) => {
-            res.body.forEach((element) => {
+            res.body.reverse().forEach((element) => {
                 this.showmenu.push(false);
                 if(element.comment_notRead == 'y') {
                     this.isRed.push('_red');
@@ -508,7 +581,6 @@ export default {
     align-items: center;
     text-align: center;
     color: #8E8E8E;
-
 }
 .select_info {
     position: relative;
@@ -728,10 +800,13 @@ export default {
     height: 29.11px;
     left: 126px;
     top: 71px;
+    background: url('../assets/Tim/hug_nocolor.svg') no-repeat;
+    background-size: 23.74px 29.11px;
+    display: inline-block;
+}
+.hug_color {
     background: url('../assets/Tim/hug.svg') no-repeat;
     background-size: 23.74px 29.11px;
-    background-position: left bottom;
-    display: inline-block;
 }
 .hug_info {
     position: relative;
@@ -833,6 +908,10 @@ export default {
     left: 287px;
     top: 34px;
     background: url('../assets/Tim/hug_nocolor.svg') no-repeat;
+    background-size: contain;
+}
+.comment_hug_icon_color {
+    background: url('../assets/Tim/hug.svg') no-repeat;
     background-size: contain;
 }
 .comment_hug_info {

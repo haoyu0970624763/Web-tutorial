@@ -1,6 +1,6 @@
 <template>
   <div>
-    <Nav showText="true" navText="心情成長樹" showUser="ture" />
+    <Nav showText="true" navText="心情成長樹" showUser="true" />
     <div class="btn_switch_box">
       <b-container>
         <b-row>
@@ -22,7 +22,7 @@
       </b-container>
     </div>
     <PlantTree v-if="choose_mood" />
-
+    <Worldhollow v-if="!choose_mood" />
     <Footer showMood="true" />
   </div>
 </template>
@@ -32,7 +32,6 @@
   font-style: normal;
   font-weight: bold;
   font-size: 18px;
-
   color: rgba(255, 255, 255, 0.8);
 }
 .choose_btn {
@@ -61,14 +60,12 @@
   -webkit-background-clip: text;
   color: transparent;
 }
-
 .btn_switch_box {
   width: 375px;
   height: 60px;
   line-height: 60px;
   margin: 0px auto;
   /* icon 字 */
-
   background: linear-gradient(
     180deg,
     #f9fea5 -214.29%,
@@ -83,7 +80,7 @@
 import Nav from "@/components/Nav.vue";
 import Footer from "@/components/Footer.vue";
 import PlantTree from "@/views/PlantTree.vue";
-
+import Worldhollow from "@/views/Worldhollow.vue";
 export default {
   name: "MoodTree",
   data() {
@@ -95,6 +92,7 @@ export default {
     Nav,
     Footer,
     PlantTree,
+    Worldhollow,
   },
   methods: {
     btn_switching() {

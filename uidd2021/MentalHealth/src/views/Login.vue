@@ -1,6 +1,15 @@
 <template>
   <div>
-    <Nav />
+    <div class="logobar">
+      <b-container>
+        <b-row>
+          <b-col class="text-center">
+              <img class="logoimg" src="@/assets/svg/logo.svg" />
+          </b-col>
+        </b-row>
+      </b-container>
+    </div>
+    <div class="emptybar"></div>
     <div class="title">Log In</div>
     <div class="loginIMG"><img src="@/assets/yoyoLin/login_img.svg" /></div>
     <div class="inputBox">
@@ -38,8 +47,29 @@
   /* 深灰 */
   color: #5c5c5c;
 }
-img{
-    background-size: cover;
+img {
+  background-size: cover;
+}
+.logobar {
+    z-index: 1;
+    position:fixed;
+    
+    width:100%;
+    top: 0px;
+    margin:0px auto;
+    background: #FFFFFF;
+    box-shadow: 0px 2px 10px rgba(118, 156, 145, 0.25);
+    /* 讓內容物垂直置中*/
+    height:50px;
+    line-height : 50px;
+}
+.logoimg {    
+    height: 20px;
+    width: auto; 
+}
+.emptybar{
+    height: 50px;
+    background-color: #FFFFFF;
 }
 .btnBox {
   text-align: center;
@@ -146,7 +176,6 @@ export default {
   },
   methods: {
     btn_login() {
-      console.log("press btn login");
       this.$http
         .post("/api/login", {
           ID: $("input[name=inputID]").val(),
@@ -154,22 +183,27 @@ export default {
         })
         .then((res) => {
           if (res.body.indexOf("success") != -1) {
-            
             this.$store.commit("setUserInfo", $("input[name=inputID]").val());
-              if (this.$store.state.userName != "") {
-                console.log(this.$store.state.userName, "login");
-                this.$router.push({
-                  name: "home",
-                });
-              }
+            if (this.$store.state.userName != "") {
+              this.$http
+              .post("/api/GetTreeNum", {
+                  id:this.$store.state.userName
+              })
+              .then((res) => {
+                this.$store.commit("setNumber", res.body);
+                if(this.$store.state.number != "") {
+                  this.$router.push({
+                    name: "home",
+                  });
+                }
+              });
+            }
           } else {
-            console.log(res.body);
             $("#login_output").html(res.body);
           }
         });
     },
     btn_reg() {
-      console.log("press btn reg");
       this.$router.push({
         name: "Register",
       });

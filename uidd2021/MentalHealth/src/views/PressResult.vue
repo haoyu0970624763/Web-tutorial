@@ -26,7 +26,6 @@
           <div id="thirdWord" class="button_down"></div>
         </div>
       </div>
-
       <div id="toHome" @click="toHome()">回首頁</div>
     </div>
   </div>
@@ -117,7 +116,7 @@
 #button_list2 {
   width: 40.32vh;
   position: relative;
-  top: 7.5vh;
+  top: 10.5vh;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
@@ -152,7 +151,7 @@
   width: 40.44vh;
   height: 7.03vh;
   position: absolute;
-  bottom: 4.26vh;
+  bottom: 10.26vh;
   display: flex;
   align-items: center;
   justify-content: center;

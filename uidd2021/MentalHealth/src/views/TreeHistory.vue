@@ -1,6 +1,6 @@
 <template>
   <div>
-    <Nav showBackArrow="true" showText="ture" navText="歷史紀錄" />
+    <Nav showBackArrow="true" showText="true" navText="歷史紀錄" />
     <div class="chooseMonthBox">
       <b-container>
         <b-row>

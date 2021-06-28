@@ -1,7 +1,7 @@
 <template>
   <div class="desktop">
     <div id="namebar">
-      <Nav showBackArrow showText navText="預約成功" />
+      <Nav showBackArrow="true" showText navText="預約成功" />
     </div>
     <div id="successtext">預約成功！</div>
     <div id="successtext2">已預約 個人諮商</div>
@@ -50,7 +50,7 @@ export default {
       this.$router.push("/home");
     },
     toDiary() {
-      this.$router.push("/diary");
+      this.$router.push("/mood");
     },
   },
 };
@@ -147,7 +147,7 @@ export default {
   width: 313px;
   height: 43px;
   left: 31px;
-  top: 575px;
+  top: 555px;
   background: #20e2d7;
   box-shadow: 0px 4px 17px -1px rgba(107, 182, 177, 0.51);
   border-radius: 33px;
@@ -158,14 +158,14 @@ export default {
   color: #ffffff;
 }
 #toDiary {
-  top: 512px;
+  top: 500px;
 }
 #backhome {
   position: absolute;
   width: 313px;
   height: 43px;
   left: 31px;
-  top: 638px;
+  top: 615px;
   border: 1px solid rgba(32, 226, 215, 1);
   border-radius: 33px;
   font-family: Taipei Sans TC Beta;

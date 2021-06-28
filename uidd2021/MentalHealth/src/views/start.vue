@@ -322,7 +322,7 @@ blockquote {
 }
 
 .half_region {
-  height: 45vh;
+  height: 42.5vh;
 
   display: flex;
   justify-content: center;

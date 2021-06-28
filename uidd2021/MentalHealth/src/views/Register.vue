@@ -43,25 +43,20 @@
   font-weight: normal;
   font-size: 13px;
 }
-
 button {
   height: 43px;
   width: 284px;
   left: 46px;
   top: 696px;
-
   background: #20e2d7;
   box-shadow: 0px 4px 17px -1px rgba(107, 182, 177, 0.51);
   border-radius: 33px;
   border: none;
-
   font-family: Taipei Sans TC Beta;
   font-style: normal;
   font-weight: normal;
   font-size: 16px;
-
   text-align: center;
-
   color: #ffffff;
   margin-top: 15px;
 }
@@ -87,18 +82,15 @@ input:focus {
   text-align: center;
   border-radius: 33px;
   border: 1px solid;
-
   /*使用 border-image 最大的問題在於，設置的 border-radius 會失效。 */
   background: linear-gradient(136.56deg, #ffffff -16.84%, #ffffff 102.5%)
       padding-box,
     /*this is your grey background*/
       linear-gradient(180deg, #96fbc4 33.15%, #20e2d7 127.81%) border-box;
-
   border: 1px solid transparent;
   border-radius: 33px;
   display: flex;
   flex-direction: row;
-
   margin: 7px;
 }
 .picBox {
@@ -114,7 +106,6 @@ input {
   left: 20px;
   border: 0;
 }
-
 .title1 {
   font-weight: 600;
   font-size: 30px;
@@ -139,11 +130,9 @@ input {
   font-weight: normal;
   font-size: 13px;
 }
-
 .slideshowBox {
   width: 375px;
   height: 294px;
-
   background: linear-gradient(
     180deg,
     rgba(150, 251, 196, 0.6) 33.15%,
@@ -153,7 +142,6 @@ input {
 </style>
 <script>
 import Nav from "@/components/Nav.vue";
-
 export default {
   name: "Register",
   components: {
@@ -181,9 +169,18 @@ export default {
               console.log("註冊成功");
               this.$store.commit("setUserInfo", $("input[name=inputID]").val());
               if (this.$store.state.userName != "") {
-                this.$router.push({
-                  name: "home",
-                });
+                this.$http
+                .post("/api/GetTreeNum", {
+                    id:this.$store.state.userName
+                })
+                .then((res) => {
+                  this.$store.commit("setNumber", res.body);
+                  if(this.$store.state.number != "") {
+                    this.$router.push({
+                      name: "home",
+                    });
+                  }
+                });                
               }
             } else {
               console.log("此學號已有人註冊");

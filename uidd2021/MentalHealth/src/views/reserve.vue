@@ -1,6 +1,6 @@
 <template>
   <div class="container">
-    <Nav showUser="true" />
+    <Nav  showUser="true" />
     <div id="layout_reserve">
       <div id="layout_up">
         <div id="famous_box">

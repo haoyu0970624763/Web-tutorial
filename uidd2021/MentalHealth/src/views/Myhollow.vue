@@ -1,7 +1,7 @@
 <template>
     <div class="desktop">
       <div id="namebar">
-        <Nav showBackArrow showText navText="我的樹洞" destination="DiaryMain"/>
+        <Nav showBackArrow="true" showText="true" navText="我的樹洞" destination="MoodTree"/>
       </div>
       <div class="user_icon"></div>
       <div class="user_num">匿名樹友 #134</div>
@@ -20,7 +20,7 @@
           <div class="Mypublicdiary_text">我發佈過的日記</div>
           <div class="Mypublicdiary_info">{{ diarynum }}篇</div>
       </div>
-      <div class="Mycomment_area">
+      <div class="Mycomment_area" @click="toMycomment">
         <div class="Mycomment_icon" :class = "{ Mycomment_red_icon: isNewreply}"></div>
         <div class="Mycomment_text">我被回覆的評論</div>
         <div class="Mycomment_info">{{ replynum }}篇</div>
@@ -47,10 +47,13 @@
         methods: {
             toMypublicdiary() {
                 this.$router.push({name: 'Mypublicdiary'});
+            },
+            toMycomment() {
+                this.$router.push({name: 'Mycomment'});
             }
         },
         created() {
-            this.$store.commit("setUserInfo", 'E24071043');
+
             this.$http.post("/api/GetDiaryInfo", {
                 userID: this.$store.state.userName,
                 operatemode: 'public',
@@ -64,17 +67,21 @@
                 });
             });
             this.$http.post("/api/GetCommentInfo", {
-                number: '0',
+                number: this.$store.state.number,
                 diary_date: "none",
                 operatemode: 'MySend',
             }).then((res) => {
-                this.commentnum = this.commentnum + res.body.length;
+                if(res.body != "get comment fail") {
+                    this.commentnum = this.commentnum + res.body.length;
+                }
+                else {
+                    console.log(res.body);
+                }
             })
         },
     };
 </script>
 <style rel="stylesheet/scss" lang="scss" scoped>
-
     .desktop {
       position: absolute;
       display: block;

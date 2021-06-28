@@ -33,6 +33,8 @@ import DiaryWrite from '@/views/DiaryWrite.vue'
 import Otherresource from '@/views/Otherresource.vue'
 import Mypublicdiary from '@/views/Mypublicdiary.vue'
 import Myhollow from '@/views/Myhollow.vue'
+import Mycomment from '@/views/Mycomment.vue'
+import DiaryOthers from '@/views/DiaryOthers.vue'
 
 Vue.use(Router)
 
@@ -197,7 +199,16 @@ export default new Router({
       name:'MoodQA',
       component: MoodQA
     },
-
+    {
+      path: '/Mycomment',
+      name: 'Mycomment',
+      component: Mycomment
+    },
+    {
+      path: '/DiaryOthers',
+      name: 'DiaryOthers',
+      component: DiaryOthers
+    },
 
   ]
 })

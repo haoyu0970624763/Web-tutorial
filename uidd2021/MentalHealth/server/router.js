@@ -58,6 +58,23 @@ router.post('/addWater', (req, res, next) => {
     api.addWater(req, res, next);
 });
 
-
+router.post('/SendHugDiary', (req, res, next) => {
+    api.SendHugDiary(req, res, next);
+});
+router.post('/GetHugDiaryInfo', (req, res, next) => {
+    api.GetHugDiaryInfo(req, res, next);
+});
+router.post('/CancelHugDiary', (req, res, next) => {
+    api.CancelHugDiary(req, res, next);
+});
+router.post('/SendHugComment', (req, res, next) => {
+    api.SendHugComment(req, res, next);
+});
+router.post('/GetHugCommentInfo', (req, res, next) => {
+    api.GetHugCommentInfo(req, res, next);
+});
+router.post('/CancelHugComment', (req, res, next) => {
+    api.CancelHugComment(req, res, next);
+});
 
 module.exports = router;

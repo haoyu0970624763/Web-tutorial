@@ -114,7 +114,7 @@
 					
 					<div class="long_button">
 						<div id="b16" @click="press16('b16')" class="button_content">
-							<p id="p2">想被溫和的罵醒</p>
+							<p id="p2">想有理性的辯證</p>
 						</div>
 					</div>
 			</div>
